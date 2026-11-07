@@ -46,6 +46,18 @@ body{background:var(--bg)!important;color:var(--text)!important;background-image
  .footer{padding-bottom:25px!important}
 }
 </style>
+
+
+<style id="alvena-admin-access-fix">
+.admin-access{border-color:#e5c4d7!important;background:linear-gradient(120deg,#fff0f7,#eef6d8)!important;color:#d66da5!important;font-size:11px!important;font-weight:800!important;min-width:42px}
+.admin-symbol{display:none}
+@media(max-width:700px){
+ .admin-access{min-width:34px!important;width:34px;height:36px!important;padding:0!important}
+ .admin-label{display:none}
+ .admin-symbol{display:inline;font-size:16px}
+}
+.admin{z-index:1000}
+</style>
 </head>
 <body>
 <div class="topline">♡ LITTLE TREATS FOR YOUR DIGITAL WORLD ♡</div>
@@ -57,6 +69,7 @@ body{background:var(--bg)!important;color:var(--text)!important;background-image
     <button class="iconbtn" id="soundBtn" title="Musik">♫</button>
     <button class="iconbtn" onclick="toast('Terima kasih sudah mampir ke Alvena ♡')" title="Notifikasi">♧</button>
     <button class="iconbtn" onclick="showWishlist()" title="Wishlist">♡ <span id="wishCount">0</span></button>
+    <button class="iconbtn admin-access" onclick="adminLogin()" title="Admin" aria-label="Buka panel admin"><span class="admin-label">Admin</span><span class="admin-symbol">⚙</span></button>
     <button class="bagbtn" onclick="openCart()">♧ Bag <span id="count">0</span></button>
   </div>
 </header>
@@ -76,13 +89,4 @@ body{background:var(--bg)!important;color:var(--text)!important;background-image
     <a class="btn" href="#shop" style="display:inline-block;text-decoration:none">Explore collection ↗</a>
   </section>
 
-  <section class="profile" id="about">
-    <div class="profiletop">
-      <div class="avatar" id="avatar">♡</div>
-      <div><div class="eyebrow">YOUR DIGITAL HAPPY PLACE</div><h2 id="storeName">alvena ♡</h2><div class="handle" id="storeHandle">@alvenastore</div></div>
-    </div>
-    <p class="bio" id="storeBio">♡ Little treats for your digital world. Temukan game needs, apps, dan digital goodies favoritmu dengan mudah dan nyaman.</p>
-    <div class="stats">
-      <div class="stat"><strong id="productCount">0</strong><span>Digital goodies</span></div>
-      <div class="stat"><strong>2.8k</strong><span>Happy customers</span></div>
-      <div class="stat"><strong>3.5k</strong><span>Happy folks</
+  <section class="prof
