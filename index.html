@@ -109,8 +109,11 @@ async function saveProduct(){
   try{imageUrl=await uploadProductImage(file)}catch(error){status.textContent="Gagal upload foto: "+error.message;return}
  }
  const row={name,description:document.getElementById("editDescription").value.trim(),price,category:document.getElementById("editCategory").value.trim(),image_url:imageUrl,stock:Math.max(0,Number(document.getElementById("editStock").value)||0),is_active:document.getElementById("editActive").checked};
- const result=id?await db.from("product").update(row).eq("id",id):await db.from("product").insert(row);
+ const result=id
+   ? await db.from("product").update(row).eq("id",id).select("id")
+   : await db.from("product").insert(row).select("id");
  if(result.error){status.textContent="Gagal menyimpan: "+result.error.message;return}
+ if(!result.data || result.data.length===0){status.textContent="Tidak ada data yang berubah. Kemungkinan izin UPDATE/INSERT (RLS) belum cocok untuk akun admin. Periksa policy Admin can manage products.";return}
  status.textContent="Produk berhasil disimpan ♡";clearProductForm();await loadProducts();await loadAdminProducts()
 }
 async function deleteProduct(id){if(!confirm("Hapus produk ini?"))return;const {error}=await db.from("product").delete().eq("id",id);if(error){alert("Gagal menghapus: "+error.message);return}await loadProducts();await loadAdminProducts()}
