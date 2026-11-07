@@ -1,159 +1,107 @@
 <!doctype html>
 <html lang="id">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#fff4f8"><title>Alvena Store ♡</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#17131c">
+<title>Alvena Store ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
-*{box-sizing:border-box}body{margin:0;background:#fffafd;color:#583d4c;font-family:'DM Sans',sans-serif}.wrap{width:min(1050px,calc(100% - 32px));margin:auto}.top{text-align:center;background:#f8dce8;padding:9px;color:#9e5577;font-size:11px;letter-spacing:.08em}.nav{height:72px;display:flex;align-items:center;justify-content:space-between}.brand{font:600 26px 'Playfair Display';color:#70465a}.brand b{color:#d17da2}.nav a{color:#89677a;text-decoration:none;font-size:12px;margin-left:20px}.cart{border:1px solid #edcfdd;border-radius:24px;background:white;color:#a75b7e;padding:10px 15px}.hero{background:linear-gradient(120deg,#fff0f6,#f8d9e7);border-radius:22px;padding:55px 7%;display:flex;align-items:center;justify-content:space-between;gap:20px}.eyebrow{font-size:10px;letter-spacing:.2em;color:#c16c91;font-weight:bold}.hero h1{font:600 clamp(38px,6vw,58px)/1.12 'Playfair Display';margin:15px 0;color:#593d4c}.hero h1 em{color:#c56f96}.hero p{max-width:440px;color:#896e7d;line-height:1.8;font-size:14px}.hero .art{font-size:130px;background:#fff9fc;border:9px solid white;border-radius:48% 48% 24px 24px;padding:22px;box-shadow:0 12px 30px #a95f7c22}.btn{border:0;background:#b85e87;color:white;border-radius:25px;padding:12px 20px;cursor:pointer;font-weight:600}.section{padding:65px 0}.heading{display:flex;justify-content:space-between;align-items:end;gap:15px}.heading h2,.about h2{font:600 38px 'Playfair Display';margin:10px 0}.heading p,.about p{font-size:13px;color:#987d8b}.search{padding:11px 14px;border:1px solid #efdce5;border-radius:22px}.filters{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}.filters button{border:1px solid #efdce5;background:white;color:#9c7589;border-radius:20px;padding:8px 15px}.filters button.active{background:#bd6c91;color:white}.products{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.product{border:1px solid #f1e2e9;border-radius:16px;overflow:hidden;background:white}.pic{height:140px;background:linear-gradient(145deg,#fff0f6,#f9dce8);display:grid;place-items:center;font-size:58px;overflow:hidden}.info{padding:14px}.info small{color:#c27b9a}.info h3{font:600 17px 'Playfair Display';margin:6px 0}.info p{font-size:10px;line-height:1.5;color:#9b8490;min-height:30px}.row{display:flex;align-items:center;justify-content:space-between;gap:8px}.add{border:0;border-radius:20px;background:#f8e4ed;color:#a6537b;padding:8px 12px}.about{background:#f9e8ef;padding:55px 0}.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.review{background:white;border:1px solid #f1e2e9;border-radius:15px;padding:20px}.stars{color:#d58aac}.review p{font:italic 15px/1.6 'Playfair Display';color:#765b6b}.review small{display:block;color:#a58a98}footer{text-align:center;background:#513b49;color:#f9eaf1;padding:32px 15px;font-size:12px}.overlay{display:none;position:fixed;inset:0;background:#35232d88;z-index:5;justify-content:flex-end}.drawer{background:#fffafd;width:min(420px,100%);height:100%;overflow:auto;padding:22px}.drawerhead{display:flex;justify-content:space-between;align-items:center}.drawer input,.drawer textarea{width:100%;padding:11px;border:1px solid #ecd9e3;border-radius:9px;margin:5px 0;font:12px 'DM Sans'}.item{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f1e2e9;padding:12px 0;font-size:12px}.qty button{border:1px solid #edd8e2;background:white;border-radius:50%;padding:4px 8px}.admin{display:none;position:fixed;inset:0;background:#fffafd;z-index:8;overflow:auto;padding:20px}.adminbox{max-width:600px;margin:auto}.adminlist>div{display:flex;justify-content:space-between;border-bottom:1px solid #f1e2e9;padding:10px}.note{background:#fff0d9;color:#926b37;padding:10px;border-radius:9px;font-size:11px}
-@media(max-width:700px){.nav a{display:none}.hero{padding:35px 24px;flex-direction:column;text-align:center}.hero p{margin:0 auto 18px}.hero .art{font-size:75px;padding:16px}.heading{align-items:start;flex-direction:column}.products{grid-template-columns:repeat(2,1fr)}.pic{height:120px}.reviews{grid-template-columns:1fr}.section{padding:48px 0}.heading h2,.about h2{font-size:32px}}
+:root{--bg:#17131c;--panel:#211b27;--panel2:#292130;--line:#49384e;--pink:#ff78b7;--pink2:#f34f9e;--lav:#c7a6ff;--lime:#d8f58b;--text:#fff0fa;--muted:#b9a6bd;--mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;--serif:'Playfair Display',serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);background-image:radial-gradient(ellipse at 10% 0%,#43243d55,transparent 34%),radial-gradient(ellipse at 90% 30%,#34294c55,transparent 35%)}button,input,textarea,select{font:inherit}button{cursor:pointer}.wrap{width:min(1080px,calc(100% - 30px));margin:auto}.topline{text-align:center;padding:8px 12px;background:#332238;color:#f6a5d0;font:10px var(--mono);letter-spacing:.12em;border-bottom:1px solid #68405f}.nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font:700 27px var(--serif);letter-spacing:-.04em;color:#fff}.brand span{color:var(--pink)}.navlinks{display:flex;gap:23px}.navlinks a{color:var(--muted);font-size:12px;text-decoration:none}.navlinks a:hover{color:var(--pink)}.actions{display:flex;gap:8px}.iconbtn,.bagbtn{height:42px;min-width:42px;border:1px solid var(--line);border-radius:24px;background:#211b27;color:var(--text);display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:0 12px}.iconbtn{font-size:16px}.iconbtn.active{color:var(--pink);border-color:var(--pink)}.bagbtn{color:var(--pink);font-size:12px}.hamb{display:none}.hero-banner{position:relative;margin:5px auto 25px;border:1px solid #76516e;border-radius:22px;overflow:hidden;background:linear-gradient(120deg,#39223d,#5a294a 55%,#342b4c);box-shadow:0 12px 35px #0005;aspect-ratio:16/4.8;min-height:145px}.banner-track{display:flex;width:100%;height:100%;transition:transform .55s ease}.banner-slide{flex:0 0 100%;position:relative;height:100%;overflow:hidden}.banner-slide img{width:100%;height:100%;object-fit:cover;display:block}.banner-placeholder{height:100%;display:grid;place-items:center;text-align:center;padding:20px;background:radial-gradient(circle at 80% 20%,#ff9dce55,transparent 30%),linear-gradient(120deg,#422640,#2b263d);font:clamp(18px,4vw,32px) var(--serif);color:#ffe7f5}.banner-placeholder small{display:block;font:10px var(--mono);letter-spacing:.15em;color:#f8a9d0;margin-top:8px}.banner-arrow{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;border:1px solid #ffffff70;background:#17131c99;color:white;z-index:2}.banner-arrow.prev{left:12px}.banner-arrow.next{right:12px}.dots{position:absolute;bottom:11px;left:0;right:0;display:flex;justify-content:center;gap:6px;z-index:2}.dots button{width:7px;height:7px;border:0;border-radius:20px;background:#ffffff88;padding:0}.dots button.on{width:22px;background:var(--pink)}.welcome{border:1px solid var(--line);border-radius:20px;padding:27px 30px;background:linear-gradient(130deg,#211b27,#241c2b);margin-bottom:24px}.eyebrow{font:10px var(--mono);letter-spacing:.18em;color:var(--pink);text-transform:uppercase}.welcome h1{font:700 clamp(29px,5vw,43px)/1.12 var(--serif);margin:12px 0;color:#fff0fa}.welcome h1 em{color:var(--pink);font-style:normal}.welcome p{color:var(--muted);font-size:14px;line-height:1.8;max-width:650px;margin:0 0 18px}.btn{border:0;border-radius:9px;background:linear-gradient(90deg,#ff75b6,#f34f9e);color:#fff;padding:12px 18px;font-weight:700;font-size:12px;box-shadow:0 4px 0 #9c356d}.btn:active{transform:translateY(2px);box-shadow:0 2px 0 #9c356d}.btn.ghost{background:#302438;border:1px solid var(--line);box-shadow:none;color:var(--text)}.profile{border:1px solid var(--line);border-radius:20px;background:#201a26;padding:22px;margin-bottom:28px}.profiletop{display:flex;align-items:center;gap:16px}.avatar{width:78px;height:78px;border-radius:50%;border:3px solid #f8a4d0;background:linear-gradient(135deg,#51334e,#29233d);display:grid;place-items:center;font-size:31px;overflow:hidden;flex:none}.avatar img{width:100%;height:100%;object-fit:cover}.profile h2{font:600 23px var(--serif);margin:0 0 3px}.handle{font:11px var(--mono);color:#c29bb9}.bio{font:12px/1.8 var(--serif);color:#d4c0d2;margin:16px 0}.stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px dashed #59445b;border-bottom:1px dashed #59445b;padding:15px 0;margin:16px 0}.stat{text-align:center;border-right:1px solid #59445b}.stat:last-child{border:0}.stat strong{display:block;color:var(--pink);font:700 25px var(--serif)}.stat span{font:10px var(--mono);color:#d6c2d5}.openstatus{font:11px var(--mono);color:#d9c9d9;margin:14px 0}.openstatus i{display:inline-block;width:9px;height:9px;border-radius:50%;background:#ff78b7;margin-right:8px;box-shadow:0 0 10px #ff78b7}.profilelinks{display:grid;grid-template-columns:1fr 1fr;gap:10px}.profilelinks a{padding:12px;border:1px solid #885078;border-radius:9px;background:#352238;color:#ffd8ed;text-decoration:none;font-size:12px;display:flex;justify-content:space-between}.section{padding:28px 0 45px}.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:14px;margin-bottom:17px}.sectionhead h2{font:700 30px var(--serif);margin:7px 0 4px}.sectionhead p{font-size:11px;color:var(--muted);margin:0}.search{background:#211b27;color:white;border:1px solid var(--line);border-radius:9px;padding:11px 13px;width:min(230px,48%);outline:none}.filters{display:flex;gap:7px;flex-wrap:wrap;margin:17px 0}.filters button{background:#251e2c;border:1px solid var(--line);border-radius:20px;color:#cbb8ca;padding:8px 13px;font-size:10px}.filters button.active{background:var(--pink);border-color:var(--pink);color:#341b2b;font-weight:700}.products{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.product{border:1px solid var(--line);border-radius:14px;background:#211b27;overflow:hidden;position:relative}.productpic{height:145px;background:linear-gradient(135deg,#37283e,#29263b);display:grid;place-items:center;overflow:hidden;color:#f78cbd;font-size:42px}.productpic img{width:100%;height:100%;object-fit:cover}.productinfo{padding:13px}.productinfo small{font:9px var(--mono);color:var(--pink)}.productinfo h3{font:600 17px var(--serif);margin:6px 0}.productinfo p{font-size:10px;line-height:1.5;color:var(--muted);min-height:29px;margin:0 0 12px}.price-row{display:flex;align-items:center;justify-content:space-between;gap:8px}.price{font:600 12px var(--mono);color:#fff}.add{border:0;border-radius:7px;background:var(--pink);color:#351d2d;font-size:10px;font-weight:700;padding:9px 11px}.heart{position:absolute;right:9px;top:9px;width:30px;height:30px;border:1px solid #ffffff55;border-radius:50%;background:#17131cbb;color:#ff8fc3}.heart.saved{background:#ff78b7;color:#321b2b}.featuregrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.feature{border:1px solid #725183;border-radius:13px;background:linear-gradient(130deg,#30233b,#3a2945);padding:17px;display:flex;align-items:center;gap:12px}.featureicon{width:38px;height:38px;border-radius:10px;background:#211a30;color:var(--lav);display:grid;place-items:center;font-size:18px}.feature b{display:block;font:600 14px var(--serif)}.feature small{font:9px var(--mono);color:#c5b0cb}.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.review{border:1px solid var(--line);border-radius:13px;padding:17px;background:#211b27}.stars{color:#ff8fc3;letter-spacing:2px}.review p{font:italic 14px/1.6 var(--serif);color:#e4d1e2}.review b{font-size:11px}.review small{display:block;color:var(--muted);font:9px var(--mono);margin-top:4px}.notice{text-align:center;color:#b9a6bd;font:9px/1.8 var(--mono);padding:25px 0}.footer{border-top:1px solid var(--line);padding:24px 0 35px;text-align:center;color:#bdaabd;font-size:10px}.footer .brand{font-size:22px}.footer a{color:var(--pink);text-decoration:none}.overlay{display:none;position:fixed;inset:0;background:#09070bbd;z-index:10;justify-content:flex-end}.drawer{width:min(430px,100%);height:100%;overflow:auto;background:#1e1824;border-left:1px solid var(--line);padding:20px}.drawerhead{display:flex;align-items:center;justify-content:space-between;gap:10px}.drawerhead h2{font:600 25px var(--serif)}.close{border:1px solid var(--line);background:#302438;color:white;border-radius:8px;padding:8px 11px}.cartitem{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding:13px 0;font-size:11px}.qty button{border:1px solid var(--line);background:#302438;color:white;border-radius:50%;width:25px;height:25px}.field{width:100%;background:#17131c;color:white;border:1px solid var(--line);border-radius:8px;padding:11px;margin:5px 0 9px;outline:none}.admin{display:none;position:fixed;inset:0;z-index:20;background:#17131c;overflow:auto;padding:18px}.adminbox{max-width:760px;margin:auto}.adminsection{border:1px solid var(--line);background:#211b27;border-radius:14px;padding:16px;margin:14px 0}.adminsection h3{font:600 19px var(--serif);margin:0 0 12px}.adminlist>div{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:11px}.adminlist button{border:1px solid var(--line);background:#302438;color:#ffd8ed;border-radius:7px;padding:6px 9px;font-size:10px}.hint{font-size:10px;line-height:1.6;color:#c4aec3;background:#302438;padding:10px;border-radius:8px}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#f878b6;color:#351b2b;padding:11px 16px;border-radius:30px;font-size:11px;font-weight:700;display:none;z-index:30}
+@media(max-width:700px){.wrap{width:calc(100% - 24px)}.nav{height:65px}.navlinks{display:none}.hamb{display:inline-flex}.iconbtn{min-width:36px;height:36px;padding:0 9px}.bagbtn{height:36px;padding:0 10px}.hero-banner{aspect-ratio:16/6.5;min-height:120px;border-radius:16px}.welcome{padding:23px 20px}.welcome h1{font-size:31px}.profile{padding:17px}.avatar{width:68px;height:68px}.profilelinks{grid-template-columns:1fr 1fr}.section{padding:22px 0 35px}.sectionhead{align-items:start;flex-direction:column}.sectionhead h2{font-size:27px}.search{width:100%}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.productpic{height:120px}.productinfo{padding:10px}.productinfo h3{font-size:15px}.productinfo p{font-size:9px}.add{padding:8px}.featuregrid{grid-template-columns:1fr}.feature{padding:13px}.reviews{grid-template-columns:1fr}.stats{padding:12px 0}.stat strong{font-size:22px}.stat span{font-size:8px}}
 </style>
+</head>
+<body>
+<div class="topline">♡ LITTLE TREATS FOR YOUR DIGITAL WORLD ♡</div>
+<header class="nav wrap">
+  <button class="iconbtn hamb" onclick="document.getElementById('shop').scrollIntoView()">☰</button>
+  <div class="brand">alvena<span>♡</span></div>
+  <nav class="navlinks"><a href="#shop">Shop</a><a href="#about">About</a><a href="#reviews">Reviews</a></nav>
+  <div class="actions">
+    <button class="iconbtn" id="soundBtn" title="Musik">♫</button>
+    <button class="iconbtn" onclick="toast('Terima kasih sudah mampir ke Alvena ♡')" title="Notifikasi">♧</button>
+    <button class="iconbtn" onclick="showWishlist()" title="Wishlist">♡ <span id="wishCount">0</span></button>
+    <button class="bagbtn" onclick="openCart()">♧ Bag <span id="count">0</span></button>
+  </div>
+</header>
 
-<style id="alvena-fresh-theme">
-:root{
- --lime:#e2f48d; --lime-deep:#b9d65e; --pink:#fea6d5; --pink-strong:#f676a7;
- --pink-soft:#fabcda; --blue:#91bff2; --ink:#55475a; --cream:#fffdf4;
-}
-body{background:var(--cream)!important;color:var(--ink)!important}
-.top{background:var(--lime)!important;color:#718b36!important}
-.brand{color:#6b83bd!important}.brand b{color:var(--pink-strong)!important}
-.nav a{color:#718b75!important}
-.cart{border-color:#f5b5d4!important;background:#fff!important;color:#e45d9a!important}
-.hero{background:linear-gradient(125deg,#e8f7a8 0%,#fff4c9 48%,#ffd5e9 100%)!important}
-.hero h1{color:#526b91!important}.hero h1 em{color:#ee70ad!important}
-.hero p{color:#6f6875!important}
-.hero .art{background:#fffdf5!important;border-color:#fff!important;box-shadow:0 12px 30px #a9c85c33!important}
-.eyebrow{color:#e56da7!important}
-.btn{background:var(--pink-strong)!important;color:white!important;box-shadow:0 4px 0 #e45b91!important}
-.btn:active{transform:translateY(2px);box-shadow:0 2px 0 #e45b91!important}
-.heading h2,.about h2{color:#6079ad!important}
-.heading p,.about p{color:#777080!important}
-.search{border-color:#d8e99a!important;background:#fff!important;color:#55475a!important}
-.filters button{border-color:#d6e69b!important;color:#71883f!important;background:#fff!important}
-.filters button.active{background:var(--lime-deep)!important;color:#40552a!important;border-color:var(--lime-deep)!important}
-.product{border-color:#f5c4dc!important;background:#fff!important;box-shadow:0 5px 18px #ee9fc522}
-.pic{background:linear-gradient(145deg,#eff9c5,#ffe0ee)!important}
-.info small{color:#e56da7!important}.info h3{color:#647eae!important}
-.info p{color:#827989!important}
-.add{background:#e9f5b8!important;color:#607b34!important}
-.about{background:linear-gradient(120deg,#e8f5ae,#ffe0ef)!important}
-.review{border-color:#f5c4dc!important;box-shadow:0 5px 18px #ee9fc51c}
-.stars{color:#f18bb9!important}.review p{color:#70617b!important}
-footer{background:#7186b7!important;color:#fff!important}
-footer .brand{color:white!important}
-.overlay{background:#4e476b88!important}
-.drawer,.admin{background:#fffdf5!important;color:var(--ink)!important}
-.drawer input,.drawer textarea,.admin input,.admin textarea{border-color:#f2bfd8!important;background:#fff!important}
-.item,.adminlist>div{border-color:#f4d4e4!important}
-.note{background:#f0f7c9!important;color:#637a35!important}
-.adminbox h2,.adminbox h3{color:#647eae!important}
-.adminbox button:not(.btn){border:1px solid #f1bfd8;border-radius:8px;background:#fff4fa;color:#a64d7b;padding:6px 9px}
-@media(max-width:700px){.hero{background:linear-gradient(160deg,#e8f7a8,#fff4c9 55%,#ffd5e9)!important}}
-</style>
+<main class="wrap">
+  <section class="hero-banner" aria-label="Banner Alvena">
+    <div class="banner-track" id="bannerTrack"><div class="banner-slide"><div class="banner-placeholder">♡ Welcome to Alvena <small>YOUR LITTLE DIGITAL HAPPY PLACE</small></div></div></div>
+    <button class="banner-arrow prev" onclick="moveBanner(-1)" aria-label="Banner sebelumnya">‹</button>
+    <button class="banner-arrow next" onclick="moveBanner(1)" aria-label="Banner berikutnya">›</button>
+    <div class="dots" id="bannerDots"></div>
+  </section>
 
-</head><body>
-<div class="top">♡ LITTLE TREATS FOR YOUR DIGITAL WORLD ♡</div>
-<header class="nav wrap"><div class="brand">alvena<b>.</b></div><nav><a href="#shop">Shop</a><a href="#about">About</a><a href="#reviews">Reviews</a></nav><button class="cart" onclick="openCart()">♡ Bag (<span id="count">0</span>)</button></header>
-<main>
-<section class="hero wrap"><div><div class="eyebrow">✿ WELCOME TO ALVENA ✿</div><h1>A little something<br><em>lovely</em> for you ♡</h1><p>Temukan kebutuhan digital favoritmu dengan pengalaman belanja yang manis, mudah, dan nyaman.</p><a class="btn" href="#shop" style="display:inline-block;text-decoration:none">Explore collection ↗</a></div><div class="art">🎀🌸</div></section>
-<section class="section wrap" id="shop"><div class="heading"><div><div class="eyebrow">A LITTLE SHOPPING</div><h2>Find your <em>favorites</em></h2><p>Small joys, delivered digitally ♡</p></div><input class="search" id="search" placeholder="Cari produk..." oninput="render()"></div><div class="filters" id="filters"></div><div class="products" id="products"><p>Memuat produk Alvena... ♡</p></div></section>
-<section class="about" id="about"><div class="wrap"><div class="eyebrow">A NOTE FROM ALVENA</div><h2>Little treats,<br><em>big happiness.</em></h2><p>Alvena Store adalah tempat kecil untuk menemukan berbagai kebutuhan digital. Kami ingin setiap pengalaman belanja terasa mudah, aman, dan menyenangkan. Terima kasih sudah mampir, lovely!</p></div></section>
-<section class="section wrap" id="reviews"><div class="eyebrow">KIND WORDS</div><h2 style="font:600 38px 'Playfair Display'">Love notes ♡</h2><div class="reviews"><div class="review"><div class="stars">★★★★★</div><p>“Admin ramah, prosesnya cepat dan jelas ♡”</p><b>Customer 01</b><small>happy customer</small></div><div class="review"><div class="stars">★★★★★</div><p>“Produk sesuai pesanan. Bakal order lagi!”</p><b>Customer 02</b><small>happy customer</small></div><div class="review"><div class="stars">★★★★★</div><p>“Suka banget sama pelayanannya, thank you!”</p><b>Customer 03</b><small>happy customer</small></div></div></section>
+  <section class="welcome">
+    <div class="eyebrow">✿ WELCOME TO ALVENA ✿</div>
+    <h1>A little something<br><em>lovely</em> for you ♡</h1>
+    <p>Temukan kebutuhan digital favoritmu dengan pengalaman belanja yang manis, mudah, dan nyaman. Little treats, big happiness!</p>
+    <a class="btn" href="#shop" style="display:inline-block;text-decoration:none">Explore collection ↗</a>
+  </section>
+
+  <section class="profile" id="about">
+    <div class="profiletop">
+      <div class="avatar" id="avatar">♡</div>
+      <div><div class="eyebrow">YOUR DIGITAL HAPPY PLACE</div><h2 id="storeName">alvena ♡</h2><div class="handle" id="storeHandle">@alvenastore</div></div>
+    </div>
+    <p class="bio" id="storeBio">♡ Little treats for your digital world. Temukan game needs, apps, dan digital goodies favoritmu dengan mudah dan nyaman.</p>
+    <div class="stats">
+      <div class="stat"><strong id="productCount">0</strong><span>Digital goodies</span></div>
+      <div class="stat"><strong>2.8k</strong><span>Happy customers</span></div>
+      <div class="stat"><strong>3.5k</strong><span>Happy folks</span></div>
+    </div>
+    <div class="openstatus"><i></i><span id="openText">Yay, the store is open ♡</span></div>
+    <div class="profilelinks"><a href="https://wa.me/6289692908700" target="_blank" rel="noopener">Social links <b>↗</b></a><a href="#reviews">Testimonials <b>❞</b></a></div>
+  </section>
+
+  <section class="section" id="shop">
+    <div class="sectionhead"><div><div class="eyebrow">A LITTLE PIXEL MAGIC FOR YOU</div><h2>Pick your goodies <em style="color:var(--pink)">✦</em></h2><p id="productSub">Pilih digital treats favoritmu ♡</p></div><input class="search" id="search" placeholder="⌕ Cari produk..." oninput="renderProducts()"></div>
+    <div class="filters" id="filters"></div>
+    <div class="products" id="products"><p style="color:var(--muted)">Memuat produk Alvena... ♡</p></div>
+    <div style="text-align:center;margin-top:20px"><button class="btn ghost" onclick="document.getElementById('shop').scrollIntoView()">Browse all →</button></div>
+  </section>
+
+  <section class="section">
+    <div class="featuregrid">
+      <div class="feature"><div class="featureicon">▣</div><div><b>Play your way</b><small>Your favorite game goodies.</small></div></div>
+      <div class="feature"><div class="featureicon">♡</div><div><b>Made for you</b><small>Digital goodies you'll love.</small></div></div>
+      <div class="feature"><div class="featureicon">♧</div><div><b>What's new?</b><small>Fresh updates from our shop.</small></div></div>
+    </div>
+  </section>
+
+  <section class="section" id="reviews">
+    <div class="eyebrow">KIND WORDS FROM YOU</div><div class="sectionhead"><div><h2>Love notes ♡</h2><p>Little words that make our day.</p></div></div>
+    <div class="reviews">
+      <article class="review"><div class="stars">★★★★★</div><p>“Admin ramah, prosesnya cepat dan jelas. Thank you Alvena ♡”</p><b>Customer 01</b><small>happy customer</small></article>
+      <article class="review"><div class="stars">★★★★★</div><p>“Produk sesuai pesanan. Bakal order lagi!”</p><b>Customer 02</b><small>happy customer</small></article>
+      <article class="review"><div class="stars">★★★★★</div><p>“Suka banget sama pelayanannya, thank you!”</p><b>Customer 03</b><small>happy customer</small></article>
+    </div>
+  </section>
+  <div class="notice">CHECK PRODUCT DETAILS BEFORE ORDERING ✦<br>MADE WITH LOVE & A LITTLE PIXEL MAGIC ♡</div>
 </main>
-<footer><div class="brand" style="color:white">alvena♡</div><p>Little treats for your digital world.</p><p>© <span id="year"></span> Alvena Store · Made with love</p><button onclick="adminLogin()" style="background:none;border:0;color:#cba9b9;font-size:10px">Admin</button></footer>
-<div class="overlay" id="cart"><aside class="drawer"><div class="drawerhead"><h2 style="font:26px 'Playfair Display'">Your bag ♡</h2><button onclick="closeCart()">✕</button></div><div id="items"></div><h3 id="total">Total: Rp0</h3><input id="buyer" placeholder="Nama kamu"><input id="contact" placeholder="Nomor WhatsApp"><textarea id="memo" placeholder="Catatan pesanan (opsional)"></textarea><button class="btn" style="width:100%" onclick="checkout()">Checkout via WhatsApp ↗</button><p style="font-size:10px;color:#987d8b">Pesanan akan dikirim ke admin untuk konfirmasi.</p></aside></div>
+
+<footer class="footer"><div class="brand">alvena<span>♡</span></div><p>Little treats for your digital world.</p><p><a href="https://wa.me/6289692908700" target="_blank" rel="noopener">♡ Chat with us</a></p><p>© <span id="year"></span> Alvena Store · Made with love ♡</p><button onclick="adminLogin()" style="background:none;border:0;color:#8d7890;font-size:10px">Admin</button></footer>
+
+<div class="overlay" id="cart"><aside class="drawer"><div class="drawerhead"><h2>Your bag ♡</h2><button class="close" onclick="closeCart()">✕</button></div><div id="items"></div><h3 id="total">Total: Rp0</h3><label class="eyebrow">YOUR NAME</label><input class="field" id="buyer" placeholder="Nama kamu"><label class="eyebrow">WHATSAPP NUMBER</label><input class="field" id="contact" placeholder="Nomor WhatsApp"><label class="eyebrow">ORDER NOTE</label><textarea class="field" id="memo" placeholder="Catatan pesanan (opsional)"></textarea><button class="btn" style="width:100%" onclick="checkout()">Checkout via WhatsApp ↗</button><p style="font-size:10px;color:var(--muted)">Pesanan akan dikirim ke admin untuk konfirmasi.</p></aside></div>
+
 <div class="admin" id="admin"><div class="adminbox">
-<div class="drawerhead"><h2>Alvena Admin ♡</h2><button onclick="closeAdmin()">Tutup ✕</button></div>
-<div id="adminLoginPanel">
-<h3>Login Admin</h3>
-<input id="adminEmail" type="email" placeholder="Email admin">
-<input id="adminPassword" type="password" placeholder="Password admin">
-<button class="btn" onclick="doAdminLogin()">Login</button>
-<p id="adminStatus" class="note">Gunakan akun yang dibuat di Supabase Authentication.</p>
-</div>
-<div id="adminManagePanel" style="display:none">
-<p class="note">Kelola produk dari sini. Foto harus berupa URL gambar publik; unggah foto ke Supabase Storage terlebih dahulu untuk mendapatkan URL.</p>
-<h3>Tambah / Edit Produk</h3>
-<input id="editId" type="hidden">
-<input id="editName" placeholder="Nama produk">
-<textarea id="editDescription" placeholder="Deskripsi"></textarea>
-<input id="editPrice" type="number" min="0" placeholder="Harga">
-<input id="editCategory" placeholder="Kategori">
-<input id="editImage" placeholder="URL gambar (opsional)">
-<label style="display:block;margin:10px 0">Foto produk dari galeri HP</label>
-<input id="imageFile" type="file" accept="image/*">
-<input id="editStock" type="number" min="0" placeholder="Stok">
-<label><input id="editActive" type="checkbox" checked> Produk aktif</label>
-<button class="btn" onclick="saveProduct()">Simpan produk</button>
-<button class="btn" style="background:#eee;color:#70465a" onclick="clearProductForm()">Kosongkan</button>
-<p id="saveStatus" class="note"></p>
-<h3>Daftar Produk</h3><div class="adminlist" id="adminlist"></div>
-<button class="btn" style="background:#70465a" onclick="adminLogout()">Logout</button>
-</div></div></div>
+  <div class="drawerhead"><h2 style="font:600 26px var(--serif)">Alvena Admin ♡</h2><button class="close" onclick="closeAdmin()">Tutup ✕</button></div>
+  <div id="adminLoginPanel" class="adminsection"><h3>Login Admin</h3><input class="field" id="adminEmail" type="email" placeholder="Email admin"><input class="field" id="adminPassword" type="password" placeholder="Password admin"><button class="btn" onclick="doAdminLogin()">Login</button><p id="adminStatus" class="hint">Gunakan akun admin Supabase kamu.</p></div>
+  <div id="adminManagePanel" style="display:none">
+    <div class="adminsection"><h3>♡ Kelola Banner</h3><p class="hint">Upload gambar banner horizontal. Gambar disimpan di Supabase Storage dan daftar banner di tabel store_banners. Rekomendasi rasio 16:5.</p><input class="field" id="bannerTitle" placeholder="Judul / nama banner (opsional)"><input class="field" id="bannerFile" type="file" accept="image/*"><button class="btn" onclick="uploadBanner()">Upload banner</button><p id="bannerStatus" class="hint">Belum ada perubahan.</p><div class="adminlist" id="bannerList"></div></div>
+    <div class="adminsection"><h3>✦ Tambah / Edit Produk</h3><input id="editId" type="hidden"><input class="field" id="editName" placeholder="Nama produk"><textarea class="field" id="editDescription" placeholder="Deskripsi produk"></textarea><input class="field" id="editPrice" type="number" min="0" placeholder="Harga"><input class="field" id="editCategory" placeholder="Kategori"><input class="field" id="editImage" placeholder="URL gambar (opsional)"><label style="font-size:11px;color:var(--muted)">Atau pilih foto dari galeri HP</label><input class="field" id="imageFile" type="file" accept="image/*"><input class="field" id="editStock" type="number" min="0" placeholder="Stok"><label style="font-size:11px"><input id="editActive" type="checkbox" checked> Produk aktif</label><p><button class="btn" onclick="saveProduct()">Simpan produk</button> <button class="btn ghost" onclick="clearProductForm()">Kosongkan</button></p><p id="saveStatus" class="hint"></p><h3>Daftar Produk</h3><div class="adminlist" id="adminlist"></div></div>
+    <div class="adminsection"><h3>⚙ Pengaturan toko</h3><input class="field" id="settingName" placeholder="Nama toko"><input class="field" id="settingHandle" placeholder="Username"><textarea class="field" id="settingBio" placeholder="Bio toko"></textarea><input class="field" id="settingAvatar" placeholder="URL foto profil"><button class="btn" onclick="saveStoreSettings()">Simpan pengaturan</button><p id="settingStatus" class="hint"></p></div>
+    <button class="btn ghost" onclick="adminLogout()">Logout Admin</button>
+  </div>
+</div></div>
+<div class="toast" id="toast"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const SUPABASE_URL = "https://rgktegkxtrtxrzmogbhg.supabase.co";
-const SUPABASE_KEY = "sb_publishable_uJQEW1rLbitiI6sLnY4wOA_3zBUTvdA";
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-let products = [];
-let cart = JSON.parse(localStorage.getItem("alvenaCart") || "[]");
-let cat = "Semua";
-const rupiah = n => "Rp" + Number(n || 0).toLocaleString("id-ID");
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function persist(){localStorage.setItem("alvenaCart",JSON.stringify(cart))}
-async function loadProducts(){
- const area=document.getElementById("products");
- area.innerHTML="<p>Memuat produk Alvena... ♡</p>";
- const {data,error}=await db.from("product").select("id,name,description,price,image_url,category,stock,is_active").eq("is_active",true).order("id");
- if(error){console.error(error);area.innerHTML="<p>Produk belum bisa dimuat. Periksa koneksi Supabase dan izin SELECT (RLS).</p>";return}
- products=(data||[]).map(p=>({...p,price:Number(p.price)}));
- cart=cart.map(i=>{const p=products.find(x=>x.id===i.id);return p?{...p,qty:i.qty}:i}).filter(i=>products.some(p=>p.id===i.id));
- persist();render();
-}
-function setCategory(c){cat=c;render()}
-function render(){
- const cats=["Semua",...new Set(products.map(p=>p.category).filter(Boolean))];
- if(!cats.includes(cat))cat="Semua";
- document.getElementById("filters").innerHTML=cats.map(c=>`<button class="${c===cat?"active":""}" onclick="setCategory('${esc(c)}')">${esc(c)}</button>`).join("");
- const q=document.getElementById("search").value.toLowerCase().trim();
- const list=products.filter(p=>(cat==="Semua"||p.category===cat)&&String(p.name).toLowerCase().includes(q));
- document.getElementById("products").innerHTML=list.map(p=>`<article class="product"><div class="pic">${p.image_url?`<img src="${esc(p.image_url)}" alt="${esc(p.name)}" style="width:100%;height:100%;object-fit:cover">`:"🎀"}</div><div class="info"><small>${esc(p.category||"Produk")}</small><h3>${esc(p.name)}</h3><p>${esc(p.description||"")}</p><div class="row"><b>${rupiah(p.price)}</b><button class="add" onclick="add(${Number(p.id)})">＋ Add</button></div></div></article>`).join("")||"<p>Produk tidak ditemukan ♡</p>";
- document.getElementById("count").textContent=cart.reduce((a,b)=>a+b.qty,0);renderCart();renderAdmin();
-}
-function add(id){const p=products.find(x=>x.id===id);if(!p)return;const old=cart.find(x=>x.id===id);if(old)old.qty++;else cart.push({...p,qty:1});persist();render()}
-function change(id,d){const x=cart.find(x=>x.id===id);if(x)x.qty+=d;cart=cart.filter(x=>x.qty>0);persist();render()}
-function renderCart(){document.getElementById("items").innerHTML=cart.map(i=>`<div class="item"><span>🎀 ${esc(i.name)}<br>${rupiah(i.price)} × ${i.qty}</span><span class="qty"><button onclick="change(${Number(i.id)},-1)">−</button> ${i.qty} <button onclick="change(${Number(i.id)},1)">+</button></span></div>`).join("")||"<p>Keranjang masih kosong ♡</p>";document.getElementById("total").textContent="Total: "+rupiah(cart.reduce((s,i)=>s+i.price*i.qty,0))}
-function openCart(){document.getElementById("cart").style.display="flex"}function closeCart(){document.getElementById("cart").style.display="none"}
-function checkout(){if(!cart.length)return alert("Keranjang masih kosong.");const n=document.getElementById("buyer").value.trim(),c=document.getElementById("contact").value.trim();if(!n||!c)return alert("Isi nama dan nomor WhatsApp dulu.");const total=cart.reduce((s,i)=>s+i.price*i.qty,0);const msg=["Halo Alvena Store, saya mau pesan:",...cart.map(i=>`• ${i.name} x${i.qty} - ${rupiah(i.price*i.qty)}`),`Total: ${rupiah(total)}`,`Nama: ${n}`,`Kontak: ${c}`,`Catatan: ${document.getElementById("memo").value}`].join("\n");window.open("https://wa.me/6289692908700?text="+encodeURIComponent(msg),"_blank")}
-function adminLogin(){document.getElementById("admin").style.display="block";document.getElementById("adminLoginPanel").style.display="block";document.getElementById("adminManagePanel").style.display="none";document.getElementById("adminStatus").textContent="Masuk dengan akun Supabase admin."}
-async function doAdminLogin(){const email=document.getElementById("adminEmail").value.trim(),password=document.getElementById("adminPassword").value;const status=document.getElementById("adminStatus");if(!email||!password){status.textContent="Isi email dan password.";return}const {error}=await db.auth.signInWithPassword({email,password});if(error){status.textContent="Login gagal: "+error.message;return}document.getElementById("adminLoginPanel").style.display="none";document.getElementById("adminManagePanel").style.display="block";await loadAdminProducts()}
-async function adminLogout(){await db.auth.signOut();document.getElementById("adminManagePanel").style.display="none";document.getElementById("adminLoginPanel").style.display="block";document.getElementById("adminPassword").value=""}
-async function loadAdminProducts(){const el=document.getElementById("adminlist");el.textContent="Memuat...";const {data,error}=await db.from("product").select("*").order("id");if(error){el.textContent="Gagal memuat: "+error.message;return}window.adminProducts=data||[];renderAdmin()}
-function clearProductForm(){["editId","editName","editDescription","editPrice","editCategory","editImage","editStock"].forEach(id=>document.getElementById(id).value="");document.getElementById("editActive").checked=true;document.getElementById("imageFile").value=""}
-function editProduct(id){const p=(window.adminProducts||[]).find(x=>String(x.id)===String(id));if(!p)return;document.getElementById("editId").value=p.id;document.getElementById("editName").value=p.name||"";document.getElementById("editDescription").value=p.description||"";document.getElementById("editPrice").value=p.price||0;document.getElementById("editCategory").value=p.category||"";document.getElementById("editImage").value=p.image_url||"";document.getElementById("editStock").value=p.stock||0;document.getElementById("editActive").checked=!!p.is_active;document.getElementById("imageFile").value=""}
-async function uploadProductImage(file){
- const safeName=file.name.toLowerCase().replace(/[^a-z0-9._-]/g,"-");
- const path=Date.now()+"-"+Math.random().toString(36).slice(2)+"-"+safeName;
- const {data,error}=await db.storage.from("product-images").upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type});
- if(error)throw error;
- return db.storage.from("product-images").getPublicUrl(data.path).data.publicUrl;
-}
-async function saveProduct(){
- const id=document.getElementById("editId").value;
- const name=document.getElementById("editName").value.trim();
- const price=Number(document.getElementById("editPrice").value);
- const status=document.getElementById("saveStatus");
- if(!name||!Number.isFinite(price)||price<0){status.textContent="Isi nama dan harga yang valid.";return}
- const file=document.getElementById("imageFile").files[0];
- let imageUrl=document.getElementById("editImage").value.trim()||null;
- if(file){
-  if(!file.type.startsWith("image/")){status.textContent="Pilih file gambar.";return}
-  if(file.size>5*1024*1024){status.textContent="Ukuran foto maksimal 5 MB.";return}
-  status.textContent="Mengunggah foto...";
-  try{imageUrl=await uploadProductImage(file)}catch(error){status.textContent="Gagal upload foto: "+error.message;return}
- }
- const row={name,description:document.getElementById("editDescription").value.trim(),price,category:document.getElementById("editCategory").value.trim(),image_url:imageUrl,stock:Math.max(0,Number(document.getElementById("editStock").value)||0),is_active:document.getElementById("editActive").checked};
- const result=id
-   ? await db.from("product").update(row).eq("id",id).select("id")
-   : await db.from("product").insert(row).select("id");
- if(result.error){status.textContent="Gagal menyimpan: "+result.error.message;return}
- if(!result.data || result.data.length===0){status.textContent="Tidak ada data yang berubah. Kemungkinan iz
+const SUPABASE_URL="https://rgktegkxtrtxrzmogbhg.supabase.co";
+const SUPABASE_KEY="sb_publishable_uJQEW1rLbitiI6sLnY4wOA_3zBUTvdA";
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const rupiah=n=>"Rp"
