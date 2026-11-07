@@ -36,6 +36,8 @@
 <input id="editPrice" type="number" min="0" placeholder="Harga">
 <input id="editCategory" placeholder="Kategori">
 <input id="editImage" placeholder="URL gambar (opsional)">
+<label style="display:block;margin:10px 0">Foto produk dari galeri HP</label>
+<input id="imageFile" type="file" accept="image/*">
 <input id="editStock" type="number" min="0" placeholder="Stok">
 <label><input id="editActive" type="checkbox" checked> Produk aktif</label>
 <button class="btn" onclick="saveProduct()">Simpan produk</button>
@@ -83,9 +85,34 @@ function adminLogin(){document.getElementById("admin").style.display="block";doc
 async function doAdminLogin(){const email=document.getElementById("adminEmail").value.trim(),password=document.getElementById("adminPassword").value;const status=document.getElementById("adminStatus");if(!email||!password){status.textContent="Isi email dan password.";return}const {error}=await db.auth.signInWithPassword({email,password});if(error){status.textContent="Login gagal: "+error.message;return}document.getElementById("adminLoginPanel").style.display="none";document.getElementById("adminManagePanel").style.display="block";await loadAdminProducts()}
 async function adminLogout(){await db.auth.signOut();document.getElementById("adminManagePanel").style.display="none";document.getElementById("adminLoginPanel").style.display="block";document.getElementById("adminPassword").value=""}
 async function loadAdminProducts(){const el=document.getElementById("adminlist");el.textContent="Memuat...";const {data,error}=await db.from("product").select("*").order("id");if(error){el.textContent="Gagal memuat: "+error.message;return}window.adminProducts=data||[];renderAdmin()}
-function clearProductForm(){["editId","editName","editDescription","editPrice","editCategory","editImage","editStock"].forEach(id=>document.getElementById(id).value="");document.getElementById("editActive").checked=true}
-function editProduct(id){const p=(window.adminProducts||[]).find(x=>String(x.id)===String(id));if(!p)return;document.getElementById("editId").value=p.id;document.getElementById("editName").value=p.name||"";document.getElementById("editDescription").value=p.description||"";document.getElementById("editPrice").value=p.price||0;document.getElementById("editCategory").value=p.category||"";document.getElementById("editImage").value=p.image_url||"";document.getElementById("editStock").value=p.stock||0;document.getElementById("editActive").checked=!!p.is_active}
-async function saveProduct(){const id=document.getElementById("editId").value,name=document.getElementById("editName").value.trim(),price=Number(document.getElementById("editPrice").value),status=document.getElementById("saveStatus");if(!name||!Number.isFinite(price)||price<0){status.textContent="Isi nama dan harga yang valid.";return}const row={name,description:document.getElementById("editDescription").value.trim(),price,category:document.getElementById("editCategory").value.trim(),image_url:document.getElementById("editImage").value.trim()||null,stock:Math.max(0,Number(document.getElementById("editStock").value)||0),is_active:document.getElementById("editActive").checked};const result=id?await db.from("product").update(row).eq("id",id):await db.from("product").insert(row);if(result.error){status.textContent="Gagal menyimpan: "+result.error.message;return}status.textContent="Produk berhasil disimpan ♡";clearProductForm();await loadProducts();await loadAdminProducts()}
+function clearProductForm(){["editId","editName","editDescription","editPrice","editCategory","editImage","editStock"].forEach(id=>document.getElementById(id).value="");document.getElementById("editActive").checked=true;document.getElementById("imageFile").value=""}
+function editProduct(id){const p=(window.adminProducts||[]).find(x=>String(x.id)===String(id));if(!p)return;document.getElementById("editId").value=p.id;document.getElementById("editName").value=p.name||"";document.getElementById("editDescription").value=p.description||"";document.getElementById("editPrice").value=p.price||0;document.getElementById("editCategory").value=p.category||"";document.getElementById("editImage").value=p.image_url||"";document.getElementById("editStock").value=p.stock||0;document.getElementById("editActive").checked=!!p.is_active;document.getElementById("imageFile").value=""}
+async function uploadProductImage(file){
+ const safeName=file.name.toLowerCase().replace(/[^a-z0-9._-]/g,"-");
+ const path=Date.now()+"-"+Math.random().toString(36).slice(2)+"-"+safeName;
+ const {data,error}=await db.storage.from("product-images").upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type});
+ if(error)throw error;
+ return db.storage.from("product-images").getPublicUrl(data.path).data.publicUrl;
+}
+async function saveProduct(){
+ const id=document.getElementById("editId").value;
+ const name=document.getElementById("editName").value.trim();
+ const price=Number(document.getElementById("editPrice").value);
+ const status=document.getElementById("saveStatus");
+ if(!name||!Number.isFinite(price)||price<0){status.textContent="Isi nama dan harga yang valid.";return}
+ const file=document.getElementById("imageFile").files[0];
+ let imageUrl=document.getElementById("editImage").value.trim()||null;
+ if(file){
+  if(!file.type.startsWith("image/")){status.textContent="Pilih file gambar.";return}
+  if(file.size>5*1024*1024){status.textContent="Ukuran foto maksimal 5 MB.";return}
+  status.textContent="Mengunggah foto...";
+  try{imageUrl=await uploadProductImage(file)}catch(error){status.textContent="Gagal upload foto: "+error.message;return}
+ }
+ const row={name,description:document.getElementById("editDescription").value.trim(),price,category:document.getElementById("editCategory").value.trim(),image_url:imageUrl,stock:Math.max(0,Number(document.getElementById("editStock").value)||0),is_active:document.getElementById("editActive").checked};
+ const result=id?await db.from("product").update(row).eq("id",id):await db.from("product").insert(row);
+ if(result.error){status.textContent="Gagal menyimpan: "+result.error.message;return}
+ status.textContent="Produk berhasil disimpan ♡";clearProductForm();await loadProducts();await loadAdminProducts()
+}
 async function deleteProduct(id){if(!confirm("Hapus produk ini?"))return;const {error}=await db.from("product").delete().eq("id",id);if(error){alert("Gagal menghapus: "+error.message);return}await loadProducts();await loadAdminProducts()}
 function closeAdmin(){document.getElementById("admin").style.display="none"}
 function renderAdmin(){const el=document.getElementById("adminlist");if(el)el.innerHTML=(window.adminProducts||[]).map(p=>`<div><span>🎀 ${esc(p.name)} · ${rupiah(p.price)}${p.is_active?"":" · nonaktif"}</span><span><button onclick="editProduct(${Number(p.id)})">Edit</button> <button onclick="deleteProduct(${Number(p.id)})">Hapus</button></span></div>`).join("")||"<p>Belum ada produk.</p>"}
