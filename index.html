@@ -70,12 +70,25 @@ header{display:flex;align-items:center;justify-content:space-between;gap:12px;ma
 h2{font:800 22px "Baloo 2";margin:0}
 .small-note{font-size:11px;color:var(--muted);font-weight:800}
 
+/* Cute category filters */
+.category-heading{display:flex;align-items:center;gap:8px;margin:2px 0 12px;color:#d96c9f;font:800 17px "Baloo 2",sans-serif}
+.category-heading .sparkle{font-size:19px;color:#e7a8c8}
+.category-filters{display:flex;gap:9px;overflow-x:auto;padding:2px 2px 12px;margin:0 0 12px;scrollbar-width:thin;scrollbar-color:#f3bfd8 transparent;-webkit-overflow-scrolling:touch}
+.category-chip{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;border:2px solid #d9edf6;background:#fff;border-radius:999px;padding:9px 15px;color:#54718a;font-size:13px;font-weight:900;cursor:pointer;box-shadow:0 3px 0 #e8f2f6;transition:.15s}
+.category-chip .chip-icon{font-size:15px}
+.category-chip.active{background:#f27fba;border-color:#f27fba;color:#fff;box-shadow:0 3px 0 #df6da6}
+.category-chip:focus-visible{outline:3px solid #9bd5fa;outline-offset:2px}
+@media(max-width:650px){.category-heading{font-size:15px}.category-chip{font-size:12px;padding:8px 13px}}
+.sticker{color:#51465b!important;-webkit-text-fill-color:#51465b!important}
+
 .package{border:2px solid var(--line);border-radius:22px;padding:16px;background:#fffdfd;margin-bottom:16px}
 .app-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .app-info-left{display:flex;align-items:center;gap:12px}
 .app-logo{width:48px;height:48px;border-radius:17px;background:var(--pink);color:#fff;display:grid;place-items:center;font:800 22px "Baloo 2";box-shadow:0 4px 0 #e9b4d0;overflow:hidden;flex:0 0 48px}.app-logo img{width:100%;height:100%;object-fit:cover}
 .app-title{font:800 19px "Baloo 2"}
 .app-desc{font-size:11px;color:var(--muted);font-weight:800}
+.app-group-tag{flex:0 0 auto;background:#f2f8ff;color:#6b9ac0;border:1px solid #dceefa;border-radius:999px;padding:5px 10px;font-size:10px;font-weight:900}
+.empty-category{text-align:center;padding:24px 12px;background:#fff8fb;border:2px dashed #f4c9dd;border-radius:18px;color:#9a7890;font-weight:800}
 .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
 .choice-card{min-height:75px;padding:10px;border-radius:17px;border:2px solid #f0e7ee;display:flex;flex-direction:column;justify-content:space-between;transition:.15s;background:#fff0f7;position:relative}
 .choice-name{font-size:12px;font-weight:900}
@@ -279,7 +292,65 @@ body, button, input, textarea, select {
   -webkit-text-fill-color: var(--ink);
 }
 .choice-price, .admin-overview-card strong { color: #d873a2; -webkit-text-fill-color: #d873a2; }
-.hero-banner-title, .sticker { color: #fff; -webkit-text-fill-color: #fff; }
+.hero-banner-title { color: #fff; -webkit-text-fill-color: #fff; }
+.sticker { color: #51465b !important; -webkit-text-fill-color: #51465b !important; }
+
+
+/* Kawaii side decorations + welcome strip */
+.hero{overflow:visible;}
+.profile-decor-stage{position:relative;max-width:100%;margin:0 auto 10px;min-height:0;}
+.profile-decor-stage .profile-card{position:relative;z-index:2;}
+.side-cute{position:absolute;z-index:1;top:8px;width:clamp(100px,18%,190px);height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;pointer-events:none;filter:drop-shadow(0 5px 5px #d88ab522);}
+.side-cute.left{left:0;transform:translateX(-8%);}
+.side-cute.right{right:0;transform:translateX(8%);}
+.side-cute .cute-main{font-size:clamp(46px,7vw,76px);line-height:1.1;}
+.side-cute .cute-sub{font-size:clamp(19px,3vw,30px);letter-spacing:5px;}
+.welcome-ribbon{display:flex;align-items:center;justify-content:center;gap:12px;margin:14px auto 10px;color:#bd568b;font:800 clamp(15px,2vw,21px) 'Baloo 2',sans-serif;}
+.welcome-ribbon .ribbon-text{background:#fff0f8;border:2px solid #f8c8df;border-radius:999px;padding:7px 18px;box-shadow:0 3px 0 #f1d5e4;}
+.welcome-ribbon .bow{font-size:28px;color:#ed7eb4;}
+.feature-pills{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:8px auto 4px;}
+.feature-pill{border:2px solid #f7c6df;border-radius:999px;background:#fff8fc;padding:8px 16px;color:#604b70;font-size:12px;font-weight:900;box-shadow:0 3px 0 #f2dce8;}
+.kawaii-divider{margin:14px auto 4px;max-width:520px;text-align:center;color:#ee91bd;font-size:20px;letter-spacing:5px;}
+
+/* Replace emoji side stickers with soft illustrated background artwork */
+.side-cute {
+  width:clamp(112px,20%,205px); height:230px; top:0;
+  background-repeat:no-repeat; background-position:center; background-size:contain;
+  opacity:1; filter:drop-shadow(0 7px 8px #d88ab522);
+}
+.side-cute.left {background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMjgwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9InAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iI2ZmZTdmMyIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmYzhlMSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxnIHN0cm9rZT0iI2JkNzg5YyIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2UtbGluZWNhcD0icm91bmQiPjxwYXRoIGQ9Ik0zNSA5NSBRMjAgMzAgNzAgMjQgUTExMCAyNCAxMDQgOTEiIGZpbGw9InVybCgjcCkiLz48cGF0aCBkPSJNNDIgNjggUTM1IDM1IDY4IDM5IFE4OCA0MiA4NCA3NiIgZmlsbD0iI2ZmZjVmYSIvPjxjaXJjbGUgY3g9Ijc3IiBjeT0iMTA1IiByPSI0OCIgZmlsbD0iI2ZmZjBmNyIvPjxwYXRoIGQ9Ik01MiAxMDdxOC05IDE2IDBNODggMTA3cTgtOSAxNiAwIiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTcyIDEyNXE4IDggMTYgMCIgZmlsbD0ibm9uZSIvPjxjaXJjbGUgY3g9IjU0IiBjeT0iMTIwIiByPSI2IiBmaWxsPSIjZjM5Y2JhIiBzdHJva2U9Im5vbmUiLz48Y2lyY2xlIGN4PSIxMDQiIGN5PSIxMjAiIHI9IjYiIGZpbGw9IiNmMzljYmEiIHN0cm9rZT0ibm9uZSIvPjxyZWN0IHg9IjkwIiB5PSIxNjUiIHdpZHRoPSIxMjUiIGhlaWdodD0iNzgiIHJ4PSIxMCIgZmlsbD0idXJsKCNwKSIvPjxwYXRoIGQ9Ik04MCAyNDNoMTQ1bC0xMiAxM0g5MnoiIGZpbGw9IiNiN2RmZjAiLz48cmVjdCB4PSIxMDMiIHk9IjE3NiIgd2lkdGg9Ijk5IiBoZWlnaHQ9IjU0IiByeD0iNSIgZmlsbD0iI2ZmZiIvPjxwYXRoIGQ9Ik0xMzAgMTk5aDQ1IiBzdHJva2U9IiNmM2E3YzgiLz48cGF0aCBkPSJNMTQzIDE4N2wxMCAxMCAxMC0xMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZjNhN2M4Ii8+PHBhdGggZD0iTTE4IDI1MHEtOC0zNCAxNS00M3EyMiAxMCAxNiA0M3oiIGZpbGw9IiNkNmVmY2YiLz48cGF0aCBkPSJNMzMgMjEycS0xNC0xOC0yNC04TTM0IDIxNHExNS0yMCAyNC0xMSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjODNiODhhIi8+PC9nPjxnIGZpbGw9IiNmNGI2ZDEiPjxwYXRoIGQ9Ik0xODggMzJsNyAxNyAxNyA3LTE3IDctNyAxNy03LTE3LTE3LTcgMTctN3oiLz48Y2lyY2xlIGN4PSIyOCIgY3k9IjE1NSIgcj0iNyIvPjxwYXRoIGQ9Ik0yMDUgMTI1cTE2LTIzIDMyIDBxLTE2IDMwLTMyIDAiLz48L2c+PC9zdmc+");}
+.side-cute.right {background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMjgwIj48ZyBzdHJva2U9IiNiZDc4OWMiIHN0cm9rZS13aWR0aD0iNSIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIj48cGF0aCBkPSJNMjUgODJoMTg1IiBzdHJva2U9IiNkOWE2YmYiLz48cGF0aCBkPSJNNDUgODJWNDhoNTV2MzRNMTEyIDgyVjMxaDQzdjUxIiBmaWxsPSIjZmZmMWY3Ii8+PHBhdGggZD0iTTE2NiA4MlY1NGgzNHYyOCIgZmlsbD0iI2ZmZTVlZiIvPjxwYXRoIGQ9Ik0xNzcgNDZxLTEyLTMyIDEyLTM1cTIwIDEyIDggMzUiIGZpbGw9IiNjZGU4YzYiLz48cGF0aCBkPSJNMTg1IDQycS0zNS0xMC0yOS0yNXEyMi03IDI5IDI1TTE5MyA0MHEyOC0yMiAzOC01cS05IDIyLTM4IDUiIGZpbGw9IiNiOWRiYTkiLz48cGF0aCBkPSJNNDUgMTI2cS04LTQwIDI0LTQ5cTM1IDggMjggNDkiIGZpbGw9IiNmZmYwZjciLz48Y2lyY2xlIGN4PSI2OSIgY3k9IjEyOCIgcj0iNDMiIGZpbGw9IiNmZmY0ZjgiLz48cGF0aCBkPSJNNTEgMTI5cTctOCAxNCAwTTc2IDEyOXE3LTggMTQgME02MSAxNDZxOCA3IDE2IDAiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNNDYgMTAzbC03LTIyIDI0IDEzTTg4IDk0bDE4LTE3LTEgMzAiIGZpbGw9IiNmZmNmZTIiLz48cGF0aCBkPSJNMTIzIDE1N2g5NWwtMTAgNzdoLTc1eiIgZmlsbD0iI2ZmYzlkZiIvPjxwYXRoIGQ9Ik0xNDYgMTU3cTAtNDAgMjQtNDBxMjQgMCAyNCA0MCIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0xNjAgMTkwcTEwLTEwIDIwIDBxLTEwIDEzLTIwIDAiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMTMyIDIzNGg3OSIgc3Ryb2tlPSIjZDk4Y2FmIi8+PHJlY3QgeD0iMTEyIiB5PSIyMTIiIHdpZHRoPSI0MiIgaGVpZ2h0PSIzOCIgcng9IjciIGZpbGw9IiNmZmYwYzkiLz48cGF0aCBkPSJNMTIyIDIxMnEwLTIwIDExLTIwcTExIDAgMTEgMjAiIGZpbGw9Im5vbmUiLz48L2c+PGcgZmlsbD0iI2Y0YjZkMSI+PHBhdGggZD0iTTI1IDI1bDYgMTQgMTQgNi0xNCA2LTYgMTQtNi0xNC0xNC02IDE0LTZ6Ii8+PGNpcmNsZSBjeD0iMjIyIiBjeT0iMTIzIiByPSI3Ii8+PHBhdGggZD0iTTI3IDE5NnExNS0yMiAzMCAwcS0xNSAyOC0zMCAwIi8+PC9nPjwvc3ZnPg==");}
+.side-cute span {display:none !important;}
+@media(max-width:760px){.side-cute{width:90px;height:155px;top:8px;opacity:.96}}
+@media(max-width:390px){.side-cute{width:68px;height:125px;opacity:.9}}
+
+/* Flash sale */
+.flash-sale{display:none;position:relative;overflow:hidden;margin:22px auto 4px;padding:18px 22px;border:3px solid #ffd0e4;border-radius:28px;background:linear-gradient(110deg,#fff4fa,#ffe0ee 52%,#fff8e7);box-shadow:0 7px 0 #f3d4e3,0 12px 28px #8e5b7512;}
+.flash-sale.active{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;}
+.flash-gift{font-size:55px;line-height:1;filter:drop-shadow(0 4px 2px #e9a6c4);}
+.flash-copy{text-align:left;min-width:0;}
+.flash-title{font:900 clamp(22px,3vw,34px) 'Baloo 2',sans-serif;color:#e65d99;line-height:1.05;text-shadow:0 2px #fff;}
+.flash-sub{font-size:12px;color:#8d5879;font-weight:800;margin-top:5px;}
+.flash-timer-wrap{border-left:2px dashed #efb6d0;padding-left:18px;text-align:center;}
+.flash-timer-label{font-size:11px;color:#8d5879;font-weight:900;margin-bottom:7px;}
+.flash-timer{display:flex;gap:6px;}
+.flash-time{min-width:52px;padding:7px 6px;border-radius:13px;background:#fff;border:2px solid #f4a9cb;color:#a43e76;box-shadow:0 3px 0 #f2d4e2;}
+.flash-time b{display:block;font:900 22px 'Baloo 2';line-height:1;}
+.flash-time small{font-size:9px;font-weight:900;}
+.flash-sale .flash-spark{position:absolute;right:12px;top:7px;color:#ef91b8;font-size:18px;}
+.flash-old{font-size:11px;color:#9c8b99;text-decoration:line-through;font-weight:800;}
+.flash-price{font:900 15px 'Baloo 2';color:#df5795;}
+@media(max-width:760px){
+ .side-cute{opacity:.72;width:88px;top:15px;height:125px;}
+ .side-cute.left{transform:translateX(-12%)}.side-cute.right{transform:translateX(12%)}
+ .side-cute .cute-main{font-size:42px}.side-cute .cute-sub{font-size:15px;letter-spacing:2px}
+ .profile-card{max-width:min(440px,calc(100% - 82px))!important;padding:14px 10px!important;}
+ .profile-stats{gap:5px}.stat-box{padding:7px 2px}.stat-lbl{font-size:9px}
+ .flash-sale.active{grid-template-columns:1fr;gap:10px;text-align:center;padding:15px;}
+ .flash-gift{display:none}.flash-copy{text-align:center}.flash-timer-wrap{border-left:0;border-top:1px dashed #efb6d0;padding:10px 0 0;}
+ .flash-timer{justify-content:center}.flash-time{min-width:55px;}
+}
+@media(max-width:390px){.side-cute{opacity:.48;width:65px}.profile-card{max-width:calc(100% - 52px)!important}.side-cute .cute-main{font-size:34px}}
 
 </style>
 </head>
@@ -307,6 +378,9 @@ body, button, input, textarea, select {
 <section class="hero">
   <div class="sticker" id="heroSticker">✿ little digital treats ✿</div>
   
+  <div class="profile-decor-stage">
+    <div class="side-cute left" aria-hidden="true"><span class="cute-main">🐰</span><span class="cute-sub">🌷 🧋</span><span class="cute-main">💻</span></div>
+    <div class="side-cute right" aria-hidden="true"><span class="cute-main">🐱</span><span class="cute-sub">🎀 ✨</span><span class="cute-main">🛍️</span></div>
   <div class="profile-card">
     <div class="profile-head">
       <div class="profile-avatar" id="profileAvatarBox">
@@ -342,13 +416,26 @@ body, button, input, textarea, select {
       <a class="profile-btn" id="telegramLink" href="https://t.me/" target="_blank">Testimonials ↗</a>
     </div>
   </div>
+  </div>
 
   <p id="mainHeroDesc">Haii, welcome to my little store! Pilih paket favoritmu, lalu order langsung lewat WhatsApp yaa ♡</p>
-  <div class="decor-row" id="mainDecor">♡ ✧ 🍓 ✧ ♡</div>
+  <div class="welcome-ribbon"><span class="bow">🎀</span><span class="ribbon-text">Welcome to alvena's little world ♡</span><span class="bow">🎀</span></div>
+  <div class="feature-pills"><span class="feature-pill">⚡ Proses Cepat</span><span class="feature-pill">🛡️ Aman & Terpercaya</span><span class="feature-pill">💬 Fast Response</span></div>
+  <div class="kawaii-divider">〰️ 🎀 〰️</div>
+  <div class="decor-row" id="mainDecor" style="display:none">♡ ✧ 🍓 ✧ ♡</div>
+</section>
+
+<section class="flash-sale" id="flashSaleCard" aria-live="polite">
+  <div class="flash-gift">🎁</div>
+  <div class="flash-copy"><div class="flash-title">⚡ FLASH SALE</div><div class="flash-sub" id="flashSaleMessage">Promo spesial! Jangan sampai ketinggalan ♡</div><div id="flashSalePriceLine" style="margin-top:5px"></div></div>
+  <div class="flash-timer-wrap"><div class="flash-timer-label">⏰ Berakhir dalam:</div><div class="flash-timer"><span class="flash-time"><b id="flashHours">00</b><small>JAM</small></span><span class="flash-time"><b id="flashMinutes">00</b><small>MENIT</small></span><span class="flash-time"><b id="flashSeconds">00</b><small>DETIK</small></span></div></div>
+  <span class="flash-spark">✦ ✧</span>
 </section>
 
 <section class="section" id="order">
   <div class="section-title"><h2 id="pkgTitle">♡ Choose your package</h2><span class="small-note" id="pkgNote">pilih paket kamu!</span></div>
+  <div class="category-heading"><span class="sparkle">✧</span> Kategori <span class="sparkle">✧</span></div>
+  <div class="category-filters" id="categoryFilters" aria-label="Filter kategori aplikasi"></div>
   <input class="search-box" id="productSearch" type="search" placeholder="Cari aplikasi atau paket... ♡" aria-label="Cari aplikasi atau paket">
   
   <div id="productsContainer"></div>
@@ -428,6 +515,19 @@ body, button, input, textarea, select {
    <div class="status" id="cloudSyncStatus" style="margin-top:8px"></div>
   </div>
   
+   <h2>⚡ Flash Sale & Countdown ♡</h2>
+   <section style="background:#fff3f9;border:2px solid #f7c9df;border-radius:18px;padding:14px;margin:12px 0 18px">
+    <h2 style="margin:0 0 8px">⚡ Atur Flash Sale ♡</h2>
+    <div class="field"><label><input type="checkbox" id="flashEnabled" style="width:auto;margin-right:7px">Aktifkan Flash Sale</label></div>
+    <div class="field"><label>Pilih paket yang ikut promo</label><select id="flashPackageSelect"><option value="">Pilih paket...</option></select></div>
+    <div class="field"><label>Harga promo (Rp)</label><input id="flashSalePrice" type="number" min="1" placeholder="Contoh: 10000"></div>
+    <div class="field"><label>Berakhir pada (tanggal & jam)</label><input id="flashEndAt" type="datetime-local"></div>
+    <div class="field"><label>Teks promo</label><input id="flashMessageInput" maxlength="100" placeholder="Promo spesial! Jangan sampai ketinggalan ♡"></div>
+    <div class="admin-actions"><button class="primary" id="saveFlashSale" type="button">Simpan Flash Sale ♡</button><button class="secondary" id="stopFlashSale" type="button">Matikan Flash Sale</button></div>
+    <div class="status" id="flashAdminStatus"></div>
+    <small style="color:var(--muted)">Harga promo hanya berlaku untuk paket yang dipilih. Saat hitung mundur habis, harga kembali normal otomatis.</small>
+   </section>
+
    <h2>Kelola Kartu Bio / Profil & Telegram ♡</h2>
    <div class="field"><label>Nama Judul Kartu</label><input id="txtCardTitle" placeholder="Vena Cantik"></div>
    <div class="field"><label>Username X (@handle)</label><input id="txtCardHandle" placeholder="@venastore"></div>
@@ -461,6 +561,7 @@ body, button, input, textarea, select {
    <div id="editCategoryFields" style="background:#fef6fa; padding:10px; border-radius:12px; margin-bottom:10px;">
      <div class="field"><label>Nama Aplikasi</label><input id="editAppName" placeholder="Netflix / Iqiyi"></div>
      <div class="field"><label>Keterangan Aplikasi</label><input id="editAppDesc" placeholder="streaming package · ready to order"></div>
+     <div class="field"><label>Kelompok Kategori</label><select id="editAppGroup"><option value="Hiburan">🎬 Hiburan</option><option value="Desain">🎨 Desain</option><option value="Musik">🎵 Musik</option><option value="AI">🤖 AI</option><option value="Produktivitas">💼 Produktivitas</option></select><small style="color:var(--muted)">Pilih kelompok agar aplikasi tampil di filter kategori yang sesuai.</small></div>
      <div class="field"><label>Huruf Logo Aplikasi (Jika Tanpa Foto)</label><input id="editAppLogoText" maxlength="2" placeholder="N / I"></div>
      <div class="field"><label>Upload / Ganti Logo Aplikasi dari Galeri</label><input id="appLogoFile" type="file" accept="image/*"><small style="color:var(--muted)">Logo akan tampil di sebelah nama aplikasi pada pricelist.</small></div>
      <div id="appLogoPreviewWrap" style="display:none"><img id="appLogoPreview" class="crop-preview" alt="Preview logo aplikasi"></div>
@@ -588,6 +689,8 @@ function queueStoreCloudSave(field, value) {
 
 // Media banner dan avatar disimpan di Supabase Storage, URL-nya di store_site_texts.texts (id=1).
 let remoteSiteTexts = {};
+let flashSaleData = null;
+let flashTimerInterval = null;
 async function loadRemoteSiteMedia() {
   try {
     const { data, error } = await sb.from(SETTINGS_TABLE).select("texts").eq("id", 1).maybeSingle();
@@ -618,6 +721,8 @@ async function loadRemoteSiteMedia() {
     if (remoteSiteTexts.banner_url) writeStore(STORE_KEYS.banner, remoteSiteTexts.banner_url);
     if (remoteSiteTexts.avatar_url) writeStore(STORE_KEYS.avatar, remoteSiteTexts.avatar_url);
     if (remoteSiteTexts.dj_music_url) { djAudioUrl = remoteSiteTexts.dj_music_url; }
+    flashSaleData = remoteSiteTexts.flash_sale || null;
+    renderFlashSale();
     renderSite();
   } catch (error) {
     console.warn("Media Supabase belum dapat dimuat:", error.message);
@@ -653,6 +758,7 @@ document.getElementById("cloudSyncNowBtn")?.addEventListener("click", async () =
       reviews_data: readStore(STORE_KEYS.reviews, defaultReviews),
       card_data: readStore(STORE_KEYS.card, defaultCardData),
       site_texts: readStore(STORE_KEYS.texts, defaultTexts),
+      flash_sale: flashSaleData,
       cloud_data_version: 1
     };
     await saveRemoteSiteText(payload);
@@ -677,6 +783,85 @@ async function uploadSiteImage(file, kind) {
   if (!data?.publicUrl) throw new Error("URL publik foto tidak berhasil dibuat.");
   return data.publicUrl;
 }
+
+
+function isFlashSaleActive(){
+  return !!(flashSaleData && flashSaleData.enabled && flashSaleData.endAt && new Date(flashSaleData.endAt).getTime() > Date.now());
+}
+function getFlashSaleFor(appId, itemIndex){
+  if(!isFlashSaleActive()) return null;
+  if(flashSaleData.appId !== appId || Number(flashSaleData.itemIndex) !== Number(itemIndex)) return null;
+  const promo = Number(flashSaleData.salePrice);
+  return Number.isFinite(promo) && promo > 0 ? promo : null;
+}
+function renderFlashSale(){
+  const card = document.getElementById('flashSaleCard');
+  if(!card) return;
+  if(!isFlashSaleActive()){
+    card.classList.remove('active');
+    if(flashTimerInterval){clearInterval(flashTimerInterval);flashTimerInterval=null;}
+    return;
+  }
+  card.classList.add('active');
+  document.getElementById('flashSaleMessage').textContent = flashSaleData.message || 'Promo spesial! Jangan sampai ketinggalan ♡';
+  const products = readStore(STORE_KEYS.products, defaultProducts);
+  const app = products.find(p=>p.id===flashSaleData.appId);
+  const item = app?.items?.[Number(flashSaleData.itemIndex)];
+  document.getElementById('flashSalePriceLine').innerHTML = item ? `<span class="flash-old">${formatRp(item.price)}</span> <span class="flash-price">${formatRp(flashSaleData.salePrice)}</span>` : '';
+  if(flashTimerInterval) clearInterval(flashTimerInterval);
+  const tick=()=>{
+    const left=Math.max(0,new Date(flashSaleData.endAt).getTime()-Date.now());
+    const h=Math.floor(left/3600000),m=Math.floor((left%3600000)/60000),sec=Math.floor((left%60000)/1000);
+    document.getElementById('flashHours').textContent=String(h).padStart(2,'0');
+    document.getElementById('flashMinutes').textContent=String(m).padStart(2,'0');
+    document.getElementById('flashSeconds').textContent=String(sec).padStart(2,'0');
+    if(left<=0){flashSaleData.enabled=false;card.classList.remove('active');clearInterval(flashTimerInterval);flashTimerInterval=null;renderProducts(searchInput.value);}
+  };
+  tick();flashTimerInterval=setInterval(tick,1000);
+}
+function populateFlashPackageSelect(){
+  const select=document.getElementById('flashPackageSelect');
+  if(!select) return;
+  const products=readStore(STORE_KEYS.products,defaultProducts);
+  select.innerHTML='<option value="">Pilih paket...</option>';
+  products.forEach(app=>(app.items||[]).forEach((item,index)=>{
+    const opt=document.createElement('option');opt.value=JSON.stringify({appId:app.id,itemIndex:index});opt.textContent=`${app.name} — ${item.name} (${formatRp(item.price)})`;select.appendChild(opt);
+  }));
+}
+function fillFlashAdminFields(){
+  populateFlashPackageSelect();
+  const d=flashSaleData||{};
+  document.getElementById('flashEnabled').checked=!!d.enabled;
+  document.getElementById('flashPackageSelect').value=d.appId ? JSON.stringify({appId:d.appId,itemIndex:Number(d.itemIndex)}) : '';
+  document.getElementById('flashSalePrice').value=d.salePrice||'';
+  document.getElementById('flashEndAt').value=d.endAt ? new Date(new Date(d.endAt).getTime()-new Date(d.endAt).getTimezoneOffset()*60000).toISOString().slice(0,16) : '';
+  document.getElementById('flashMessageInput').value=d.message||'Promo spesial! Jangan sampai ketinggalan ♡';
+}
+document.getElementById('saveFlashSale')?.addEventListener('click',async()=>{
+  const status=document.getElementById('flashAdminStatus');
+  try{
+    const selected=document.getElementById('flashPackageSelect').value;
+    if(!selected) throw new Error('Pilih paket yang akan ikut Flash Sale.');
+    const target=JSON.parse(selected);
+    const salePrice=Number(document.getElementById('flashSalePrice').value);
+    const endValue=document.getElementById('flashEndAt').value;
+    if(!salePrice || salePrice<1) throw new Error('Masukkan harga promo yang valid.');
+    if(!endValue || new Date(endValue).getTime()<=Date.now()) throw new Error('Pilih waktu berakhir di masa depan.');
+    const products=readStore(STORE_KEYS.products,defaultProducts);
+    const item=products.find(p=>p.id===target.appId)?.items?.[Number(target.itemIndex)];
+    if(!item) throw new Error('Paket tidak ditemukan. Muat ulang pilihan paket.');
+    if(salePrice>=Number(item.price)) throw new Error('Harga promo harus lebih murah dari harga normal.');
+    const next={enabled:document.getElementById('flashEnabled').checked,appId:target.appId,itemIndex:Number(target.itemIndex),salePrice,endAt:new Date(endValue).toISOString(),message:document.getElementById('flashMessageInput').value.trim()};
+    await saveRemoteSiteText({flash_sale:next});
+    flashSaleData=next;renderFlashSale();renderProducts(searchInput.value);
+    status.textContent='Flash Sale berhasil disimpan ke cloud ♡';
+  }catch(e){status.textContent=e.message||'Gagal menyimpan Flash Sale.';}
+});
+document.getElementById('stopFlashSale')?.addEventListener('click',async()=>{
+  const status=document.getElementById('flashAdminStatus');
+  try{flashSaleData={...(flashSaleData||{}),enabled:false};await saveRemoteSiteText({flash_sale:flashSaleData});renderFlashSale();renderProducts(searchInput.value);fillFlashAdminFields();status.textContent='Flash Sale dimatikan ♡';}
+  catch(e){status.textContent='Gagal mematikan Flash Sale: '+e.message;}
+});
 
 const defaultTexts = {
   brand: "vena's lucky store", 
@@ -705,6 +890,7 @@ const defaultProducts = [
   {
     id: "netflix",
     name: "Netflix",
+    group: "Hiburan",
     logoVal: "N",
     desc: "streaming package · ready to order",
     items: [
@@ -720,6 +906,7 @@ const defaultProducts = [
   {
     id: "iqiyi",
     name: "Iqiyi",
+    group: "Hiburan",
     logoVal: "I",
     desc: "streaming package · ready to order",
     items: [
@@ -848,6 +1035,35 @@ function renderSite() {
   renderProducts();
   renderReviews();
   updateCategorySelect();
+  renderFlashSale();
+}
+
+const APP_GROUPS = [
+  { name: "Semua", icon: "▦" },
+  { name: "Hiburan", icon: "🎬" },
+  { name: "Desain", icon: "✎" },
+  { name: "Musik", icon: "♫" },
+  { name: "AI", icon: "✧" },
+  { name: "Produktivitas", icon: "▣" }
+];
+let activeAppGroup = "Semua";
+
+function renderCategoryFilters() {
+  const host = document.getElementById("categoryFilters");
+  if (!host) return;
+  host.innerHTML = "";
+  APP_GROUPS.forEach(group => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "category-chip" + (activeAppGroup === group.name ? " active" : "");
+    button.setAttribute("aria-pressed", activeAppGroup === group.name ? "true" : "false");
+    button.innerHTML = `<span class="chip-icon">${group.icon}</span><span>${group.name}</span>`;
+    button.addEventListener("click", () => {
+      activeAppGroup = group.name;
+      renderProducts(searchInput.value);
+    });
+    host.appendChild(button);
+  });
 }
 
 function renderProducts(filter = "") {
@@ -857,24 +1073,28 @@ function renderProducts(filter = "") {
     products = defaultProducts;
     writeStore(STORE_KEYS.products, products);
   }
+  // Older saved app entries remain compatible; unassigned apps appear under Hiburan.
+  products.forEach(app => { if (!app.group) app.group = "Hiburan"; });
   container.innerHTML = "";
-
+  renderCategoryFilters();
   let totalItemsCount = 0;
+  let visibleApps = 0;
 
   products.forEach(app => {
-    const filteredItems = app.items.filter(item => 
-      item.name.toLowerCase().includes(filter.toLowerCase()) || 
+    const appGroup = app.group || "Hiburan";
+    const filteredItems = (app.items || []).filter(item =>
+      item.name.toLowerCase().includes(filter.toLowerCase()) ||
       app.name.toLowerCase().includes(filter.toLowerCase())
     );
+    if (activeAppGroup !== "Semua" && appGroup !== activeAppGroup) return;
+    if (filter && filteredItems.length === 0 && !app.name.toLowerCase().includes(filter.toLowerCase())) return;
 
-    if(filter && filteredItems.length === 0 && !app.name.toLowerCase().includes(filter.toLowerCase())) return;
-
-    const itemsToDisplay = filter && !app.name.toLowerCase().includes(filter.toLowerCase()) ? filteredItems : app.items;
-    totalItemsCount += app.items.length;
+    const itemsToDisplay = filter && !app.name.toLowerCase().includes(filter.toLowerCase()) ? filteredItems : (app.items || []);
+    totalItemsCount += (app.items || []).length;
+    visibleApps++;
 
     const pkgDiv = document.createElement("div");
     pkgDiv.className = "package";
-
     pkgDiv.innerHTML = `
       <div class="app-head">
         <div class="app-info-left">
@@ -884,31 +1104,28 @@ function renderProducts(filter = "") {
             <div class="app-desc">${app.desc || ""}</div>
           </div>
         </div>
+        <span class="app-group-tag">${appGroup}</span>
       </div>
       <div class="choices" id="choices-${app.id}"></div>
     `;
 
     const choicesContainer = pkgDiv.querySelector(`#choices-${app.id}`);
-    
     itemsToDisplay.forEach((item) => {
       const realIndex = app.items.findIndex(it => it.name === item.name && it.price === item.price);
       const choiceCard = document.createElement("div");
       choiceCard.className = "choice-card";
+      const promoPrice = getFlashSaleFor(app.id, realIndex);
       choiceCard.innerHTML = `
-        <div>
-          <div class="choice-name">${item.name}</div>
-          <div class="choice-price">${formatRp(item.price)}</div>
-        </div>
-        <div class="choice-footer">
-          <button class="add-cart-btn" onclick="addToCart('${app.id}', ${realIndex})">+ Keranjang</button>
-        </div>
+        <div><div class="choice-name">${item.name}</div>${promoPrice ? `<div class="flash-old">${formatRp(item.price)}</div><div class="choice-price" style="color:#df5795">${formatRp(promoPrice)} <small style="font-size:9px">FLASH SALE</small></div>` : `<div class="choice-price">${formatRp(item.price)}</div>`}</div>
+        <div class="choice-footer"><button class="add-cart-btn" onclick="addToCart('${app.id}', ${realIndex})">+ Keranjang</button></div>
       `;
       choicesContainer.appendChild(choiceCard);
     });
-
     container.appendChild(pkgDiv);
   });
-
+  if (!visibleApps) {
+    container.innerHTML = `<div class="empty-category">Belum ada aplikasi di kategori ini ♡</div>`;
+  }
   document.getElementById("statGoodies").textContent = totalItemsCount;
 }
 
@@ -938,13 +1155,16 @@ window.addToCart = function(appId, itemIndex) {
   if(!app || !app.items[itemIndex]) return;
 
   const item = app.items[itemIndex];
+  const promoPrice = getFlashSaleFor(appId, itemIndex);
+  const effectivePrice = promoPrice || item.price;
   const cartKey = `${app.name} - ${item.name}`;
   const existing = cart.find(c => c.key === cartKey);
 
   if(existing) {
+    existing.price = effectivePrice;
     existing.qty += 1;
   } else {
-    cart.push({ key: cartKey, name: `${app.name} (${item.name})`, price: item.price, qty: 1 });
+    cart.push({ key: cartKey, name: `${app.name} (${item.name})`, price: effectivePrice, qty: 1 });
   }
   updateCartUI();
 };
@@ -1102,6 +1322,7 @@ function populateAdminFields() {
 
   updateCategorySelect();
   clearPackageEditor();
+  fillFlashAdminFields();
 }
 
 function updateCategorySelect() {
@@ -1116,12 +1337,14 @@ function updateCategorySelect() {
     select.appendChild(opt);
   });
   handleCategorySelectChange();
+  if (typeof populateFlashPackageSelect === "function") populateFlashPackageSelect();
 }
 
 const appCategorySelect = document.getElementById("appCategorySelect");
 const deleteAppBtn = document.getElementById("deleteAppBtn");
 const editAppName = document.getElementById("editAppName");
 const editAppDesc = document.getElementById("editAppDesc");
+const editAppGroup = document.getElementById("editAppGroup");
 const editAppLogoText = document.getElementById("editAppLogoText");
 const appLogoFile = document.getElementById("appLogoFile");
 const appLogoPreview = document.getElementById("appLogoPreview");
@@ -1174,6 +1397,7 @@ function handleCategorySelectChange() {
   if(val === "new") {
     editAppName.value = "";
     editAppDesc.value = "";
+    editAppGroup.value = "Hiburan";
     editAppLogoText.value = "";
     deleteAppBtn.style.display = "none";
     refreshExistingPackageSelect();
@@ -1183,6 +1407,7 @@ function handleCategorySelectChange() {
     if(app) {
       editAppName.value = app.name;
       editAppDesc.value = app.desc || "";
+      editAppGroup.value = app.group || "Hiburan";
       editAppLogoText.value = app.logoVal || "";
       appLogoFile.value = ""; pendingAppLogoUrl = app.logoUrl || null;
       if (app.logoUrl) { appLogoPreview.src = app.logoUrl; appLogoPreviewWrap.style.display = "block"; } else { appLogoPreviewWrap.style.display = "none"; }
@@ -1295,6 +1520,7 @@ document.getElementById("saveNewCategoryBtn").addEventListener("click", () => {
   products.push({
     id: newAppId,
     name: newName,
+    group: editAppGroup.value || "Hiburan",
     logoVal: logoText || newName.charAt(0).toUpperCase(),
     desc: newDesc || "streaming package",
     items: []
@@ -1323,6 +1549,7 @@ document.getElementById("saveCategoryEdit").addEventListener("click", async () =
   if(app) {
     app.name = editAppName.value.trim();
     app.desc = editAppDesc.value.trim();
+    app.group = editAppGroup.value || "Hiburan";
     if(editAppLogoText.value.trim()) {
       app.logoVal = editAppLogoText.value.trim();
     }
@@ -1427,6 +1654,7 @@ deleteAppBtn.addEventListener("click", () => {
   writeStore(STORE_KEYS.products, products);
   renderProducts();
   updateCategorySelect();
+  populateFlashPackageSelect();
   document.getElementById("productStatus").textContent = "Kategori berhasil dihapus! ♡";
   setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
 });
