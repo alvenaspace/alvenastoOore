@@ -67,7 +67,6 @@ h2{font:800 22px "Baloo 2";margin:0}
 .app-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .app-info-left{display:flex;align-items:center;gap:12px}
 .app-logo{width:48px;height:48px;border-radius:17px;background:var(--pink);color:#fff;display:grid;place-items:center;font:800 22px "Baloo 2";box-shadow:0 4px 0 #e9b4d0;overflow:hidden}
-.app-logo img{width:100%;height:100%;object-fit:cover;display:none}
 .app-title{font:800 19px "Baloo 2"}
 .app-desc{font-size:11px;color:var(--muted);font-weight:800}
 .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
@@ -119,8 +118,9 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
 </head>
 <body>
 
+<!-- Musik Kitty Imut & Cute Ambient Lock -->
 <audio id="bgMusic" loop preload="auto">
-  <source id="musicSource" src="https://actions.google.com/sounds/v1/ambiences/coffee_shop.ogg" type="audio/ogg">
+  <source id="musicSource" src="https://actions.google.com/sounds/v1/cartoon/xylophone_music.ogg" type="audio/ogg">
 </audio>
 
 <main class="wrap">
@@ -217,39 +217,23 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
 </footer>
 </main>
 
-<!-- MODAL SECURITY LOGIN ADMIN -->
+<!-- Modal Login Admin -->
 <div class="modal" id="loginModal">
- <div class="modal-box">
-  <div class="modal-head"><h2>Admin Security Login 🌸</h2><button class="close" id="closeLoginModal">×</button></div>
-  <form id="adminLoginForm">
-   <div class="field"><label>Email Admin</label><input type="email" id="adminEmailInput" placeholder="roosevelts120@gmail.com" required></div>
-   <div class="field"><label>Password Admin</label><input type="password" id="adminPassInput" placeholder="Masukkan password kamu" required></div>
-   <div class="admin-actions"><button type="submit" class="primary">Masuk Dashboard</button></div>
-   <div class="status" id="loginStatus" style="color:red;"></div>
-  </form>
+ <div class="modal-box" style="max-width:380px;">
+  <div class="modal-head"><h2>Login Admin Vena ♡</h2><button class="close" id="closeLoginModal">×</button></div>
+  <div class="field"><label>Email Admin</label><input id="loginEmail" type="email" placeholder="roosevelts120@gmail.com"></div>
+  <div class="field"><label>Password Admin</label><input id="loginPassword" type="password" placeholder="••••••••"></div>
+  <div class="admin-actions"><button class="primary" id="doLoginBtn" style="width:100%;">Masuk Mode Admin</button></div>
+  <div class="status" id="loginStatus" style="color:#ff5577; text-align:center;"></div>
  </div>
 </div>
 
-<!-- MODAL ADMIN DASHBOARD -->
+<!-- Modal Admin Panel -->
 <div class="modal" id="adminModal">
  <div class="modal-box">
-  <div class="modal-head"><h2 id="modalTitle">Admin Mode ♡</h2><button class="close" id="closeModal">×</button></div>
+  <div class="modal-head"><h2 id="modalTitle">Admin Panel Vena ♡</h2><button class="close" id="closeAdminModal">×</button></div>
   
   <div id="manageArea">
-   <h2>Pengaturan Musik Latar ♡</h2>
-   <div class="field">
-      <label>Pilih Musik / Lagu Latar</label>
-      <select id="musicSelect">
-        <option value="https://actions.google.com/sounds/v1/ambiences/coffee_shop.ogg">Cozy Ambient (Default)</option>
-        <option value="https://actions.google.com/sounds/v1/animals/cat_meow.ogg">Cat Purr & Meow Vibes</option>
-      </select>
-   </div>
-   <div class="admin-actions">
-     <button class="primary" id="saveMusic">Simpan Pilihan Musik</button>
-   </div>
-   <div class="status" id="musicStatus"></div>
-
-   <hr style="border:0;border-top:2px dashed var(--line);margin:18px 0">
    <h2>Kelola Kartu Bio / Profil & Telegram ♡</h2>
    <div class="field"><label>Nama Judul Kartu</label><input id="txtCardTitle" placeholder="Vena Store ✦ v.ᵉ"></div>
    <div class="field"><label>Username X (@handle)</label><input id="txtCardHandle" placeholder="@venastore"></div>
@@ -328,13 +312,608 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
 <script>
 const WHATSAPP_NUMBER = "6289692908700";
 const ADMIN_EMAIL = "roosevelts120@gmail.com";
-const ADMIN_PASS = "venacantik123"; // Bisa diubah sesukamu
 
 const formatRp = n => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(n);
 
-const modal = document.getElementById("adminModal");
 const loginModal = document.getElementById("loginModal");
+const adminModal = document.getElementById("adminModal");
 const adminOpenBtn = document.getElementById("adminOpen");
-const closeModalBtn = document.getElementById("closeModal");
-const closeLoginModalBtn = document.getElementById("closeLoginModal");
-const orderBtn = document.
+const closeLoginModal = document.getElementById("closeLoginModal");
+const closeAdminModal = document.getElementById("closeAdminModal");
+
+const orderBtn = document.getElementById("orderBtn");
+const totalText = document.getElementById("total");
+const searchInput = document.getElementById("productSearch");
+const musicBtn = document.getElementById("musicBtn");
+const bgMusic = document.getElementById("bgMusic");
+
+let isPlaying = false;
+let cart = [];
+
+const STORE_KEYS = { 
+  texts: "venaSiteTextsV7", 
+  reviews: "venaReviewsV7", 
+  products: "venaProductsDataV7",
+  card: "venaCardDataV7",
+  banner: "venaBannerUrlV7",
+  avatar: "venaAvatarUrlV7",
+  pass: "venaAdminPassV7"
+};
+
+const readStore = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key)) ?? fallback } catch { return fallback } };
+const writeStore = (key, value) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+    return true;
+  } catch(e) {
+    alert("Gagal menyimpan! Ukuran foto terlalu besar. Mohon kompres fotonya di bawah 500 KB ya ♡");
+    return false;
+  }
+};
+
+const defaultTexts = {
+  brand: "vena's lucky store", 
+  sticker: "✿ little digital treats ✿", 
+  heroDesc: "Haii, welcome to my little store! Pilih paket favoritmu, lalu order langsung lewat WhatsApp yaa ♡",
+  decor: "♡ ✧ 🍓 ✧ ♡", 
+  packageTitle: "♡ Choose your package", 
+  packageNote: "pilih paket kamu!",
+  footer: "made with love by vena ♡ thank you for visiting!"
+};
+
+const defaultCardData = {
+  title: "Vena Store ✦ v.ᵉ",
+  handle: "@venastore",
+  url: "https://x.com/",
+  telegramUrl: "https://t.me/"
+};
+
+const defaultReviews = [
+  { name: "happy customer ♡", text: "Admin ramah banget, prosesnya cepet dan gampang. Thank youu!", rating: 5 },
+  { name: "lovely buyer ♡", text: "Paketnya sesuai, harganya oke. Bakal order lagi!", rating: 5 },
+  { name: "sweet buyer ♡", text: "Fast response dan dibantu sampai selesai. Recommended!", rating: 5 }
+];
+
+const defaultProducts = [
+  {
+    id: "netflix",
+    name: "Netflix",
+    logoVal: "N",
+    desc: "streaming package · ready to order",
+    items: [
+      { name: "Netflix 1U — 3 hari", price: 12000 },
+      { name: "Netflix 1U — 7 hari", price: 18000 },
+      { name: "Netflix 1U — 14 hari", price: 30000 },
+      { name: "Netflix 1U — 1 bulan", price: 45000 },
+      { name: "Netflix 2U — 1 bulan", price: 33000 },
+      { name: "Netflix 2U — 7 hari", price: 15000 },
+      { name: "Netflix semi privat", price: 55000 }
+    ]
+  },
+  {
+    id: "iqiyi",
+    name: "Iqiyi",
+    logoVal: "I",
+    desc: "streaming package · ready to order",
+    items: [
+      { name: "premium 1 bulan", price: 13000 }
+    ]
+  }
+];
+
+musicBtn.addEventListener("click", () => {
+  if(!isPlaying) {
+    bgMusic.play().then(() => {
+      isPlaying = true;
+      musicBtn.textContent = "🎵 Musik: PAUSE";
+    }).catch(() => {
+      bgMusic.load();
+      bgMusic.play().then(() => {
+        isPlaying = true;
+        musicBtn.textContent = "🎵 Musik: PAUSE";
+      }).catch(() => {});
+    });
+  } else {
+    bgMusic.pause();
+    isPlaying = false;
+    musicBtn.textContent = "🎵 Musik: PLAY";
+  }
+});
+
+function renderSite() {
+  const texts = readStore(STORE_KEYS.texts, defaultTexts);
+  document.getElementById("siteBrand").innerHTML = texts.brand.replace("store", "<span>♡</span> store");
+  document.getElementById("heroSticker").textContent = texts.sticker;
+  document.getElementById("mainHeroDesc").textContent = texts.heroDesc;
+  document.getElementById("mainDecor").textContent = texts.decor;
+  document.getElementById("pkgTitle").textContent = texts.packageTitle;
+  document.getElementById("pkgNote").textContent = texts.packageNote;
+  document.getElementById("footerText").textContent = texts.footer;
+
+  const cardData = readStore(STORE_KEYS.card, defaultCardData);
+  document.getElementById("cardStoreTitle").textContent = cardData.title;
+  document.getElementById("cardHandleText").textContent = cardData.handle;
+  document.getElementById("headerHandleText").textContent = cardData.handle;
+  document.getElementById("xSocialLink").href = cardData.url;
+  document.getElementById("telegramLink").href = cardData.telegramUrl;
+
+  const banner = readStore(STORE_KEYS.banner, null);
+  const bannerImg = document.getElementById("bannerImg");
+  const bannerTitle = document.getElementById("bannerTitle");
+  if(banner) {
+    bannerImg.src = banner;
+    bannerImg.style.display = "block";
+    bannerTitle.style.display = "none";
+  } else {
+    bannerImg.style.display = "none";
+    bannerTitle.style.display = "block";
+  }
+
+  const avatar = readStore(STORE_KEYS.avatar, null);
+  const avatarImg = document.getElementById("avatarImg");
+  const avatarText = document.getElementById("avatarText");
+  if(avatar) {
+    avatarImg.src = avatar;
+    avatarImg.style.display = "block";
+    avatarText.style.display = "none";
+  } else {
+    avatarImg.style.display = "none";
+    avatarText.style.display = "block";
+    avatarText.textContent = cardData.title ? cardData.title.charAt(0).toUpperCase() : "V";
+  }
+
+  renderProducts();
+  renderReviews();
+  updateCategorySelect();
+}
+
+function renderProducts(filter = "") {
+  const container = document.getElementById("productsContainer");
+  let products = readStore(STORE_KEYS.products, null);
+  if(!products) {
+    products = defaultProducts;
+    writeStore(STORE_KEYS.products, products);
+  }
+  container.innerHTML = "";
+
+  let totalItemsCount = 0;
+
+  products.forEach(app => {
+    const filteredItems = app.items.filter(item => 
+      item.name.toLowerCase().includes(filter.toLowerCase()) || 
+      app.name.toLowerCase().includes(filter.toLowerCase())
+    );
+
+    if(filter && filteredItems.length === 0 && !app.name.toLowerCase().includes(filter.toLowerCase())) return;
+
+    const itemsToDisplay = filter && !app.name.toLowerCase().includes(filter.toLowerCase()) ? filteredItems : app.items;
+    totalItemsCount += app.items.length;
+
+    const pkgDiv = document.createElement("div");
+    pkgDiv.className = "package";
+
+    pkgDiv.innerHTML = `
+      <div class="app-head">
+        <div class="app-info-left">
+          <div class="app-logo">${app.logoVal || app.name.charAt(0).toUpperCase()}</div>
+          <div>
+            <div class="app-title">${app.name}</div>
+            <div class="app-desc">${app.desc || ""}</div>
+          </div>
+        </div>
+      </div>
+      <div class="choices" id="choices-${app.id}"></div>
+    `;
+
+    const choicesContainer = pkgDiv.querySelector(`#choices-${app.id}`);
+    
+    itemsToDisplay.forEach((item) => {
+      const realIndex = app.items.findIndex(it => it.name === item.name && it.price === item.price);
+      const choiceCard = document.createElement("div");
+      choiceCard.className = "choice-card";
+      choiceCard.innerHTML = `
+        <div>
+          <div class="choice-name">${item.name}</div>
+          <div class="choice-price">${formatRp(item.price)}</div>
+        </div>
+        <div class="choice-footer">
+          <button class="add-cart-btn" onclick="addToCart('${app.id}', ${realIndex})">+ Keranjang</button>
+        </div>
+      `;
+      choicesContainer.appendChild(choiceCard);
+    });
+
+    container.appendChild(pkgDiv);
+  });
+
+  document.getElementById("statGoodies").textContent = totalItemsCount;
+}
+
+function renderReviews() {
+  const container = document.getElementById("testimonials");
+  const reviews = readStore(STORE_KEYS.reviews, defaultReviews);
+  container.innerHTML = "";
+  reviews.forEach(r => {
+    const div = document.createElement("div");
+    div.className = "review";
+    div.innerHTML = `
+      <div class="stars">${"★".repeat(r.rating || 5)}</div>
+      <p>"${r.text}"</p>
+      <div class="reviewer">— ${r.name}</div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+searchInput.addEventListener("input", (e) => {
+  renderProducts(e.target.value);
+});
+
+window.addToCart = function(appId, itemIndex) {
+  const products = readStore(STORE_KEYS.products, defaultProducts);
+  const app = products.find(p => p.id === appId);
+  if(!app || !app.items[itemIndex]) return;
+
+  const item = app.items[itemIndex];
+  const cartKey = `${app.name} - ${item.name}`;
+  const existing = cart.find(c => c.key === cartKey);
+
+  if(existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ key: cartKey, name: `${app.name} (${item.name})`, price: item.price, qty: 1 });
+  }
+  updateCartUI();
+};
+
+window.removeFromCart = function(index) {
+  cart.splice(index, 1);
+  updateCartUI();
+};
+
+function updateCartUI() {
+  const listEl = document.getElementById("cartItemsList");
+  const countEl = document.getElementById("cartCount");
+
+  let totalCount = 0;
+  let totalPrice = 0;
+
+  if(cart.length === 0) {
+    listEl.innerHTML = `<div style="text-align:center; font-size:12px; color:var(--muted);">Keranjang masih kosong, klik "+ Keranjang" pada paket di atas ♡</div>`;
+    orderBtn.disabled = true;
+  } else {
+    listEl.innerHTML = "";
+    cart.forEach((item, idx) => {
+      totalCount += item.qty;
+      totalPrice += item.price * item.qty;
+      const div = document.createElement("div");
+      div.className = "cart-item";
+      div.innerHTML = `
+        <span>${item.name} (x${item.qty}) - ${formatRp(item.price * item.qty)}</span>
+        <button class="remove-item" onclick="removeFromCart(${idx})">×</button>
+      `;
+      listEl.appendChild(div);
+    });
+    orderBtn.disabled = false;
+  }
+
+  countEl.textContent = totalCount;
+  totalText.textContent = formatRp(totalPrice);
+}
+
+orderBtn.addEventListener("click", () => {
+  if(cart.length === 0) return;
+  let text = "Halo kak Vena, aku mau order dong ♡\n\n";
+  let total = 0;
+  cart.forEach(i => {
+    text += `- *${i.name}* (x${i.qty}) : ${formatRp(i.price * i.qty)}\n`;
+    total += i.price * i.qty;
+  });
+  text += `\n*TOTAL : ${formatRp(total)}*\n\nMohon bantu diproses ya kak, thank you! ♡`;
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, "_blank");
+});
+
+// Admin Authentication Modal logic
+adminOpenBtn.addEventListener("click", () => {
+  loginModal.classList.add("show");
+  document.getElementById("loginStatus").textContent = "";
+});
+
+closeLoginModal.addEventListener("click", () => loginModal.classList.remove("show"));
+closeAdminModal.addEventListener("click", () => adminModal.classList.remove("show"));
+
+document.getElementById("doLoginBtn").addEventListener("click", () => {
+  const emailVal = document.getElementById("loginEmail").value.trim().toLowerCase();
+  const passVal = document.getElementById("loginPassword").value.trim();
+  const savedPass = readStore(STORE_KEYS.pass, "12345");
+
+  if(emailVal === ADMIN_EMAIL && passVal === savedPass) {
+    loginModal.classList.remove("show");
+    adminModal.classList.add("show");
+    populateAdminFields();
+  } else {
+    document.getElementById("loginStatus").textContent = "Email atau Password Admin Salah!";
+  }
+});
+
+function populateAdminFields() {
+  const texts = readStore(STORE_KEYS.texts, defaultTexts);
+  document.getElementById("txtBrand").value = texts.brand;
+  document.getElementById("txtSticker").value = texts.sticker;
+  document.getElementById("txtHeroDesc").value = texts.heroDesc;
+  document.getElementById("txtDecor").value = texts.decor;
+  document.getElementById("txtPackageTitle").value = texts.packageTitle;
+  document.getElementById("txtPackageNote").value = texts.packageNote;
+  document.getElementById("txtFooter").value = texts.footer;
+
+  const card = readStore(STORE_KEYS.card, defaultCardData);
+  document.getElementById("txtCardTitle").value = card.title;
+  document.getElementById("txtCardHandle").value = card.handle;
+  document.getElementById("txtCardUrl").value = card.url;
+  document.getElementById("txtTelegramUrl").value = card.telegramUrl;
+
+  updateCategorySelect();
+}
+
+function updateCategorySelect() {
+  const select = document.getElementById("appCategorySelect");
+  let products = readStore(STORE_KEYS.products, defaultProducts);
+  
+  select.innerHTML = `<option value="new">+ Buat Kategori Aplikasi Baru</option>`;
+  products.forEach(p => {
+    const opt = document.createElement("option");
+    opt.value = p.id;
+    opt.textContent = p.name;
+    select.appendChild(opt);
+  });
+  handleCategorySelectChange();
+}
+
+const appCategorySelect = document.getElementById("appCategorySelect");
+const deleteAppBtn = document.getElementById("deleteAppBtn");
+const editAppName = document.getElementById("editAppName");
+const editAppDesc = document.getElementById("editAppDesc");
+const editAppLogoText = document.getElementById("editAppLogoText");
+
+appCategorySelect.addEventListener("change", handleCategorySelectChange);
+
+function handleCategorySelectChange() {
+  const val = appCategorySelect.value;
+  const products = readStore(STORE_KEYS.products, defaultProducts);
+  
+  if(val === "new") {
+    editAppName.value = "";
+    editAppDesc.value = "";
+    editAppLogoText.value = "";
+    deleteAppBtn.style.display = "none";
+  } else {
+    const app = products.find(p => p.id === val);
+    if(app) {
+      editAppName.value = app.name;
+      editAppDesc.value = app.desc || "";
+      editAppLogoText.value = app.logoVal || "";
+    }
+    deleteAppBtn.style.display = "inline-block";
+  }
+}
+
+// Simpan Profil & Avatar
+const avatarFile = document.getElementById("cardAvatarFile");
+document.getElementById("saveCardData").addEventListener("click", async () => {
+  const cardData = {
+    title: document.getElementById("txtCardTitle").value,
+    handle: document.getElementById("txtCardHandle").value,
+    url: document.getElementById("txtCardUrl").value,
+    telegramUrl: document.getElementById("txtTelegramUrl").value
+  };
+  writeStore(STORE_KEYS.card, cardData);
+
+  if(avatarFile.files && avatarFile.files[0]) {
+    const file = avatarFile.files[0];
+    if(file.size > 800000) {
+      alert("Ukuran foto logo terlalu besar! Tolong kompres fotonya di bawah 500 KB ya ♡");
+      return;
+    }
+    const base64 = await toBase64(file);
+    writeStore(STORE_KEYS.avatar, base64);
+  }
+
+  renderSite();
+  document.getElementById("cardStatus").textContent = "Berhasil menyimpan profil! ♡";
+  setTimeout(() => document.getElementById("cardStatus").textContent = "", 3000);
+});
+
+document.getElementById("removeAvatar").addEventListener("click", () => {
+  localStorage.removeItem(STORE_KEYS.avatar);
+  renderSite();
+  document.getElementById("cardStatus").textContent = "Logo avatar dihapus! ♡";
+  setTimeout(() => document.getElementById("cardStatus").textContent = "", 3000);
+});
+
+// Simpan Banner Foto
+const bannerFile = document.getElementById("bannerImageFile");
+document.getElementById("saveBanner").addEventListener("click", async () => {
+  if(bannerFile.files && bannerFile.files[0]) {
+    const file = bannerFile.files[0];
+    if(file.size > 800000) {
+      alert("Ukuran foto banner terlalu besar! Tolong kompres fotonya di bawah 500 KB ya ♡");
+      return;
+    }
+    const base64 = await toBase64(file);
+    if(writeStore(STORE_KEYS.banner, base64)) {
+      renderSite();
+      document.getElementById("bannerStatus").textContent = "Banner foto berhasil disimpan! ♡";
+      setTimeout(() => document.getElementById("bannerStatus").textContent = "", 3000);
+    }
+  } else {
+    alert("Pilih file gambar banner dari galeri terlebih dahulu!");
+  }
+});
+
+document.getElementById("removeBanner").addEventListener("click", () => {
+  localStorage.removeItem(STORE_KEYS.banner);
+  renderSite();
+  document.getElementById("bannerStatus").textContent = "Banner foto dihapus! ♡";
+  setTimeout(() => document.getElementById("bannerStatus").textContent = "", 3000);
+});
+
+// Buat Kategori Baru
+document.getElementById("saveNewCategoryBtn").addEventListener("click", () => {
+  let products = readStore(STORE_KEYS.products, defaultProducts);
+  const newName = editAppName.value.trim();
+  const newDesc = editAppDesc.value.trim();
+  const logoText = editAppLogoText.value.trim();
+
+  if(!newName) {
+    alert("Nama aplikasi tidak boleh kosong!");
+    return;
+  }
+
+  const newAppId = newName.toLowerCase().replace(/[^a-z0-9]/g, "") + "_" + Date.now();
+  
+  products.push({
+    id: newAppId,
+    name: newName,
+    logoVal: logoText || newName.charAt(0).toUpperCase(),
+    desc: newDesc || "streaming package",
+    items: []
+  });
+
+  writeStore(STORE_KEYS.products, products);
+  renderProducts();
+  updateCategorySelect();
+  
+  appCategorySelect.value = newAppId;
+  handleCategorySelectChange();
+
+  document.getElementById("productStatus").textContent = "Kategori baru berhasil dibuat! ♡";
+  setTimeout(() => document.getElementById("productStatus").textContent = "", 4000);
+});
+
+// Simpan Perubahan Kategori
+document.getElementById("saveCategoryEdit").addEventListener("click", () => {
+  let products = readStore(STORE_KEYS.products, defaultProducts);
+  const catVal = appCategorySelect.value;
+  if(catVal === "new") {
+    alert("Silakan klik 'Buat Kategori Baru' terlebih dahulu!");
+    return;
+  }
+  const app = products.find(p => p.id === catVal);
+  if(app) {
+    app.name = editAppName.value.trim();
+    app.desc = editAppDesc.value.trim();
+    if(editAppLogoText.value.trim()) {
+      app.logoVal = editAppLogoText.value.trim();
+    }
+    writeStore(STORE_KEYS.products, products);
+    renderProducts();
+    updateCategorySelect();
+    document.getElementById("productStatus").textContent = "Perubahan aplikasi berhasil disimpan! ♡";
+    setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
+  }
+});
+
+// Tambah Paket
+document.getElementById("addPackageBtn").addEventListener("click", () => {
+  let products = readStore(STORE_KEYS.products, defaultProducts);
+  const catVal = appCategorySelect.value;
+  const pkgName = document.getElementById("packageNameInput").value.trim();
+  const pkgPrice = Number(document.getElementById("packagePriceInput").value);
+
+  if(catVal === "new") {
+    alert("Silakan buat atau pilih kategori aplikasi terlebih dahulu di atas!");
+    return;
+  }
+  if(!pkgName || !pkgPrice) {
+    alert("Nama paket dan harga harus diisi!");
+    return;
+  }
+
+  const app = products.find(p => p.id === catVal);
+  if(app) {
+    app.items.push({ name: pkgName, price: pkgPrice });
+    writeStore(STORE_KEYS.products, products);
+    document.getElementById("packageNameInput").value = "";
+    document.getElementById("packagePriceInput").value = "";
+    renderProducts();
+    document.getElementById("productStatus").textContent = "Paket baru berhasil ditambahkan! ♡";
+    setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
+  }
+});
+
+// Hapus Kategori
+deleteAppBtn.addEventListener("click", () => {
+  const catVal = appCategorySelect.value;
+  if(catVal === "new") return;
+  if(!confirm("Yakin ingin menghapus seluruh kategori aplikasi ini?")) return;
+
+  let products = readStore(STORE_KEYS.products, defaultProducts);
+  products = products.filter(p => p.id !== catVal);
+  writeStore(STORE_KEYS.products, products);
+  renderProducts();
+  updateCategorySelect();
+  document.getElementById("productStatus").textContent = "Kategori berhasil dihapus! ♡";
+  setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
+});
+
+// Simpan Semua Tulisan
+document.getElementById("saveSiteTexts").addEventListener("click", () => {
+  const texts = {
+    brand: document.getElementById("txtBrand").value,
+    sticker: document.getElementById("txtSticker").value,
+    heroDesc: document.getElementById("txtHeroDesc").value,
+    decor: document.getElementById("txtDecor").value,
+    packageTitle: document.getElementById("txtPackageTitle").value,
+    packageNote: document.getElementById("txtPackageNote").value,
+    footer: document.getElementById("txtFooter").value
+  };
+  writeStore(STORE_KEYS.texts, texts);
+  renderSite();
+  document.getElementById("textsStatus").textContent = "Semua tulisan berhasil disimpan! ♡";
+  setTimeout(() => document.getElementById("textsStatus").textContent = "", 3000);
+});
+
+document.getElementById("resetSiteTexts").addEventListener("click", () => {
+  localStorage.removeItem(STORE_KEYS.texts);
+  renderSite();
+  populateAdminFields();
+  document.getElementById("textsStatus").textContent = "Tulisan dikembalikan ke default! ♡";
+  setTimeout(() => document.getElementById("textsStatus").textContent = "", 3000);
+});
+
+// Tambah Testimoni
+document.getElementById("saveReview").addEventListener("click", () => {
+  const name = document.getElementById("reviewName").value.trim();
+  const text = document.getElementById("reviewText").value.trim();
+  const rating = Number(document.getElementById("reviewRating").value);
+
+  if(!name || !text) {
+    alert("Nama dan isi testimoni harus diisi!");
+    return;
+  }
+
+  let reviews = readStore(STORE_KEYS.reviews, defaultReviews);
+  reviews.unshift({ name, text, rating });
+  writeStore(STORE_KEYS.reviews, reviews);
+  renderReviews();
+
+  document.getElementById("reviewName").value = "";
+  document.getElementById("reviewText").value = "";
+  document.getElementById("reviewStatus").textContent = "Testimoni berhasil ditambahkan! ♡";
+  setTimeout(() => document.getElementById("reviewStatus").textContent = "", 3000);
+});
+
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+}
+
+// Initial Load
+renderSite();
+</script>
+</body>
+</html>
