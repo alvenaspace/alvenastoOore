@@ -218,12 +218,8 @@ productSearch.addEventListener("input",()=>{
  document.getElementById("netflixPackage").style.display=("netflix".includes(q)||!q||Array.from(document.querySelectorAll("#netflixPackage .choice")).some(c=>c.style.display!=="none"))?"":"none";
  document.querySelectorAll("#extraProducts .package").forEach(card=>{card.style.display=card.innerText.toLowerCase().includes(q)?"":"none";});
 });
-radios.forEach(r => r.addEventListener("change",()=>{
- const selected=document.querySelector('input[name="package"]:checked');
- total.textContent=formatRp(Number(selected.dataset.price)); orderBtn.disabled=false;
-}));
 orderBtn.addEventListener("click",()=>{
- const selected=document.querySelector('input[name="package"]:checked'); if(!selected)return;
+ const selected=document.querySelector('input[name="package"]:checked'); if(!selected){alert("Pilih paket dulu ya ♡");return;}
  if(WHATSAPP_NUMBER.includes("x")){alert("Isi WHATSAPP_NUMBER di bagian script dengan nomor WhatsApp kamu dulu ya.");return;}
  const message=["Hai Vena! ♡","","Aku mau order:","• Paket: "+selected.value,"• Harga: "+formatRp(Number(selected.dataset.price)),"","Boleh dibantu proses pesanannya yaa. Terima kasih!"].join("\n");
  window.location.href="https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message);
@@ -238,7 +234,11 @@ const bannerPath="store-banner/banner";
 function showBanner(url){const img=$("heroBanner"),hero=img.closest(".hero");if(!url){img.removeAttribute("src");img.style.display="none";hero.classList.remove("has-banner");return;}img.onload=()=>{img.style.display="block";hero.classList.add("has-banner");};img.onerror=()=>{img.style.display="none";hero.classList.remove("has-banner");};img.src=url;}
 async function loadBanner(){if(!db)return;const url=db.storage.from("product-images").getPublicUrl(bannerPath).data.publicUrl;showBanner(url+"?v="+Date.now());}
 if(!window.__venaBannerLoadBound){window.__venaBannerLoadBound=true;window.addEventListener("load",()=>{if(db)loadBanner();});}
-$("adminOpen").onclick=()=>{modal.classList.add("show");};
-$("closeModal").onclick=()=>modal.classList.remove("show");
+// Pasang kontrol UI sebelum koneksi Supabase agar tombol tetap bisa diklik.
+$("adminOpen").addEventListener("click",()=>modal.classList.add("show"));
+$("closeModal").addEventListener("click",()=>modal.classList.remove("show"));
 modal.addEventListener("click",e=>{if(e.target===modal)modal.classList.remove("show");});
-if(configReady() && window.supabase){db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY)
+try {
+ if(configReady() && window.supabase){
+  db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+  loadProducts().catch(err=>console.error("loadProducts:",err))
