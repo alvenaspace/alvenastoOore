@@ -377,4 +377,46 @@ document.getElementById("saveSiteTexts").addEventListener("click", () => {
     decor: document.getElementById("txtDecor").value,
     packageTitle: document.getElementById("txtPackageTitle").value,
     packageNote: document.getElementById("txtPackageNote").value,
-    footer: document.getElementById("
+    footer: document.getElementById("txtFooter").value
+  };
+  writeStore(STORE_KEYS.texts, newTexts);
+  applyTexts();
+  const status = document.getElementById("textsStatus");
+  status.textContent = "Semua tulisan berhasil diperbarui! ✨";
+  setTimeout(() => status.textContent = "", 3000);
+});
+
+document.getElementById("resetSiteTexts").addEventListener("click", () => {
+  localStorage.removeItem(STORE_KEYS.texts);
+  applyTexts();
+  loadTextsToForm();
+  const status = document.getElementById("textsStatus");
+  status.textContent = "Tulisan dikembalikan ke default! ✨";
+  setTimeout(() => status.textContent = "", 3000);
+});
+
+// Testimonial Handler
+document.getElementById("saveReview").addEventListener("click", () => {
+  const name = document.getElementById("reviewName").value.trim();
+  const text = document.getElementById("reviewText").value.trim();
+  const rating = parseInt(document.getElementById("reviewRating").value, 10) || 5;
+  const status = document.getElementById("reviewStatus");
+
+  if (!name || !text) {
+    status.textContent = "Isi nama dan testimoni dulu yaa!";
+    return;
+  }
+
+  const currentReviews = readStore(STORE_KEYS.reviews, defaultReviews);
+  currentReviews.unshift({ name, text, rating });
+  writeStore(STORE_KEYS.reviews, currentReviews);
+  
+  renderTestimonials();
+  document.getElementById("reviewName").value = "";
+  document.getElementById("reviewText").value = "";
+  status.textContent = "Testimoni berhasil ditambahkan! ✨";
+  setTimeout(() => status.textContent = "", 3000);
+});
+</script>
+</body>
+</html>
