@@ -83,7 +83,7 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
 .admin-actions{display:flex;gap:8px;flex-wrap:wrap}
 .secondary{border:2px solid var(--line);background:#fff;border-radius:13px;padding:10px 13px;font-weight:900;cursor:pointer;color:var(--ink)}
 .status{font-size:12px;color:var(--muted);font-weight:800;min-height:18px;margin:8px 0}
-.search-box{width:100%;border:2px solid var(--line);border-radius:15px;padding:13px 15px;margin:0 0 14px;background:#fffdfd;color:var(--ink);outline:none}
+.search-box{width:100%B;border:2px solid var(--line);border-radius:15px;padding:13px 15px;margin:0 0 14px;background:#fffdfd;color:var(--ink);outline:none}
 @media(max-width:650px){.testimonials{grid-template-columns:1fr}.section{padding:15px}.checkout{align-items:stretch;flex-direction:column}.primary{width:100%}.small-note{display:none}}
 </style>
 </head>
@@ -98,15 +98,15 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
 </header>
 
 <section class="hero">
-  <div class="sticker">✿ little digital treats ✿</div>
+  <div class="sticker" id="heroSticker">✿ little digital treats ✿</div>
   <img id="heroBanner" class="hero-banner" alt="Banner Vena Store">
-  <h1>vena's <span>order</span></h1>
-  <p>Haii, welcome to my little store! Pilih paket favoritmu, lalu order langsung lewat WhatsApp yaa ♡</p>
-  <div class="decor-row">♡ ✧ 🍓 ✧ ♡</div>
+  <h1 id="mainHeroTitle">vena's <span>order</span></h1>
+  <p id="mainHeroDesc">Haii, welcome to my little store! Pilih paket favoritmu, lalu order langsung lewat WhatsApp yaa ♡</p>
+  <div class="decor-row" id="mainDecor">♡ ✧ 🍓 ✧ ♡</div>
 </section>
 
 <section class="section" id="order">
-  <div class="section-title"><h2>♡ Choose your package</h2><span class="small-note">pilih satu paket yaa!</span></div>
+  <div class="section-title"><h2 id="pkgTitle">♡ Choose your package</h2><span class="small-note" id="pkgNote">pilih satu paket yaa!</span></div>
   <input class="search-box" id="productSearch" type="search" placeholder="Cari aplikasi atau paket... ♡" aria-label="Cari aplikasi atau paket">
   
   <div class="package" id="netflixPackage">
@@ -114,7 +114,7 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
       <div class="app-logo">N</div>
       <div>
         <div class="app-title">Netflix</div>
-        <div class="app-desc">streaming package · ready to order</div>
+        <div class="app-desc" id="netflixDesc">streaming package · ready to order</div>
       </div>
     </div>
     <div class="choices">
@@ -138,136 +138,23 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
 </section>
 
 <section class="section">
-  <div class="section-title"><h2>♡ Sweet testimonials</h2><span class="small-note">love from customers!</span></div>
+  <div class="section-title"><h2 id="reviewTitle">♡ Sweet testimonials</h2><span class="small-note" id="reviewNote">love from customers!</span></div>
   <div class="testimonials" id="testimonials">
     <article class="review"><div class="stars">★★★★★</div><p>"Admin ramah banget, prosesnya cepet dan gampang. Thank youu!"</p><div class="reviewer">— happy customer ♡</div></article>
     <article class="review"><div class="stars">★★★★★</div><p>"Paketnya sesuai, harganya oke. Bakal order lagi!"</p><div class="reviewer">— lovely buyer ♡</div></article>
     <article class="review"><div class="stars">★★★★★</div><p>"Fast response dan dibantu sampai selesai. Recommended!"</p><div class="reviewer">— sweet buyer ♡</div></article>
   </div>
 </section>
-<footer>made with love by vena ♡ thank you for visiting!</footer>
+<footer id="footerText">made with love by vena ♡ thank you for visiting!</footer>
 </main>
 
-<!-- Modal Admin Login -->
+<!-- Modal Admin Login & Panel -->
 <div class="modal" id="adminModal">
  <div class="modal-box">
   <div class="modal-head"><h2 id="modalTitle">Admin login ♡</h2><button class="close" id="closeModal">×</button></div>
+  
   <div id="loginArea">
    <p class="small-note" style="margin-bottom:10px">Login menggunakan akun admin Supabase kamu.</p>
    <div class="field"><label>Email admin</label><input id="adminEmail" type="email" placeholder="email admin"></div>
    <div class="field"><label>Password</label><input id="adminPassword" type="password" placeholder="password"></div>
    <button class="primary" id="loginBtn" style="width:100%">LOGIN ♡</button>
-   <div class="status" id="loginStatus"></div>
-  </div>
-  <div id="manageArea" style="display:none">
-   <p class="small-note">Berhasil masuk sebagai admin! ♡</p>
-   <div class="admin-actions" style="margin-top:14px"><button class="secondary" id="logoutBtn">Logout</button></div>
-  </div>
- </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-const SUPABASE_URL = "https://rgktegkxtrtxrzmogbhg.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_uJQEW1rLbitiI6sLnY4wOA_3zBUTvdA";
-const WHATSAPP_NUMBER = "6289692908700";
-
-let db = null;
-if (window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY) {
-  db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-}
-
-const formatRp = n => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(n);
-
-const modal = document.getElementById("adminModal");
-const adminOpenBtn = document.getElementById("adminOpen");
-const closeModalBtn = document.getElementById("closeModal");
-const orderBtn = document.getElementById("orderBtn");
-const totalText = document.getElementById("total");
-const radios = document.querySelectorAll('input[name="package"]');
-const searchInput = document.getElementById("productSearch");
-
-const loginBtn = document.getElementById("loginBtn");
-const logoutBtn = document.getElementById("logoutBtn");
-const adminEmailInput = document.getElementById("adminEmail");
-const adminPasswordInput = document.getElementById("adminPassword");
-const loginStatus = document.getElementById("loginStatus");
-const loginArea = document.getElementById("loginArea");
-const manageArea = document.getElementById("manageArea");
-const modalTitle = document.getElementById("modalTitle");
-
-let selectedPackage = "";
-let selectedPrice = 0;
-
-// Logika Modal Admin
-adminOpenBtn.addEventListener("click", () => modal.classList.add("show"));
-closeModalBtn.addEventListener("click", () => modal.classList.remove("show"));
-modal.addEventListener("click", (e) => { if (e.target === modal) modal.classList.remove("show"); });
-
-// Logika Pemilihan Paket
-radios.forEach(radio => {
-  radio.addEventListener("change", (e) => {
-    selectedPackage = e.target.value;
-    selectedPrice = parseInt(e.target.dataset.price || 0, 10);
-    totalText.textContent = formatRp(selectedPrice);
-    orderBtn.disabled = false;
-  });
-});
-
-// Logika Order via WhatsApp
-orderBtn.addEventListener("click", () => {
-  if (!selectedPackage) return;
-  const message = `Halo Vena, aku mau order paket *${selectedPackage}* seharga *${formatRp(selectedPrice)}*.`;
-  const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-  window.open(waUrl, "_blank");
-});
-
-// Fitur Pencarian Sederhana
-searchInput.addEventListener("input", (e) => {
-  const query = e.target.value.toLowerCase();
-  const choices = document.querySelectorAll(".choice");
-  choices.forEach(choice => {
-    const text = choice.textContent.toLowerCase();
-    choice.style.display = text.includes(query) ? "block" : "none";
-  });
-});
-
-// Logika Login Admin Supabase
-loginBtn.addEventListener("click", async () => {
-  if (!db) {
-    loginStatus.textContent = "Koneksi Supabase belum siap!";
-    return;
-  }
-  const email = adminEmailInput.value.trim();
-  const password = adminPasswordInput.value;
-  if (!email || !password) {
-    loginStatus.textContent = "Isi email dan password dulu yaa!";
-    return;
-  }
-  
-  loginStatus.textContent = "Sedang masuk...";
-  try {
-    const { data, error } = await db.auth.signInWithPassword({ email, password });
-    if (error) throw error;
-    
-    loginStatus.textContent = "Berhasil login! ♡";
-    loginArea.style.display = "none";
-    manageArea.style.display = "block";
-    modalTitle.textContent = "Admin Panel ♡";
-  } catch (err) {
-    loginStatus.textContent = "Gagal login: " + err.message;
-  }
-});
-
-// Logika Logout Admin
-logoutBtn?.addEventListener("click", async () => {
-  if (db) await db.auth.signOut();
-  loginArea.style.display = "block";
-  manageArea.style.display = "none";
-  modalTitle.textContent = "Admin login ♡";
-  loginStatus.textContent = "";
-  adminPasswordInput.value = "";
-});
-</script>
-</body>
-</html>
