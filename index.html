@@ -30,8 +30,32 @@ header{display:flex;align-items:center;justify-content:space-between;gap:12px;ma
 .pill{border:2px solid white;background:#fef6fa;border-radius:30px;padding:7px 12px;font-size:11px;font-weight:900;color:var(--ink);box-shadow:0 3px 0 #f0e1ea;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
 
 .hero{position:relative;text-align:center;background:#fff;border:5px solid white;border-radius:34px;padding:22px 18px 25px;box-shadow:var(--shadow);overflow:hidden}
-.hero-banner-box{position:relative;width:100%;min-height:160px;max-height:260px;border-radius:22px;margin:0 auto 16px;border:3px solid white;box-shadow:var(--shadow);overflow:hidden;background:linear-gradient(135deg,#ff9a9e,#fad0c4,#ffd1ff);display:flex;align-items:center;justify-content:center}
-.hero-banner-box img{width:100%;height:100%;object-fit:cover;display:none}
+/* Banner memakai rasio tetap di semua ukuran layar (desktop, tablet, dan HP). */
+.hero-banner-box{
+  position:relative;
+  width:100%;
+  aspect-ratio: 2.4 / 1;
+  min-height:0;
+  max-height:none;
+  border-radius:22px;
+  margin:0 auto 16px;
+  border:3px solid white;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4,#ffd1ff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.hero-banner-box img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center center;
+  display:none;
+}
 .hero-banner-title{color:#fff;font:800 24px "Baloo 2";text-shadow:0 2px 4px rgba(0,0,0,0.2)}
 
 .profile-card{background:#fff0f7;border:2px solid #fce4ef;border-radius:26px;padding:18px;max-width:440px;margin:0 auto 16px;text-align:center}
