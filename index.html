@@ -1,0 +1,1948 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#e8f58a">
+<title>Vena Cantik</title>
+<meta name="description" content="Vena Cantik — tempat belanja paket aplikasi premium dengan mudah, aman, dan harga bersahabat.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vena Cantik">
+<meta property="og:title" content="Vena Cantik">
+<meta property="og:description" content="Temukan paket aplikasi premium favoritmu di Vena Cantik ♡">
+<meta property="og:url" content="https://alvenastooore.vercel.app/">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+ --lime:#e8f58a;--lime2:#cfe86d;--pink:#f27fba;--pink2:#ffd1e7;
+ --blue:#9bd5fa;--yellow:#fff19b;--purple:#d8b9e5;--ink:#51465b;
+ --muted:#8e8493;--white:#fff;--line:#f2e8ef;--shadow:0 12px 30px #77627d18;
+}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font-family:Nunito,sans-serif;background-color:#fffefa;
+ background-image:linear-gradient(90deg,#eaf59b55 1px,transparent 1px),linear-gradient(#eaf59b55 1px,transparent 1px);
+ background-size:30px 30px}
+button,input,textarea,select{font:inherit}
+.wrap{width:min(1000px,calc(100% - 28px));margin:auto;padding:18px 0 50px}
+
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px;background:#fff;padding:12px 18px;border-radius:22px;border:3px solid white;box-shadow:var(--shadow)}
+.brand-box{display:flex;flex-direction:column}
+.brand{font:800 22px "Baloo 2";color:#83b8ee;line-height:1}
+.brand span{color:var(--pink)}
+.handle-header{font-size:11px;color:var(--muted);font-weight:800;margin-top:2px}
+.nav{display:flex;align-items:center;gap:8px}
+.pill{border:2px solid white;background:#fef6fa;border-radius:30px;padding:7px 12px;font-size:11px;font-weight:900;color:var(--ink);box-shadow:0 3px 0 #f0e1ea;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+
+.hero{position:relative;text-align:center;background:#fff;border:5px solid white;border-radius:34px;padding:22px 18px 25px;box-shadow:var(--shadow);overflow:hidden}
+.hero-banner-box{position:relative;width:100%;aspect-ratio:2.35/1;min-height:0;max-height:none;border-radius:22px;margin:0 auto 16px;border:3px solid white;box-shadow:var(--shadow);overflow:hidden;background:linear-gradient(135deg,#ff9a9e,#fad0c4,#ffd1ff);display:flex;align-items:center;justify-content:center}
+.hero-banner-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:none}
+.hero-banner-title{color:#fff;font:800 24px "Baloo 2";text-shadow:0 2px 4px rgba(0,0,0,0.2)}
+
+.profile-card{background:#fff0f7;border:2px solid #fce4ef;border-radius:26px;padding:18px;max-width:440px;margin:0 auto 16px;text-align:center}
+.profile-head{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:12px}
+.profile-avatar{width:54px;height:54px;border-radius:20px;background:var(--pink);color:white;display:grid;place-items:center;font-weight:900;font-size:22px;box-shadow:0 4px 0 #e670ad;overflow:hidden}
+.profile-avatar img{width:100%;height:100%;object-fit:cover;display:none}
+.profile-info{text-align:left}
+.profile-title{font:800 18px "Baloo 2";line-height:1.1;color:var(--ink)}
+.profile-badge-row{display:flex;align-items:center;gap:8px;margin-top:3px}
+.profile-handle{font-size:11px;color:var(--muted);font-weight:800}
+.status-badge{display:inline-flex;align-items:center;gap:4px;background:#e7f9ee;color:#2e7d32;font-size:10px;font-weight:900;padding:2px 8px;border-radius:10px}
+.status-dot{width:6px;height:6px;background:#4caf50;border-radius:50%}
+
+.profile-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.stat-box{background:#fff;border:2px solid #f7e0ed;border-radius:16px;padding:8px 4px;text-align:center}
+.stat-num{font:800 15px "Baloo 2";color:var(--ink)}
+.stat-lbl{font-size:10px;color:var(--muted);font-weight:800}
+
+.profile-actions{display:flex;gap:10px}
+.profile-btn{flex:1;text-align:center;background:#fff;color:var(--ink);border:2px solid #f0d8e6;border-radius:16px;padding:10px;font-weight:900;font-size:12px;text-decoration:none;box-shadow:0 3px 0 #ecd6e3;transition:.15s}
+.profile-btn:hover{transform:translateY(-2px);background:#fff8fa}
+
+.sticker{display:inline-block;background:var(--yellow);border:3px solid white;border-radius:30px;padding:5px 15px;font:800 13px "Baloo 2";transform:rotate(-2deg);box-shadow:0 4px 0 #e8e1c0;margin-bottom:10px}
+.hero p{margin:0 auto;max-width:520px;color:var(--muted);font-size:13px;font-weight:700;line-height:1.6}
+.decor-row{font-size:20px;letter-spacing:8px;margin-top:12px}
+
+.section{margin-top:25px;background:#fff;border:3px solid white;border-radius:27px;padding:20px;box-shadow:var(--shadow)}
+.section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+h2{font:800 22px "Baloo 2";margin:0}
+.small-note{font-size:11px;color:var(--muted);font-weight:800}
+
+/* Cute category filters */
+.category-heading{display:flex;align-items:center;gap:8px;margin:2px 0 12px;color:#d96c9f;font:800 17px "Baloo 2",sans-serif}
+.category-heading .sparkle{font-size:19px;color:#e7a8c8}
+.category-filters{display:flex;gap:9px;overflow-x:auto;padding:2px 2px 12px;margin:0 0 12px;scrollbar-width:thin;scrollbar-color:#f3bfd8 transparent;-webkit-overflow-scrolling:touch}
+.category-chip{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;border:2px solid #d9edf6;background:#fff;border-radius:999px;padding:9px 15px;color:#54718a;font-size:13px;font-weight:900;cursor:pointer;box-shadow:0 3px 0 #e8f2f6;transition:.15s}
+.category-chip .chip-icon{font-size:15px}
+.category-chip.active{background:#f27fba;border-color:#f27fba;color:#fff;box-shadow:0 3px 0 #df6da6}
+.category-chip:focus-visible{outline:3px solid #9bd5fa;outline-offset:2px}
+@media(max-width:650px){.category-heading{font-size:15px}.category-chip{font-size:12px;padding:8px 13px}}
+.sticker{color:#51465b!important;-webkit-text-fill-color:#51465b!important}
+
+.package{border:2px solid var(--line);border-radius:22px;padding:16px;background:#fffdfd;margin-bottom:16px}
+.app-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.app-info-left{display:flex;align-items:center;gap:12px}
+.app-logo{width:48px;height:48px;border-radius:17px;background:var(--pink);color:#fff;display:grid;place-items:center;font:800 22px "Baloo 2";box-shadow:0 4px 0 #e9b4d0;overflow:hidden;flex:0 0 48px}.app-logo img{width:100%;height:100%;object-fit:cover}
+.app-title{font:800 19px "Baloo 2"}
+.app-desc{font-size:11px;color:var(--muted);font-weight:800}
+.app-group-tag{flex:0 0 auto;background:#f2f8ff;color:#6b9ac0;border:1px solid #dceefa;border-radius:999px;padding:5px 10px;font-size:10px;font-weight:900}
+.empty-category{text-align:center;padding:24px 12px;background:#fff8fb;border:2px dashed #f4c9dd;border-radius:18px;color:#9a7890;font-weight:800}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.choice-card{min-height:75px;padding:10px;border-radius:17px;border:2px solid #f0e7ee;display:flex;flex-direction:column;justify-content:space-between;transition:.15s;background:#fff0f7;position:relative}
+.choice-name{font-size:12px;font-weight:900}
+.choice-price{font:800 15px "Baloo 2";color:#e66da9}
+.choice-footer{display:flex;align-items:center;justify-content:space-between;margin-top:5px}
+.add-cart-btn{border:0;background:var(--pink);color:white;border-radius:12px;padding:6px 10px;font-size:11px;font-weight:900;cursor:pointer;box-shadow:0 2px 0 #d65e9c;transition:.1s}
+.add-cart-btn:hover{transform:scale(1.03)}
+.delete-choice-btn{background:none;border:none;color:#ff7676;font-size:14px;cursor:pointer;font-weight:900;padding:2px 5px}
+
+.checkout{display:flex;align-items:center;justify-content:space-between;gap:14px;border-top:2px dashed var(--line);margin-top:18px;padding-top:16px}
+.total-label{font-size:11px;color:var(--muted);font-weight:900}
+.total{font:800 26px "Baloo 2"}
+.primary{border:0;border-radius:18px;background:var(--pink);color:white;padding:13px 22px;font-weight:1000;box-shadow:0 5px 0 #d65e9c;cursor:pointer;transition:.15s}
+.primary:hover{transform:translateY(-2px)}
+.primary:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+.cart-list{background:#fff8fa;border:2px dashed var(--pink2);border-radius:18px;padding:12px;margin-bottom:15px}
+.cart-item{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:800;padding:6px 0;border-bottom:1px solid #f7e8f0}
+.cart-item:last-child{border-bottom:0}
+.remove-item{border:0;background:#ffdede;color:#802020;border-radius:50%;width:22px;height:22px;font-size:11px;cursor:pointer;font-weight:900}
+
+.testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.review{border:2px solid white;border-radius:20px;padding:15px;box-shadow:0 4px 0 #eee6ef;background:#fff3f8}
+.review:nth-child(3n+2){background:#f0f8ff}
+.review:nth-child(3n){background:#fffbe2}
+.stars{color:#f2a6c8;letter-spacing:2px}
+.review p{font-size:13px;line-height:1.6;font-weight:700;margin:7px 0}
+.reviewer{font-size:11px;font-weight:1000;color:#8d7c91}
+footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weight:800}
+
+.modal{position:fixed;inset:0;background:#3d314b88;display:none;align-items:center;justify-content:center;padding:16px;z-index:10}
+.modal.show{display:flex}
+.modal-box{width:min(500px,100%);max-height:90vh;overflow:auto;background:white;border:4px solid white;border-radius:25px;padding:21px;box-shadow:0 20px 60px #30243b44}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.close{border:0;background:#f8edf4;border-radius:50%;width:34px;height:34px;font-size:18px;cursor:pointer}
+.field{display:grid;gap:5px;margin:11px 0}
+.field label{font-size:12px;font-weight:900}
+.field input,.field textarea,.field select{width:100%;border:2px solid var(--line);border-radius:13px;padding:11px;outline:none;background:#fffdfd}
+.field textarea{min-height:75px;resize:vertical}
+.admin-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.secondary{border:2px solid white;background:#f4edf2;border-radius:13px;padding:10px 13px;font-weight:900;cursor:pointer;color:var(--ink)}
+.danger{border:0;background:#ffb4b4;color:#7a1d1d;border-radius:13px;padding:10px 13px;font-weight:900;cursor:pointer}
+.status{font-size:12px;color:var(--muted);font-weight:800;min-height:18px;margin:8px 0}
+.search-box{width:100%;border:2px solid var(--line);border-radius:15px;padding:13px 15px;margin:0 0 14px;background:#fffdfd;color:var(--ink);outline:none}
+.crop-preview{width:100%;max-height:190px;object-fit:contain;background:#fff8fb;border:2px dashed var(--pink2);border-radius:14px;margin-top:8px}.crop-controls{display:grid;grid-template-columns:1fr 1fr;gap:8px}.crop-controls label{font-size:11px;font-weight:800}.music-panel{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}.music-panel select{border:2px solid #f0d8e6;border-radius:14px;padding:7px;background:#fff8fb;color:var(--ink);font-weight:800}
+@media(max-width:650px){.testimonials{grid-template-columns:1fr}.section{padding:15px}.checkout{align-items:stretch;flex-direction:column}.primary{width:100%}.small-note{display:none}}
+
+/* Vena Store responsive banner + soft multicolor pricelist */
+.hero-banner-box {
+  width: 100%;
+  aspect-ratio: 3 / 1;
+  min-height: 0;
+  max-height: none;
+  height: auto;
+}
+.hero-banner-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Pricelist colors follow the soft pink / blue / yellow testimonial palette */
+#productsContainer > .package:nth-child(3n + 1) {
+  background: #fff3f8;
+  border-color: #f8dce9;
+}
+#productsContainer > .package:nth-child(3n + 2) {
+  background: #f0f8ff;
+  border-color: #dceefa;
+}
+#productsContainer > .package:nth-child(3n) {
+  background: #fffbe2;
+  border-color: #f3ebbd;
+}
+#productsContainer .choice-card {
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(255, 255, 255, 0.95);
+}
+#productsContainer .choice-card:nth-child(4n + 1) {
+  background: #fff8fb;
+  border-color: #f7e3ed;
+}
+#productsContainer .choice-card:nth-child(4n + 2) {
+  background: #f5fbff;
+  border-color: #e0f0fa;
+}
+#productsContainer .choice-card:nth-child(4n + 3) {
+  background: #fffdf0;
+  border-color: #f5edc9;
+}
+#productsContainer .choice-card:nth-child(4n) {
+  background: #f3fbf5;
+  border-color: #e0f0e5;
+}
+@media (max-width: 650px) {
+  .hero-banner-box {
+    aspect-ratio: 3 / 1;
+    width: 100%;
+  }
+}
+
+
+/* Soft Vena gradient background — inspired by the airy gradient reference,
+   using Vena's own lime, blush pink, lavender and baby-blue palette. */
+html {
+  min-height: 100%;
+  background: #fff7fb;
+}
+body {
+  min-height: 100vh;
+  background-color: #fff7fb;
+  background-image:
+    radial-gradient(ellipse at 8% 5%, rgba(232, 245, 138, .34) 0%, transparent 34%),
+    radial-gradient(ellipse at 92% 18%, rgba(155, 213, 250, .34) 0%, transparent 38%),
+    radial-gradient(ellipse at 78% 82%, rgba(242, 127, 186, .22) 0%, transparent 36%),
+    linear-gradient(135deg, #fff9e9 0%, #fff0f7 38%, #f0f8ff 72%, #f8f2ff 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+
+/* ===== REAL CUTE ADMIN DASHBOARD ===== */
+#adminModal{align-items:flex-start;padding:12px;background:rgba(54,38,58,.62);backdrop-filter:blur(8px)}
+#adminModal .modal-box{width:min(1120px,100%);max-height:calc(100vh - 24px);padding:0;overflow:auto;border:0;border-radius:25px;background:#fffafd;box-shadow:0 25px 80px #30213c44}
+#adminModal .modal-head{position:sticky;top:0;z-index:8;margin:0;padding:16px 22px;background:#fffafd;border-bottom:1px solid #f2e2eb;border-radius:25px 25px 0 0}
+#adminModal #modalTitle{font:800 25px 'Baloo 2',sans-serif;color:#71566f}
+#adminModal #manageArea{display:block;padding:18px}
+.admin-dashboard{display:grid;grid-template-columns:205px minmax(0,1fr);gap:17px;align-items:start}
+.admin-sidebar{position:sticky;top:78px;padding:15px 11px;border:1px solid #f2dfeb;border-radius:20px;background:linear-gradient(160deg,#fff0f7,#f4faff 75%,#f8fbe9)}
+.admin-side-brand{font:800 17px 'Baloo 2';color:#765b77;padding:4px 9px 13px}
+.admin-side-brand small{display:block;font:800 10px Nunito;color:#ae91a8;letter-spacing:1px;text-transform:uppercase}
+.admin-nav{display:grid;gap:6px}
+.admin-nav button{display:flex;align-items:center;gap:9px;width:100%;border:0;border-radius:12px;padding:11px 10px;background:transparent;color:#806e82;text-align:left;font:800 12px Nunito;cursor:pointer}
+.admin-nav button.active{background:#fff;color:#d66c9d;box-shadow:0 4px 13px #d78caf20}
+.admin-nav button:hover{background:#ffffffc9}
+.admin-content{min-width:0}
+.admin-welcome{padding:18px 20px;margin-bottom:14px;border:1px solid #f3e1eb;border-radius:19px;background:linear-gradient(110deg,#fff0f7,#f1f8ff 68%,#f6fbe8)}
+.admin-welcome h3{margin:0 0 3px;font:800 22px 'Baloo 2';color:#71566f}
+.admin-welcome p{margin:0;color:#9b879b;font-size:12px;font-weight:800}
+.admin-overview-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:15px}
+.admin-overview-card{padding:14px;border:1px solid #f0e2eb;border-radius:16px;background:#fff;box-shadow:0 5px 15px #886b8110}
+.admin-overview-card span{display:block;font-size:11px;font-weight:800;color:#a18da0}
+.admin-overview-card strong{display:block;margin-top:4px;font:800 23px 'Baloo 2';color:#d873a2}
+.admin-panel-section{padding:17px;border:1px solid #f0e2eb;border-radius:19px;background:#fff;margin-bottom:13px;box-shadow:0 5px 17px #886b810a}
+.admin-panel-section>h2{margin:0 0 13px;padding:0 0 10px;border-bottom:1px dashed #efdce8;font:800 19px 'Baloo 2';color:#725b78}
+.admin-panel-section>hr{display:none}
+.admin-panel-section .field{margin:9px 0 13px}
+.admin-panel-section .field label{color:#76647b;font-size:12px}
+.admin-panel-section .field input,.admin-panel-section .field textarea,.admin-panel-section .field select{border:1.5px solid #efdfeb;border-radius:12px;background:#fffafd;padding:11px 12px;min-height:42px}
+.admin-panel-section .field input:focus,.admin-panel-section .field textarea:focus,.admin-panel-section .field select:focus{outline:0;border-color:#e99ac0;box-shadow:0 0 0 3px #fdebf3}
+.admin-panel-section .admin-actions{gap:8px}
+.admin-panel-section .admin-actions button{border-radius:12px}
+#adminModal .primary{background:linear-gradient(135deg,#f28abb,#e875ac);box-shadow:0 4px 0 #d9669e}
+#adminModal .secondary{border:1px solid #eadce9;background:#f7f1f7;color:#705f76}
+#adminModal .danger{border-radius:12px}
+#adminModal .status{border-radius:10px;background:#fff5fa;padding:7px 9px;color:#a36b8a}
+#adminModal #cloudSyncPanel{margin:0 0 14px!important;border:1px solid #e3eaf0!important;border-radius:17px!important;background:linear-gradient(110deg,#f1f8ff,#f8fbe9)!important}
+@media(max-width:700px){
+ #adminModal{padding:5px}
+ #adminModal .modal-box{max-height:calc(100vh - 10px);border-radius:19px}
+ #adminModal .modal-head{padding:12px 14px;border-radius:19px 19px 0 0}
+ #adminModal #modalTitle{font-size:20px}
+ #adminModal #manageArea{padding:11px}
+ .admin-dashboard{grid-template-columns:1fr;gap:10px}
+ .admin-sidebar{position:static;padding:9px;border-radius:15px}
+ .admin-side-brand{padding:2px 6px 8px}
+ .admin-nav{display:flex;overflow-x:auto;padding-bottom:3px;gap:5px}
+ .admin-nav button{width:auto;white-space:nowrap;flex:0 0 auto;padding:9px 11px;font-size:11px}
+ .admin-overview-cards{gap:7px}
+ .admin-overview-card{padding:10px}
+ .admin-overview-card strong{font-size:19px}
+ .admin-panel-section{padding:13px;border-radius:16px}
+}
+
+
+/* Vena soft cute typography — font-only refinement */
+body, button, input, textarea, select {
+  font-family: "Nunito", sans-serif !important;
+}
+.brand, .profile-title, h2, .app-title, .choice-name, .choice-price, .total,
+.stat-num, .hero-banner-title, .sticker, #adminModal #modalTitle,
+.admin-side-brand, .admin-welcome h3, .admin-overview-card strong,
+.admin-panel-section > h2 {
+  font-family: "Fredoka", "Baloo 2", sans-serif !important;
+  font-weight: 600;
+}
+/* Store name stays a single soft blue; no rainbow lettering */
+.brand {
+  color: #83b8ee !important;
+  background: none !important;
+  -webkit-text-fill-color: #83b8ee !important;
+}
+/* Keep the rest of the typography calm and readable */
+.profile-title, h2, .app-title, .choice-name, .total,
+.stat-num, #adminModal #modalTitle, .admin-side-brand,
+.admin-welcome h3, .admin-panel-section > h2 {
+  color: var(--ink);
+  -webkit-text-fill-color: var(--ink);
+}
+.choice-price, .admin-overview-card strong { color: #d873a2; -webkit-text-fill-color: #d873a2; }
+.hero-banner-title { color: #fff; -webkit-text-fill-color: #fff; }
+.sticker { color: #51465b !important; -webkit-text-fill-color: #51465b !important; }
+
+
+/* Kawaii side decorations + welcome strip */
+.hero{overflow:visible;}
+.profile-decor-stage{position:relative;max-width:100%;margin:0 auto 10px;min-height:0;}
+.profile-decor-stage .profile-card{position:relative;z-index:2;}
+.side-cute{position:absolute;z-index:1;top:8px;width:clamp(100px,18%,190px);height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;pointer-events:none;filter:drop-shadow(0 5px 5px #d88ab522);}
+.side-cute.left{left:0;transform:translateX(-8%);}
+.side-cute.right{right:0;transform:translateX(8%);}
+.side-cute .cute-main{font-size:clamp(46px,7vw,76px);line-height:1.1;}
+.side-cute .cute-sub{font-size:clamp(19px,3vw,30px);letter-spacing:5px;}
+.welcome-ribbon{display:flex;align-items:center;justify-content:center;gap:12px;margin:14px auto 10px;color:#bd568b;font:800 clamp(15px,2vw,21px) 'Baloo 2',sans-serif;}
+.welcome-ribbon .ribbon-text{background:#fff0f8;border:2px solid #f8c8df;border-radius:999px;padding:7px 18px;box-shadow:0 3px 0 #f1d5e4;}
+.welcome-ribbon .bow{font-size:28px;color:#ed7eb4;}
+.feature-pills{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:8px auto 4px;}
+.feature-pill{border:2px solid #f7c6df;border-radius:999px;background:#fff8fc;padding:8px 16px;color:#604b70;font-size:12px;font-weight:900;box-shadow:0 3px 0 #f2dce8;}
+.kawaii-divider{margin:14px auto 4px;max-width:520px;text-align:center;color:#ee91bd;font-size:20px;letter-spacing:5px;}
+
+/* Replace emoji side stickers with soft illustrated background artwork */
+.side-cute {
+  width:clamp(112px,20%,205px); height:230px; top:0;
+  background-repeat:no-repeat; background-position:center; background-size:contain;
+  opacity:1; filter:drop-shadow(0 7px 8px #d88ab522);
+}
+.side-cute.left {background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMjgwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9InAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iI2ZmZTdmMyIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmYzhlMSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxnIHN0cm9rZT0iI2JkNzg5YyIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2UtbGluZWNhcD0icm91bmQiPjxwYXRoIGQ9Ik0zNSA5NSBRMjAgMzAgNzAgMjQgUTExMCAyNCAxMDQgOTEiIGZpbGw9InVybCgjcCkiLz48cGF0aCBkPSJNNDIgNjggUTM1IDM1IDY4IDM5IFE4OCA0MiA4NCA3NiIgZmlsbD0iI2ZmZjVmYSIvPjxjaXJjbGUgY3g9Ijc3IiBjeT0iMTA1IiByPSI0OCIgZmlsbD0iI2ZmZjBmNyIvPjxwYXRoIGQ9Ik01MiAxMDdxOC05IDE2IDBNODggMTA3cTgtOSAxNiAwIiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTcyIDEyNXE4IDggMTYgMCIgZmlsbD0ibm9uZSIvPjxjaXJjbGUgY3g9IjU0IiBjeT0iMTIwIiByPSI2IiBmaWxsPSIjZjM5Y2JhIiBzdHJva2U9Im5vbmUiLz48Y2lyY2xlIGN4PSIxMDQiIGN5PSIxMjAiIHI9IjYiIGZpbGw9IiNmMzljYmEiIHN0cm9rZT0ibm9uZSIvPjxyZWN0IHg9IjkwIiB5PSIxNjUiIHdpZHRoPSIxMjUiIGhlaWdodD0iNzgiIHJ4PSIxMCIgZmlsbD0idXJsKCNwKSIvPjxwYXRoIGQ9Ik04MCAyNDNoMTQ1bC0xMiAxM0g5MnoiIGZpbGw9IiNiN2RmZjAiLz48cmVjdCB4PSIxMDMiIHk9IjE3NiIgd2lkdGg9Ijk5IiBoZWlnaHQ9IjU0IiByeD0iNSIgZmlsbD0iI2ZmZiIvPjxwYXRoIGQ9Ik0xMzAgMTk5aDQ1IiBzdHJva2U9IiNmM2E3YzgiLz48cGF0aCBkPSJNMTQzIDE4N2wxMCAxMCAxMC0xMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZjNhN2M4Ii8+PHBhdGggZD0iTTE4IDI1MHEtOC0zNCAxNS00M3EyMiAxMCAxNiA0M3oiIGZpbGw9IiNkNmVmY2YiLz48cGF0aCBkPSJNMzMgMjEycS0xNC0xOC0yNC04TTM0IDIxNHExNS0yMCAyNC0xMSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjODNiODhhIi8+PC9nPjxnIGZpbGw9IiNmNGI2ZDEiPjxwYXRoIGQ9Ik0xODggMzJsNyAxNyAxNyA3LTE3IDctNyAxNy03LTE3LTE3LTcgMTctN3oiLz48Y2lyY2xlIGN4PSIyOCIgY3k9IjE1NSIgcj0iNyIvPjxwYXRoIGQ9Ik0yMDUgMTI1cTE2LTIzIDMyIDBxLTE2IDMwLTMyIDAiLz48L2c+PC9zdmc+");}
+.side-cute.right {background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMjgwIj48ZyBzdHJva2U9IiNiZDc4OWMiIHN0cm9rZS13aWR0aD0iNSIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIj48cGF0aCBkPSJNMjUgODJoMTg1IiBzdHJva2U9IiNkOWE2YmYiLz48cGF0aCBkPSJNNDUgODJWNDhoNTV2MzRNMTEyIDgyVjMxaDQzdjUxIiBmaWxsPSIjZmZmMWY3Ii8+PHBhdGggZD0iTTE2NiA4MlY1NGgzNHYyOCIgZmlsbD0iI2ZmZTVlZiIvPjxwYXRoIGQ9Ik0xNzcgNDZxLTEyLTMyIDEyLTM1cTIwIDEyIDggMzUiIGZpbGw9IiNjZGU4YzYiLz48cGF0aCBkPSJNMTg1IDQycS0zNS0xMC0yOS0yNXEyMi03IDI5IDI1TTE5MyA0MHEyOC0yMiAzOC01cS05IDIyLTM4IDUiIGZpbGw9IiNiOWRiYTkiLz48cGF0aCBkPSJNNDUgMTI2cS04LTQwIDI0LTQ5cTM1IDggMjggNDkiIGZpbGw9IiNmZmYwZjciLz48Y2lyY2xlIGN4PSI2OSIgY3k9IjEyOCIgcj0iNDMiIGZpbGw9IiNmZmY0ZjgiLz48cGF0aCBkPSJNNTEgMTI5cTctOCAxNCAwTTc2IDEyOXE3LTggMTQgME02MSAxNDZxOCA3IDE2IDAiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNNDYgMTAzbC03LTIyIDI0IDEzTTg4IDk0bDE4LTE3LTEgMzAiIGZpbGw9IiNmZmNmZTIiLz48cGF0aCBkPSJNMTIzIDE1N2g5NWwtMTAgNzdoLTc1eiIgZmlsbD0iI2ZmYzlkZiIvPjxwYXRoIGQ9Ik0xNDYgMTU3cTAtNDAgMjQtNDBxMjQgMCAyNCA0MCIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0xNjAgMTkwcTEwLTEwIDIwIDBxLTEwIDEzLTIwIDAiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMTMyIDIzNGg3OSIgc3Ryb2tlPSIjZDk4Y2FmIi8+PHJlY3QgeD0iMTEyIiB5PSIyMTIiIHdpZHRoPSI0MiIgaGVpZ2h0PSIzOCIgcng9IjciIGZpbGw9IiNmZmYwYzkiLz48cGF0aCBkPSJNMTIyIDIxMnEwLTIwIDExLTIwcTExIDAgMTEgMjAiIGZpbGw9Im5vbmUiLz48L2c+PGcgZmlsbD0iI2Y0YjZkMSI+PHBhdGggZD0iTTI1IDI1bDYgMTQgMTQgNi0xNCA2LTYgMTQtNi0xNC0xNC02IDE0LTZ6Ii8+PGNpcmNsZSBjeD0iMjIyIiBjeT0iMTIzIiByPSI3Ii8+PHBhdGggZD0iTTI3IDE5NnExNS0yMiAzMCAwcS0xNSAyOC0zMCAwIi8+PC9nPjwvc3ZnPg==");}
+.side-cute span {display:none !important;}
+@media(max-width:760px){.side-cute{width:90px;height:155px;top:8px;opacity:.96}}
+@media(max-width:390px){.side-cute{width:68px;height:125px;opacity:.9}}
+
+/* Flash sale */
+.flash-sale{display:none;position:relative;overflow:hidden;margin:22px auto 4px;padding:18px 22px;border:3px solid #ffd0e4;border-radius:28px;background:linear-gradient(110deg,#fff4fa,#ffe0ee 52%,#fff8e7);box-shadow:0 7px 0 #f3d4e3,0 12px 28px #8e5b7512;}
+.flash-sale.active{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;}
+.flash-gift{font-size:55px;line-height:1;filter:drop-shadow(0 4px 2px #e9a6c4);}
+.flash-copy{text-align:left;min-width:0;}
+.flash-title{font:900 clamp(22px,3vw,34px) 'Baloo 2',sans-serif;color:#e65d99;line-height:1.05;text-shadow:0 2px #fff;}
+.flash-sub{font-size:12px;color:#8d5879;font-weight:800;margin-top:5px;}
+.flash-timer-wrap{border-left:2px dashed #efb6d0;padding-left:18px;text-align:center;}
+.flash-timer-label{font-size:11px;color:#8d5879;font-weight:900;margin-bottom:7px;}
+.flash-timer{display:flex;gap:6px;}
+.flash-time{min-width:52px;padding:7px 6px;border-radius:13px;background:#fff;border:2px solid #f4a9cb;color:#a43e76;box-shadow:0 3px 0 #f2d4e2;}
+.flash-time b{display:block;font:900 22px 'Baloo 2';line-height:1;}
+.flash-time small{font-size:9px;font-weight:900;}
+.flash-sale .flash-spark{position:absolute;right:12px;top:7px;color:#ef91b8;font-size:18px;}
+.flash-old{font-size:11px;color:#9c8b99;text-decoration:line-through;font-weight:800;}
+.flash-price{font:900 15px 'Baloo 2';color:#df5795;}
+@media(max-width:760px){
+ .side-cute{opacity:.72;width:88px;top:15px;height:125px;}
+ .side-cute.left{transform:translateX(-12%)}.side-cute.right{transform:translateX(12%)}
+ .side-cute .cute-main{font-size:42px}.side-cute .cute-sub{font-size:15px;letter-spacing:2px}
+ .profile-card{max-width:min(440px,calc(100% - 82px))!important;padding:14px 10px!important;}
+ .profile-stats{gap:5px}.stat-box{padding:7px 2px}.stat-lbl{font-size:9px}
+ .flash-sale.active{grid-template-columns:1fr;gap:10px;text-align:center;padding:15px;}
+ .flash-gift{display:none}.flash-copy{text-align:center}.flash-timer-wrap{border-left:0;border-top:1px dashed #efb6d0;padding:10px 0 0;}
+ .flash-timer{justify-content:center}.flash-time{min-width:55px;}
+}
+@media(max-width:390px){.side-cute{opacity:.48;width:65px}.profile-card{max-width:calc(100% - 52px)!important}.side-cute .cute-main{font-size:34px}}
+
+</style>
+</head>
+<body>
+
+<!-- Musik Kitty Imut (Cute Xylophone) -->
+<audio id="bgMusic" loop preload="auto">
+  <source id="musicSource" src="https://actions.google.com/sounds/v1/cartoon/xylophone_music.ogg" type="audio/ogg">
+</audio>
+<audio id="djMusicAudio" loop preload="none"></audio>
+
+<main class="wrap">
+<header>
+  <div class="brand-box">
+    <div class="brand" id="siteBrand">vena's store</div>
+    <div class="handle-header" id="headerHandleText">@venastore</div>
+  </div>
+  <nav class="nav">
+    <select class="pill" id="musicModeSelect" aria-label="Pilih musik"><option value="cute">🎀 Cute Music Box</option><option value="dj">🔥 DJ Party Mix</option></select><button class="pill" id="musicBtn">🎵 Musik: PLAY</button>
+    <a class="pill" href="#order">Order ✿</a>
+    <button class="pill" id="adminOpen">Admin ♡</button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="sticker" id="heroSticker">✿ little digital treats ✿</div>
+  
+  <div class="profile-decor-stage">
+    <div class="side-cute left" aria-hidden="true"><span class="cute-main">🐰</span><span class="cute-sub">🌷 🧋</span><span class="cute-main">💻</span></div>
+    <div class="side-cute right" aria-hidden="true"><span class="cute-main">🐱</span><span class="cute-sub">🎀 ✨</span><span class="cute-main">🛍️</span></div>
+  <div class="profile-card">
+    <div class="profile-head">
+      <div class="profile-avatar" id="profileAvatarBox">
+        <span id="avatarText">V</span>
+        <img id="avatarImg" alt="Logo Profile">
+      </div>
+      <div class="profile-info">
+        <div class="profile-title" id="cardStoreTitle">Vena Cantik</div>
+        <div class="profile-badge-row">
+          <span class="profile-handle" id="cardHandleText">@venastore</span>
+          <span class="status-badge"><span class="status-dot"></span> Store is open 🌸</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="profile-stats">
+      <div class="stat-box">
+        <div class="stat-num" id="statGoodies">58</div>
+        <div class="stat-lbl">Goodies</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" id="statFolls">3.2k</div>
+        <div class="stat-lbl">Happy folls</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" id="statFolks">4.1k</div>
+        <div class="stat-lbl">Happy folks</div>
+      </div>
+    </div>
+
+    <div class="profile-actions">
+      <a class="profile-btn" id="xSocialLink" href="https://x.com/" target="_blank">Social links ↗</a>
+      <a class="profile-btn" id="telegramLink" href="https://t.me/" target="_blank">Testimonials ↗</a>
+    </div>
+  </div>
+  </div>
+
+  <p id="mainHeroDesc">Haii, welcome to my little store! Pilih paket favoritmu, lalu order langsung lewat WhatsApp yaa ♡</p>
+  <div class="welcome-ribbon"><span class="bow">🎀</span><span class="ribbon-text">Welcome to alvena's little world ♡</span><span class="bow">🎀</span></div>
+  <div class="feature-pills"><span class="feature-pill">⚡ Proses Cepat</span><span class="feature-pill">🛡️ Aman & Terpercaya</span><span class="feature-pill">💬 Fast Response</span></div>
+  <div class="kawaii-divider">〰️ 🎀 〰️</div>
+  <div class="decor-row" id="mainDecor" style="display:none">♡ ✧ 🍓 ✧ ♡</div>
+</section>
+
+<section class="flash-sale" id="flashSaleCard" aria-live="polite">
+  <div class="flash-gift">🎁</div>
+  <div class="flash-copy"><div class="flash-title">⚡ FLASH SALE</div><div class="flash-sub" id="flashSaleMessage">Promo spesial! Jangan sampai ketinggalan ♡</div><div id="flashSalePriceLine" style="margin-top:5px"></div></div>
+  <div class="flash-timer-wrap"><div class="flash-timer-label">⏰ Berakhir dalam:</div><div class="flash-timer"><span class="flash-time"><b id="flashHours">00</b><small>JAM</small></span><span class="flash-time"><b id="flashMinutes">00</b><small>MENIT</small></span><span class="flash-time"><b id="flashSeconds">00</b><small>DETIK</small></span></div></div>
+  <span class="flash-spark">✦ ✧</span>
+</section>
+
+<section class="section" id="order">
+  <div class="section-title"><h2 id="pkgTitle">♡ Choose your package</h2><span class="small-note" id="pkgNote">pilih paket kamu!</span></div>
+  <div class="category-heading"><span class="sparkle">✧</span> Kategori <span class="sparkle">✧</span></div>
+  <div class="category-filters" id="categoryFilters" aria-label="Filter kategori aplikasi"></div>
+  <input class="search-box" id="productSearch" type="search" placeholder="Cari aplikasi atau paket... ♡" aria-label="Cari aplikasi atau paket">
+  
+  <div id="productsContainer"></div>
+
+  <div class="checkout" style="flex-direction: column; align-items: stretch;">
+    <div style="font-weight:900; font-size:14px; margin-bottom:5px;">🛒 KERANJANG BELANJA kamu (<span id="cartCount">0</span> item)</div>
+    
+    <div class="cart-list" id="cartItemsList">
+      <div style="text-align:center; font-size:12px; color:var(--muted);">Keranjang masih kosong, klik "+ Keranjang" pada paket di atas ♡</div>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <div class="total-label">TOTAL ORDER ♡</div>
+        <div class="total" id="total">Rp0</div>
+      </div>
+      <button class="primary" id="orderBtn" disabled>ORDER VIA WHATSAPP ↗</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="testimonials-section">
+  <div class="section-title"><h2 id="reviewTitle">♡ Sweet testimonials</h2><span class="small-note" id="reviewNote">love from customers!</span></div>
+  <div class="testimonials" id="testimonials"></div>
+</section>
+
+<footer>
+  <div id="footerText">made with love by vena ♡ thank you for visiting!</div>
+</footer>
+</main>
+<div class="modal" id="cropModal" style="z-index:30">
+ <div class="modal-box">
+  <div class="modal-head"><h2>Atur Crop Foto ♡</h2><button class="close" id="cropClose">×</button></div>
+  <img id="cropImage" class="crop-preview" alt="Preview crop">
+  <div class="crop-controls">
+   <label>Zoom <input id="cropZoom" type="range" min="1" max="3" step="0.05" value="1"></label>
+   <label>Geser kiri/kanan <input id="cropX" type="range" min="0" max="100" value="50"></label>
+   <label>Geser atas/bawah <input id="cropY" type="range" min="0" max="100" value="50"></label>
+  </div>
+  <div class="admin-actions"><button class="primary" id="cropApply">Pakai Crop Ini ♡</button><button class="secondary" id="cropCancel">Batal</button></div>
+  <div class="status">Geser posisi dan zoom sampai pas, lalu tekan Pakai Crop Ini.</div>
+ </div>
+</div>
+
+
+<!-- Modal Login Admin Khusus Email (Dengan Menu Reset Password) -->
+<div class="modal" id="loginModal">
+ <div class="modal-box" style="max-width:380px;">
+  <div class="modal-head"><h2>Login Admin Vena ♡</h2><button class="close" id="closeLoginModal">×</button></div>
+  <div class="field"><label>Email Admin</label><input id="loginEmail" type="email" placeholder="roosevelts120@gmail.com"></div>
+  <div class="field"><label>Password Admin</label><input id="loginPassword" type="password" placeholder="Masukkan password (default: 12345)"></div>
+  <div class="admin-actions" style="margin-top:10px;"><button class="primary" id="doLoginBtn" style="width:100%;">Masuk Mode Admin</button></div>
+
+  <!-- BAGIAN RESET / ATUR PASSWORD BARU -->
+  <div style="margin-top:18px; border-top:2px dashed var(--line); padding-top:14px;">
+    <div class="field" style="margin:0 0 8px 0;">
+      <label style="font-size:11px; color:#e66da9;">✨ Lupa password admin?</label>
+      <input id="newAdminPass" type="password" placeholder="Link reset akan dikirim ke email admin">
+    </div>
+    <button class="secondary" id="saveNewPassBtn" style="width:100%; font-size:11px; background:#fff0f7; border-color:#fce4ef;">Kirim Link Reset Password ♡</button>
+  </div>
+
+  <div class="status" id="loginStatus" style="color:#ff5577; text-align:center; margin-top:8px;"></div>
+ </div>
+</div>
+
+<!-- Modal Panel Admin Utama -->
+<div class="modal" id="adminModal">
+ <div class="modal-box">
+  <div class="modal-head"><h2 id="modalTitle">Admin Panel Vena ♡</h2><div style="display:flex;gap:8px;align-items:center"><button class="secondary" id="adminLogoutBtn" type="button">Logout ↗</button><button class="close" id="closeAdminModal">×</button></div></div>
+  
+  <div id="manageArea">
+  <div id="cloudSyncPanel" style="background:#f2f8ff;border:2px solid #dceefa;border-radius:16px;padding:14px;margin:12px 0 18px">
+   <h3 style="margin:0 0 6px;color:var(--ink)">☁️ Sinkronkan Data ke Semua Perangkat</h3>
+   <p style="margin:0 0 10px;color:var(--muted);font-size:13px">Gunakan sekali dari tablet yang berisi pricelist lengkap. Data lokal tablet akan disalin ke Supabase agar tampil sama di HP, laptop, dan browser lain.</p>
+   <button class="primary" id="cloudSyncNowBtn" type="button">☁️ Simpan Data Tablet ke Cloud</button>
+   <div class="status" id="cloudSyncStatus" style="margin-top:8px"></div>
+  </div>
+  
+   <h2>⚡ Flash Sale & Countdown ♡</h2>
+   <section style="background:#fff3f9;border:2px solid #f7c9df;border-radius:18px;padding:14px;margin:12px 0 18px">
+    <h2 style="margin:0 0 8px">⚡ Atur Flash Sale ♡</h2>
+    <div class="field"><label><input type="checkbox" id="flashEnabled" style="width:auto;margin-right:7px">Aktifkan Flash Sale</label></div>
+    <div class="field"><label>Pilih paket yang ikut promo</label><select id="flashPackageSelect"><option value="">Pilih paket...</option></select></div>
+    <div class="field"><label>Harga promo (Rp)</label><input id="flashSalePrice" type="number" min="1" placeholder="Contoh: 10000"></div>
+    <div class="field"><label>Berakhir pada (tanggal & jam)</label><input id="flashEndAt" type="datetime-local"></div>
+    <div class="field"><label>Teks promo</label><input id="flashMessageInput" maxlength="100" placeholder="Promo spesial! Jangan sampai ketinggalan ♡"></div>
+    <div class="admin-actions"><button class="primary" id="saveFlashSale" type="button">Simpan Flash Sale ♡</button><button class="secondary" id="stopFlashSale" type="button">Matikan Flash Sale</button></div>
+    <div class="status" id="flashAdminStatus"></div>
+    <small style="color:var(--muted)">Harga promo hanya berlaku untuk paket yang dipilih. Saat hitung mundur habis, harga kembali normal otomatis.</small>
+   </section>
+
+   <h2>Kelola Kartu Bio / Profil & Telegram ♡</h2>
+   <div class="field"><label>Nama Judul Kartu</label><input id="txtCardTitle" placeholder="Vena Cantik"></div>
+   <div class="field"><label>Username X (@handle)</label><input id="txtCardHandle" placeholder="@venastore"></div>
+   <div class="field"><label>Link URL X (Twitter)</label><input id="txtCardUrl" placeholder="https://x.com/venastore"></div>
+   <div class="field"><label>Link URL Telegram Testimoni</label><input id="txtTelegramUrl" placeholder="https://t.me/channeltestimoni"></div>
+   <div class="field"><label>Upload Logo Foto Profil (Maks 500 KB)</label><input id="cardAvatarFile" type="file" accept="image/*"></div>
+   <div class="admin-actions">
+     <button class="primary" id="saveCardData">Simpan Profil & Logo Avatar</button>
+     <button class="secondary" id="removeAvatar">Hapus Logo Avatar</button>
+   </div>
+   <div class="status" id="cardStatus"></div>
+
+   <hr style="border:0;border-top:2px dashed var(--line);margin:18px 0">
+   <h2>Pengaturan Banner Foto (Maks 500 KB) ♡</h2>
+   <div class="field"><label>Foto Banner X/Twitter (Galeri)</label><input id="bannerImageFile" type="file" accept="image/*"></div>
+   <div class="admin-actions">
+     <button class="primary" id="saveBanner">Simpan Banner Foto</button>
+     <button class="secondary" id="removeBanner">Hapus Banner Foto</button>
+   </div>
+   <div class="status" id="bannerStatus"></div>
+
+   <hr style="border:0;border-top:2px dashed var(--line);margin:18px 0">
+   <h2>Edit Nama, Harga & Aplikasi / Stok ♡</h2>
+   <div class="field">
+     <label>Pilih Kategori Aplikasi / Buat Baru</label>
+     <select id="appCategorySelect">
+       <option value="new">+ Buat Kategori Aplikasi Baru</option>
+     </select>
+   </div>
+   
+   <div id="editCategoryFields" style="background:#fef6fa; padding:10px; border-radius:12px; margin-bottom:10px;">
+     <div class="field"><label>Nama Aplikasi</label><input id="editAppName" placeholder="Netflix / Iqiyi"></div>
+     <div class="field"><label>Keterangan Aplikasi</label><input id="editAppDesc" placeholder="streaming package · ready to order"></div>
+     <div class="field"><label>Kelompok Kategori</label><select id="editAppGroup"></select><small style="color:var(--muted)">Pilih kelompok agar aplikasi tampil di filter kategori yang sesuai.</small></div>
+     <div class="field" style="background:#fff8fc;border:1px dashed #efb9d5;border-radius:14px;padding:12px">
+       <label style="font-weight:900">♡ Buat kelompok kategori sendiri</label>
+       <div style="display:grid;grid-template-columns:1fr 76px;gap:8px">
+         <input id="newAppGroupName" maxlength="28" placeholder="Contoh: Sosial Media">
+         <input id="newAppGroupIcon" maxlength="4" value="♡" aria-label="Emoji kategori" placeholder="♡" style="text-align:center">
+       </div>
+       <button class="primary" id="createAppGroupBtn" type="button" style="margin-top:8px;width:100%">＋ Simpan Kelompok Baru</button>
+       <small style="color:var(--muted)">Kelompok baru akan muncul di pilihan aplikasi dan filter pricelist, serta disimpan ke cloud.</small>
+       <div class="field" style="margin:10px 0 0"><label>Hapus kelompok buatan sendiri (pilih lalu tekan Hapus)</label><div style="display:flex;gap:8px"><select id="customAppGroupDelete" style="flex:1"></select><button class="danger" id="deleteAppGroupBtn" type="button">Hapus</button></div></div>
+       <div class="status" id="appGroupStatus" aria-live="polite"></div>
+     </div>
+     <div class="field"><label>Huruf Logo Aplikasi (Jika Tanpa Foto)</label><input id="editAppLogoText" maxlength="2" placeholder="N / I"></div>
+     <div class="field"><label>Upload / Ganti Logo Aplikasi dari Galeri</label><input id="appLogoFile" type="file" accept="image/*"><small style="color:var(--muted)">Logo akan tampil di sebelah nama aplikasi pada pricelist.</small></div>
+     <div id="appLogoPreviewWrap" style="display:none"><img id="appLogoPreview" class="crop-preview" alt="Preview logo aplikasi"></div>
+     <div class="admin-actions">
+       <button class="primary" id="saveNewCategoryBtn">✨ Buat Kategori Baru</button>
+       <button class="secondary" id="saveCategoryEdit">Simpan Perubahan App</button>
+     </div>
+   </div>
+
+   <div class="field"><label>Pilih satu paket / stok untuk update atau hapus</label><select id="existingPackageSelect"><option value="">Pilih satu paket yang sudah ada ♡</option></select><small style="color:var(--muted)">Pilih satu item saja. Tombol Update Stock mengubah item tersebut, sedangkan Hapus Paket Terpilih hanya menghapus item itu—bukan seluruh kategori.</small></div>
+   <div class="field"><label>Nama Paket / Stok</label><input id="packageNameInput" placeholder="1U · 3 hari"></div>
+   <div class="field"><label>Harga Paket (Angka saja)</label><input id="packagePriceInput" type="number" min="0" placeholder="12000"></div>
+   
+   <div class="admin-actions">
+     <button class="primary" id="addPackageBtn">+ Tambah Paket / Stok</button>
+     <button class="secondary" id="updatePackageBtn" type="button" disabled>Update Stock ♡</button>
+     <button class="danger" id="deletePackageBtn" type="button" disabled>Hapus 1 Paket Terpilih</button>
+     <button class="danger" id="deleteAppBtn" style="display:none">Hapus Kategori Ini</button>
+   </div>
+   <div class="status" id="productStatus"></div>
+
+   <hr style="border:0;border-top:2px dashed var(--line);margin:18px 0">
+   <h2>Edit Semua Tulisan Website ♡</h2>
+   <div class="field"><label>Nama toko di header</label><input id="txtBrand"></div>
+   <div class="field"><label>Label kecil di hero</label><input id="txtSticker"></div>
+   <div class="field"><label>Teks sambutan</label><textarea id="txtHeroDesc"></textarea></div>
+   <div class="field"><label>Hiasan hero</label><input id="txtDecor"></div>
+   <div class="field"><label>Judul bagian paket</label><input id="txtPackageTitle"></div>
+   <div class="field"><label>Petunjuk pilih paket</label><input id="txtPackageNote"></div>
+   <div class="field"><label>Teks footer</label><input id="txtFooter"></div>
+   <div class="admin-actions">
+     <button class="primary" id="saveSiteTexts">Simpan Semua Tulisan</button>
+     <button class="secondary" id="resetSiteTexts">Reset ke Default</button>
+   </div>
+   <div class="status" id="textsStatus"></div>
+
+   <hr style="border:0;border-top:2px dashed var(--line);margin:18px 0">
+   <h2>Tambah Testimoni Baru ♡</h2>
+   <div class="field"><label>Nama Customer</label><input id="reviewName" placeholder="Happy Buyer ♡"></div>
+   <div class="field"><label>Testimoni</label><textarea id="reviewText" placeholder="Ulasan..."></textarea></div>
+   <div class="field"><label>Rating (1–5)</label><input id="reviewRating" type="number" min="1" max="5" value="5"></div>
+   <div class="admin-actions"><button class="primary" id="saveReview">Tambah Testimoni</button></div>
+   <div class="status" id="reviewStatus"></div>
+  </div>
+ </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://rgktegkxtrtxrzmogbhg.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_uJQEW1rLbitiI6sLnY4wOA_3zBUTvdA";
+const STORAGE_BUCKET = "product-images";
+const SETTINGS_TABLE = "store_site_texts";
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const WHATSAPP_NUMBER = "6289692908700";
+const ADMIN_EMAIL = "roosevelts120@gmail.com";
+
+const formatRp = n => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(n);
+
+const loginModal = document.getElementById("loginModal");
+const adminModal = document.getElementById("adminModal");
+const adminOpenBtn = document.getElementById("adminOpen");
+const closeLoginModal = document.getElementById("closeLoginModal");
+const closeAdminModal = document.getElementById("closeAdminModal");
+
+const orderBtn = document.getElementById("orderBtn");
+const totalText = document.getElementById("total");
+const searchInput = document.getElementById("productSearch");
+const musicBtn = document.getElementById("musicBtn");
+const bgMusic = document.getElementById("bgMusic");
+
+let isPlaying = false;
+let cart = [];
+
+const STORE_KEYS = { 
+  texts: "venaSiteTextsV9", 
+  reviews: "venaReviewsV9", 
+  products: "venaProductsDataV9",
+  card: "venaCardDataV9",
+  banner: "venaBannerUrlV9",
+  avatar: "venaAvatarUrlV9",
+  pass: "venaAdminEmailPassV9"
+};
+
+const readStore = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key)) ?? fallback } catch { return fallback } };
+// Data utama tetap disimpan lokal sebagai cache, lalu disinkronkan ke cloud
+// setelah admin melakukan migrasi awal dari perangkat yang memiliki data lengkap.
+const CLOUD_STORE_FIELDS = {
+  [STORE_KEYS.products]: "products_data",
+  [STORE_KEYS.reviews]: "reviews_data",
+  [STORE_KEYS.card]: "card_data",
+  [STORE_KEYS.texts]: "site_texts"
+};
+let cloudDataReady = false;
+let cloudWriteQueue = Promise.resolve();
+
+const writeStore = (key, value) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+    if (cloudDataReady && CLOUD_STORE_FIELDS[key]) {
+      queueStoreCloudSave(CLOUD_STORE_FIELDS[key], value);
+    }
+    return true;
+  } catch(e) {
+    alert("Gagal menyimpan! Ukuran foto terlalu besar. Mohon kompres fotonya di bawah 500 KB ya ♡");
+    return false;
+  }
+};
+
+function queueStoreCloudSave(field, value) {
+  cloudWriteQueue = cloudWriteQueue
+    .then(async () => {
+      const { data } = await sb.auth.getSession();
+      const email = data?.session?.user?.email?.toLowerCase();
+      if (email !== ADMIN_EMAIL.toLowerCase()) return;
+      await saveRemoteSiteText({ [field]: value, cloud_data_version: 1 });
+    })
+    .catch(error => {
+      console.error("Sinkronisasi cloud gagal:", error);
+      const status = document.getElementById("cloudSyncStatus");
+      if (status) status.textContent = "Perubahan tersimpan di perangkat ini, tetapi sinkronisasi cloud gagal: " + error.message;
+    });
+}
+
+// Media banner dan avatar disimpan di Supabase Storage, URL-nya di store_site_texts.texts (id=1).
+let remoteSiteTexts = {};
+let flashSaleData = null;
+let flashTimerInterval = null;
+async function loadRemoteSiteMedia() {
+  try {
+    const { data, error } = await sb.from(SETTINGS_TABLE).select("texts").eq("id", 1).maybeSingle();
+    if (error) throw error;
+    remoteSiteTexts = data?.texts || {};
+    setAppGroups(remoteSiteTexts.app_groups || DEFAULT_APP_GROUPS);
+
+    // Restore shared data from Supabase on every device, once the first migration exists.
+    cloudDataReady = remoteSiteTexts.cloud_data_version === 1;
+    if (cloudDataReady) {
+      const cloudFields = {
+        [STORE_KEYS.products]: "products_data",
+        [STORE_KEYS.reviews]: "reviews_data",
+        [STORE_KEYS.card]: "card_data",
+        [STORE_KEYS.texts]: "site_texts"
+      };
+      Object.entries(cloudFields).forEach(([localKey, cloudKey]) => {
+        if (Object.prototype.hasOwnProperty.call(remoteSiteTexts, cloudKey)) {
+          localStorage.setItem(localKey, JSON.stringify(remoteSiteTexts[cloudKey]));
+        }
+      });
+    }
+
+    if (remoteSiteTexts.app_logos && typeof remoteSiteTexts.app_logos === "object") {
+      const savedProducts = readStore(STORE_KEYS.products, defaultProducts);
+      savedProducts.forEach(app => { if (remoteSiteTexts.app_logos[app.id]) app.logoUrl = remoteSiteTexts.app_logos[app.id]; });
+      writeStore(STORE_KEYS.products, savedProducts);
+    }
+    if (remoteSiteTexts.banner_url) writeStore(STORE_KEYS.banner, remoteSiteTexts.banner_url);
+    if (remoteSiteTexts.avatar_url) writeStore(STORE_KEYS.avatar, remoteSiteTexts.avatar_url);
+    if (remoteSiteTexts.dj_music_url) { djAudioUrl = remoteSiteTexts.dj_music_url; }
+    flashSaleData = remoteSiteTexts.flash_sale || null;
+    renderFlashSale();
+    renderSite();
+  } catch (error) {
+    console.warn("Media Supabase belum dapat dimuat:", error.message);
+  }
+}
+
+async function saveRemoteSiteText(patch) {
+  const { data, error: readError } = await sb.from(SETTINGS_TABLE).select("texts").eq("id", 1).maybeSingle();
+  if (readError) throw readError;
+  const merged = { ...(data?.texts || remoteSiteTexts || {}), ...patch };
+  const { error } = await sb.from(SETTINGS_TABLE).upsert({ id: 1, texts: merged, updated_at: new Date().toISOString() }, { onConflict: "id" });
+  if (error) throw error;
+  remoteSiteTexts = merged;
+  return merged;
+}
+
+// One-time migration: run this on the tablet that still has the complete pricelist.
+document.getElementById("cloudSyncNowBtn")?.addEventListener("click", async () => {
+  const status = document.getElementById("cloudSyncStatus");
+  const button = document.getElementById("cloudSyncNowBtn");
+  try {
+    const { data: sessionData, error: sessionError } = await sb.auth.getSession();
+    if (sessionError) throw sessionError;
+    const email = sessionData?.session?.user?.email?.toLowerCase();
+    if (email !== ADMIN_EMAIL.toLowerCase()) {
+      status.textContent = "Login sebagai admin terlebih dahulu untuk menyinkronkan data ♡";
+      return;
+    }
+    button.disabled = true;
+    status.textContent = "Menyimpan pricelist dan pengaturan tablet ke Supabase...";
+    const payload = {
+      products_data: readStore(STORE_KEYS.products, defaultProducts),
+      reviews_data: readStore(STORE_KEYS.reviews, defaultReviews),
+      card_data: readStore(STORE_KEYS.card, defaultCardData),
+      site_texts: readStore(STORE_KEYS.texts, defaultTexts),
+      flash_sale: flashSaleData,
+      cloud_data_version: 1
+    };
+    await saveRemoteSiteText(payload);
+    cloudDataReady = true;
+    status.textContent = "Berhasil! ♡ Data tablet sudah tersimpan di cloud. Buka website dari HP/browser lain lalu refresh untuk melihat data yang sama.";
+  } catch (error) {
+    status.textContent = "Gagal sinkronisasi: " + error.message + ". Data lokal tablet tidak dihapus.";
+  } finally {
+    button.disabled = false;
+  }
+});
+
+async function uploadSiteImage(file, kind) {
+  if (!file) throw new Error("Pilih foto dari galeri terlebih dahulu.");
+  if (!file.type.startsWith("image/")) throw new Error("File harus berupa gambar.");
+  if (file.size > 500 * 1024) throw new Error("Ukuran foto maksimal 500 KB. Kompres foto lalu coba lagi ya ♡");
+  const ext = (file.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "") || "jpg";
+  const path = `site/${kind}-${Date.now()}.${ext}`;
+  const { error: uploadError } = await sb.storage.from(STORAGE_BUCKET).upload(path, file, { upsert: true, contentType: file.type, cacheControl: "3600" });
+  if (uploadError) throw uploadError;
+  const { data } = sb.storage.from(STORAGE_BUCKET).getPublicUrl(path);
+  if (!data?.publicUrl) throw new Error("URL publik foto tidak berhasil dibuat.");
+  return data.publicUrl;
+}
+
+
+function isFlashSaleActive(){
+  return !!(flashSaleData && flashSaleData.enabled && flashSaleData.endAt && new Date(flashSaleData.endAt).getTime() > Date.now());
+}
+function getFlashSaleFor(appId, itemIndex){
+  if(!isFlashSaleActive()) return null;
+  if(flashSaleData.appId !== appId || Number(flashSaleData.itemIndex) !== Number(itemIndex)) return null;
+  const promo = Number(flashSaleData.salePrice);
+  return Number.isFinite(promo) && promo > 0 ? promo : null;
+}
+function renderFlashSale(){
+  const card = document.getElementById('flashSaleCard');
+  if(!card) return;
+  if(!isFlashSaleActive()){
+    card.classList.remove('active');
+    if(flashTimerInterval){clearInterval(flashTimerInterval);flashTimerInterval=null;}
+    return;
+  }
+  card.classList.add('active');
+  document.getElementById('flashSaleMessage').textContent = flashSaleData.message || 'Promo spesial! Jangan sampai ketinggalan ♡';
+  const products = readStore(STORE_KEYS.products, defaultProducts);
+  const app = products.find(p=>p.id===flashSaleData.appId);
+  const item = app?.items?.[Number(flashSaleData.itemIndex)];
+  document.getElementById('flashSalePriceLine').innerHTML = item ? `<span class="flash-old">${formatRp(item.price)}</span> <span class="flash-price">${formatRp(flashSaleData.salePrice)}</span>` : '';
+  if(flashTimerInterval) clearInterval(flashTimerInterval);
+  const tick=()=>{
+    const left=Math.max(0,new Date(flashSaleData.endAt).getTime()-Date.now());
+    const h=Math.floor(left/3600000),m=Math.floor((left%3600000)/60000),sec=Math.floor((left%60000)/1000);
+    document.getElementById('flashHours').textContent=String(h).padStart(2,'0');
+    document.getElementById('flashMinutes').textContent=String(m).padStart(2,'0');
+    document.getElementById('flashSeconds').textContent=String(sec).padStart(2,'0');
+    if(left<=0){flashSaleData.enabled=false;card.classList.remove('active');clearInterval(flashTimerInterval);flashTimerInterval=null;renderProducts(searchInput.value);}
+  };
+  tick();flashTimerInterval=setInterval(tick,1000);
+}
+function populateFlashPackageSelect(){
+  const select=document.getElementById('flashPackageSelect');
+  if(!select) return;
+  const products=readStore(STORE_KEYS.products,defaultProducts);
+  select.innerHTML='<option value="">Pilih paket...</option>';
+  products.forEach(app=>(app.items||[]).forEach((item,index)=>{
+    const opt=document.createElement('option');opt.value=JSON.stringify({appId:app.id,itemIndex:index});opt.textContent=`${app.name} — ${item.name} (${formatRp(item.price)})`;select.appendChild(opt);
+  }));
+}
+function fillFlashAdminFields(){
+  populateFlashPackageSelect();
+  const d=flashSaleData||{};
+  document.getElementById('flashEnabled').checked=!!d.enabled;
+  document.getElementById('flashPackageSelect').value=d.appId ? JSON.stringify({appId:d.appId,itemIndex:Number(d.itemIndex)}) : '';
+  document.getElementById('flashSalePrice').value=d.salePrice||'';
+  document.getElementById('flashEndAt').value=d.endAt ? new Date(new Date(d.endAt).getTime()-new Date(d.endAt).getTimezoneOffset()*60000).toISOString().slice(0,16) : '';
+  document.getElementById('flashMessageInput').value=d.message||'Promo spesial! Jangan sampai ketinggalan ♡';
+}
+document.getElementById('saveFlashSale')?.addEventListener('click',async()=>{
+  const status=document.getElementById('flashAdminStatus');
+  try{
+    const selected=document.getElementById('flashPackageSelect').value;
+    if(!selected) throw new Error('Pilih paket yang akan ikut Flash Sale.');
+    const target=JSON.parse(selected);
+    const salePrice=Number(document.getElementById('flashSalePrice').value);
+    const endValue=document.getElementById('flashEndAt').value;
+    if(!salePrice || salePrice<1) throw new Error('Masukkan harga promo yang valid.');
+    if(!endValue || new Date(endValue).getTime()<=Date.now()) throw new Error('Pilih waktu berakhir di masa depan.');
+    const products=readStore(STORE_KEYS.products,defaultProducts);
+    const item=products.find(p=>p.id===target.appId)?.items?.[Number(target.itemIndex)];
+    if(!item) throw new Error('Paket tidak ditemukan. Muat ulang pilihan paket.');
+    if(salePrice>=Number(item.price)) throw new Error('Harga promo harus lebih murah dari harga normal.');
+    const next={enabled:document.getElementById('flashEnabled').checked,appId:target.appId,itemIndex:Number(target.itemIndex),salePrice,endAt:new Date(endValue).toISOString(),message:document.getElementById('flashMessageInput').value.trim()};
+    await saveRemoteSiteText({flash_sale:next});
+    flashSaleData=next;renderFlashSale();renderProducts(searchInput.value);
+    status.textContent='Flash Sale berhasil disimpan ke cloud ♡';
+  }catch(e){status.textContent=e.message||'Gagal menyimpan Flash Sale.';}
+});
+document.getElementById('stopFlashSale')?.addEventListener('click',async()=>{
+  const status=document.getElementById('flashAdminStatus');
+  try{flashSaleData={...(flashSaleData||{}),enabled:false};await saveRemoteSiteText({flash_sale:flashSaleData});renderFlashSale();renderProducts(searchInput.value);fillFlashAdminFields();status.textContent='Flash Sale dimatikan ♡';}
+  catch(e){status.textContent='Gagal mematikan Flash Sale: '+e.message;}
+});
+
+const defaultTexts = {
+  brand: "vena's lucky store", 
+  sticker: "✿ little digital treats ✿", 
+  heroDesc: "Haii, welcome to my little store! Pilih paket favoritmu, lalu order langsung lewat WhatsApp yaa ♡",
+  decor: "♡ ✧ 🍓 ✧ ♡", 
+  packageTitle: "♡ Choose your package", 
+  packageNote: "pilih paket kamu!",
+  footer: "made with love by vena ♡ thank you for visiting!"
+};
+
+const defaultCardData = {
+  title: "Vena Cantik",
+  handle: "@venastore",
+  url: "https://x.com/",
+  telegramUrl: "https://t.me/"
+};
+
+const defaultReviews = [
+  { name: "happy customer ♡", text: "Admin ramah banget, prosesnya cepet dan gampang. Thank youu!", rating: 5 },
+  { name: "lovely buyer ♡", text: "Paketnya sesuai, harganya oke. Bakal order lagi!", rating: 5 },
+  { name: "sweet buyer ♡", text: "Fast response dan dibantu sampai selesai. Recommended!", rating: 5 }
+];
+
+const defaultProducts = [
+  {
+    id: "netflix",
+    name: "Netflix",
+    group: "Hiburan",
+    logoVal: "N",
+    desc: "streaming package · ready to order",
+    items: [
+      { name: "Netflix 1U — 3 hari", price: 12000 },
+      { name: "Netflix 1U — 7 hari", price: 18000 },
+      { name: "Netflix 1U — 14 hari", price: 30000 },
+      { name: "Netflix 1U — 1 bulan", price: 45000 },
+      { name: "Netflix 2U — 1 bulan", price: 33000 },
+      { name: "Netflix 2U — 7 hari", price: 15000 },
+      { name: "Netflix semi privat", price: 55000 }
+    ]
+  },
+  {
+    id: "iqiyi",
+    name: "Iqiyi",
+    group: "Hiburan",
+    logoVal: "I",
+    desc: "streaming package · ready to order",
+    items: [
+      { name: "premium 1 bulan", price: 13000 }
+    ]
+  }
+];
+
+
+// Dua lagu original buatan web: Cute music-box dan DJ party mix.
+// Tidak perlu upload audio; tekan PLAY untuk mulai. Audio dibuat lokal dengan Web Audio API.
+const musicModeSelect = document.getElementById("musicModeSelect");
+let musicContext = null;
+let musicLoopTimer = null;
+let musicStep = 0;
+let activeMusicMode = "cute";
+let musicNodes = [];
+
+function ensureMusicContext() {
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  if (!AudioCtx) throw new Error("Browser ini belum mendukung pemutar musik.");
+  if (!musicContext) musicContext = new AudioCtx();
+  if (musicContext.state === "suspended") musicContext.resume();
+}
+function stopGeneratedMusic() {
+  if (musicLoopTimer) { clearInterval(musicLoopTimer); musicLoopTimer = null; }
+  musicNodes.forEach(node => { try { node.stop(); } catch(e) {} });
+  musicNodes = [];
+}
+function tone(freq, duration, type="sine", volume=0.07, when=0) {
+  const osc = musicContext.createOscillator();
+  const gain = musicContext.createGain();
+  const now = musicContext.currentTime + when;
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, now);
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(Math.max(0.0002, volume), now + 0.018);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+  osc.connect(gain); gain.connect(musicContext.destination);
+  osc.start(now); osc.stop(now + duration + 0.03);
+  musicNodes.push(osc);
+  osc.onended = () => { musicNodes = musicNodes.filter(n => n !== osc); };
+}
+function cuteStep() {
+  const melody = [659.25, 783.99, 987.77, 783.99, 880, 987.77, 1174.66, 987.77,
+                  783.99, 659.25, 587.33, 659.25, 783.99, 880, 783.99, 659.25];
+  const bass = [261.63, 329.63, 392.00, 329.63];
+  tone(melody[musicStep % melody.length], 0.34, "sine", 0.055);
+  if (musicStep % 4 === 0) tone(bass[Math.floor(musicStep / 4) % bass.length], 0.72, "triangle", 0.025);
+  musicStep++;
+}
+function djStep() {
+  const bass = [110, 110, 130.81, 98];
+  const lead = [523.25, 659.25, 783.99, 659.25, 587.33, 698.46, 880, 698.46];
+  const step = musicStep % 16;
+  if (step % 4 === 0) tone(bass[Math.floor(step / 4) % bass.length], 0.26, "sawtooth", 0.045);
+  if (step % 2 === 0) tone(lead[musicStep % lead.length], 0.13, "square", 0.025);
+  // Kick/snare-like percussive thumps synthesized locally.
+  if (step % 4 === 0) tone(55, 0.10, "sine", 0.09);
+  if (step === 4 || step === 12) tone(190, 0.055, "triangle", 0.035);
+  musicStep++;
+}
+function startGeneratedMusic(mode) {
+  ensureMusicContext();
+  stopGeneratedMusic();
+  musicStep = 0;
+  const stepFn = mode === "dj" ? djStep : cuteStep;
+  stepFn();
+  musicLoopTimer = setInterval(stepFn, mode === "dj" ? 150 : 300);
+  isPlaying = true;
+  musicBtn.textContent = "🎵 Musik: PAUSE";
+}
+function stopMusic() {
+  stopGeneratedMusic();
+  isPlaying = false;
+  musicBtn.textContent = "🎵 Musik: PLAY";
+}
+musicModeSelect.addEventListener("change", () => {
+  activeMusicMode = musicModeSelect.value;
+  if (isPlaying) startGeneratedMusic(activeMusicMode);
+});
+musicBtn.addEventListener("click", () => {
+  try {
+    if (isPlaying) stopMusic();
+    else startGeneratedMusic(activeMusicMode);
+  } catch (error) {
+    alert("Musik belum bisa diputar: " + error.message);
+  }
+});
+
+
+function renderSite() {
+  const texts = readStore(STORE_KEYS.texts, defaultTexts);
+  document.getElementById("siteBrand").textContent = texts.brand.replace(/♡/g, "").replace(/\s+/g, " ").trim();
+  document.getElementById("heroSticker").textContent = texts.sticker;
+  document.getElementById("mainHeroDesc").textContent = texts.heroDesc;
+  document.getElementById("mainDecor").textContent = texts.decor;
+  document.getElementById("pkgTitle").textContent = texts.packageTitle;
+  document.getElementById("pkgNote").textContent = texts.packageNote;
+  document.getElementById("footerText").textContent = texts.footer;
+
+  const cardData = readStore(STORE_KEYS.card, defaultCardData);
+  document.getElementById("cardStoreTitle").textContent = cardData.title;
+  document.getElementById("cardHandleText").textContent = cardData.handle;
+  document.getElementById("headerHandleText").textContent = cardData.handle;
+  document.getElementById("xSocialLink").href = cardData.url;
+  document.getElementById("telegramLink").href = cardData.telegramUrl;
+
+  // Banner utama sengaja dihilangkan dari tampilan depan.
+  // Pengaturan banner di admin tetap tersimpan agar data lama tidak terhapus.
+
+  const avatar = readStore(STORE_KEYS.avatar, null);
+  const avatarImg = document.getElementById("avatarImg");
+  const avatarText = document.getElementById("avatarText");
+  if(avatar) {
+    avatarImg.onerror = () => { avatarImg.style.display = "none"; avatarText.style.display = "block"; };
+    avatarImg.onload = () => { avatarImg.style.display = "block"; avatarText.style.display = "none"; };
+    avatarImg.src = avatar;
+    if (avatarImg.complete && avatarImg.naturalWidth > 0) { avatarImg.style.display = "block"; avatarText.style.display = "none"; }
+  } else {
+    avatarImg.style.display = "none";
+    avatarText.style.display = "block";
+    avatarText.textContent = cardData.title ? cardData.title.charAt(0).toUpperCase() : "V";
+  }
+
+  renderProducts();
+  renderReviews();
+  updateCategorySelect();
+  renderFlashSale();
+}
+
+const DEFAULT_APP_GROUPS = [
+  { name: "Hiburan", icon: "🎬" },
+  { name: "Desain", icon: "🎨" },
+  { name: "Musik", icon: "🎵" },
+  { name: "AI", icon: "🤖" },
+  { name: "Produktivitas", icon: "💼" }
+];
+let APP_GROUPS = [{ name: "Semua", icon: "▦" }, ...DEFAULT_APP_GROUPS];
+let activeAppGroup = "Semua";
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[ch]));
+}
+
+function setAppGroups(groups) {
+  const cleaned = Array.isArray(groups) ? groups : DEFAULT_APP_GROUPS;
+  const unique = [];
+  cleaned.forEach(group => {
+    const name = String(group?.name || "").trim();
+    if (!name || name.toLowerCase() === "semua" || unique.some(g => g.name.toLowerCase() === name.toLowerCase())) return;
+    unique.push({ name, icon: String(group.icon || "♡").slice(0, 4) });
+  });
+  APP_GROUPS = [{ name: "Semua", icon: "▦" }, ...(unique.length ? unique : DEFAULT_APP_GROUPS)];
+  refreshAppGroupControls();
+}
+
+function refreshAppGroupControls() {
+  const select = document.getElementById("editAppGroup");
+  if (select) {
+    const current = select.value;
+    select.innerHTML = APP_GROUPS.filter(g => g.name !== "Semua").map(g => `<option value="${escapeHtml(g.name)}">${escapeHtml(g.icon)} ${escapeHtml(g.name)}</option>`).join("");
+    if (APP_GROUPS.some(g => g.name === current)) select.value = current;
+  }
+  const del = document.getElementById("customAppGroupDelete");
+  if (del) {
+    const custom = APP_GROUPS.filter(g => g.name !== "Semua" && !DEFAULT_APP_GROUPS.some(d => d.name === g.name));
+    del.innerHTML = custom.length ? custom.map(g => `<option value="${escapeHtml(g.name)}">${escapeHtml(g.icon)} ${escapeHtml(g.name)}</option>`).join("") : '<option value="">Belum ada kelompok buatan</option>';
+    const btn = document.getElementById("deleteAppGroupBtn");
+    if (btn) btn.disabled = custom.length === 0;
+  }
+}
+
+function renderCategoryFilters() {
+  const host = document.getElementById("categoryFilters");
+  if (!host) return;
+  host.innerHTML = "";
+  APP_GROUPS.forEach(group => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "category-chip" + (activeAppGroup === group.name ? " active" : "");
+    button.setAttribute("aria-pressed", activeAppGroup === group.name ? "true" : "false");
+    button.innerHTML = `<span class="chip-icon">${group.icon}</span><span>${group.name}</span>`;
+    button.addEventListener("click", () => {
+      activeAppGroup = group.name;
+      renderProducts(searchInput.value);
+    });
+    host.appendChild(button);
+  });
+}
+
+function renderProducts(filter = "") {
+  const container = document.getElementById("productsContainer");
+  let products = readStore(STORE_KEYS.products, null);
+  if(!products) {
+    products = defaultProducts;
+    writeStore(STORE_KEYS.products, products);
+  }
+  // Older saved app entries remain compatible; unassigned apps appear under Hiburan.
+  products.forEach(app => { if (!app.group) app.group = "Hiburan"; });
+  container.innerHTML = "";
+  renderCategoryFilters();
+  let totalItemsCount = 0;
+  let visibleApps = 0;
+
+  products.forEach(app => {
+    const appGroup = app.group || "Hiburan";
+    const filteredItems = (app.items || []).filter(item =>
+      item.name.toLowerCase().includes(filter.toLowerCase()) ||
+      app.name.toLowerCase().includes(filter.toLowerCase())
+    );
+    if (activeAppGroup !== "Semua" && appGroup !== activeAppGroup) return;
+    if (filter && filteredItems.length === 0 && !app.name.toLowerCase().includes(filter.toLowerCase())) return;
+
+    const itemsToDisplay = filter && !app.name.toLowerCase().includes(filter.toLowerCase()) ? filteredItems : (app.items || []);
+    totalItemsCount += (app.items || []).length;
+    visibleApps++;
+
+    const pkgDiv = document.createElement("div");
+    pkgDiv.className = "package";
+    pkgDiv.innerHTML = `
+      <div class="app-head">
+        <div class="app-info-left">
+          <div class="app-logo">${app.logoUrl ? `<img src="${app.logoUrl}" alt="Logo ${app.name}">` : (app.logoVal || app.name.charAt(0).toUpperCase())}</div>
+          <div>
+            <div class="app-title">${app.name}</div>
+            <div class="app-desc">${app.desc || ""}</div>
+          </div>
+        </div>
+        <span class="app-group-tag">${appGroup}</span>
+      </div>
+      <div class="choices" id="choices-${app.id}"></div>
+    `;
+
+    const choicesContainer = pkgDiv.querySelector(`#choices-${app.id}`);
+    itemsToDisplay.forEach((item) => {
+      const realIndex = app.items.findIndex(it => it.name === item.name && it.price === item.price);
+      const choiceCard = document.createElement("div");
+      choiceCard.className = "choice-card";
+      const promoPrice = getFlashSaleFor(app.id, realIndex);
+      choiceCard.innerHTML = `
+        <div><div class="choice-name">${item.name}</div>${promoPrice ? `<div class="flash-old">${formatRp(item.price)}</div><div class="choice-price" style="color:#df5795">${formatRp(promoPrice)} <small style="font-size:9px">FLASH SALE</small></div>` : `<div class="choice-price">${formatRp(item.price)}</div>`}</div>
+        <div class="choice-footer"><button class="add-cart-btn" onclick="addToCart('${app.id}', ${realIndex})">+ Keranjang</button></div>
+      `;
+      choicesContainer.appendChild(choiceCard);
+    });
+    container.appendChild(pkgDiv);
+  });
+  if (!visibleApps) {
+    container.innerHTML = `<div class="empty-category">Belum ada aplikasi di kategori ini ♡</div>`;
+  }
+  document.getElementById("statGoodies").textContent = totalItemsCount;
+}
+
+function renderReviews() {
+  const container = document.getElementById("testimonials");
+  const reviews = readStore(STORE_KEYS.reviews, defaultReviews);
+  container.innerHTML = "";
+  reviews.forEach(r => {
+    const div = document.createElement("div");
+    div.className = "review";
+    div.innerHTML = `
+      <div class="stars">${"★".repeat(r.rating || 5)}</div>
+      <p>"${r.text}"</p>
+      <div class="reviewer">— ${r.name}</div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+searchInput.addEventListener("input", (e) => {
+  renderProducts(e.target.value);
+});
+
+window.addToCart = function(appId, itemIndex) {
+  const products = readStore(STORE_KEYS.products, defaultProducts);
+  const app = products.find(p => p.id === appId);
+  if(!app || !app.items[itemIndex]) return;
+
+  const item = app.items[itemIndex];
+  const promoPrice = getFlashSaleFor(appId, itemIndex);
+  const effectivePrice = promoPrice || item.price;
+  const cartKey = `${app.name} - ${item.name}`;
+  const existing = cart.find(c => c.key === cartKey);
+
+  if(existing) {
+    existing.price = effectivePrice;
+    existing.qty += 1;
+  } else {
+    cart.push({ key: cartKey, name: `${app.name} (${item.name})`, price: effectivePrice, qty: 1 });
+  }
+  updateCartUI();
+};
+
+window.removeFromCart = function(index) {
+  cart.splice(index, 1);
+  updateCartUI();
+};
+
+function updateCartUI() {
+  const listEl = document.getElementById("cartItemsList");
+  const countEl = document.getElementById("cartCount");
+
+  let totalCount = 0;
+  let totalPrice = 0;
+
+  if(cart.length === 0) {
+    listEl.innerHTML = `<div style="text-align:center; font-size:12px; color:var(--muted);">Keranjang masih kosong, klik "+ Keranjang" pada paket di atas ♡</div>`;
+    orderBtn.disabled = true;
+  } else {
+    listEl.innerHTML = "";
+    cart.forEach((item, idx) => {
+      totalCount += item.qty;
+      totalPrice += item.price * item.qty;
+      const div = document.createElement("div");
+      div.className = "cart-item";
+      div.innerHTML = `
+        <span>${item.name} (x${item.qty}) - ${formatRp(item.price * item.qty)}</span>
+        <button class="remove-item" onclick="removeFromCart(${idx})">×</button>
+      `;
+      listEl.appendChild(div);
+    });
+    orderBtn.disabled = false;
+  }
+
+  countEl.textContent = totalCount;
+  totalText.textContent = formatRp(totalPrice);
+}
+
+orderBtn.addEventListener("click", () => {
+  if(cart.length === 0) return;
+  let text = "Halo kak Vena, aku mau order dong ♡\n\n";
+  let total = 0;
+  cart.forEach(i => {
+    text += `- *${i.name}* (x${i.qty}) : ${formatRp(i.price * i.qty)}\n`;
+    total += i.price * i.qty;
+  });
+  text += `\n*TOTAL : ${formatRp(total)}*\n\nMohon bantu diproses ya kak, thank you! ♡`;
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, "_blank");
+});
+
+// Admin Authentication Modal logic
+adminOpenBtn.addEventListener("click", async () => {
+  const { data } = await sb.auth.getSession();
+  if (data?.session?.user?.email?.toLowerCase() === ADMIN_EMAIL) {
+    loginModal.classList.remove("show");
+    adminModal.classList.add("show");
+    sessionStorage.setItem("venaAdminPanelOpen", "1");
+    populateAdminFields();
+    return;
+  }
+  loginModal.classList.add("show");
+  document.getElementById("loginStatus").textContent = "";
+  document.getElementById("loginEmail").value = ADMIN_EMAIL;
+  document.getElementById("loginPassword").value = "";
+  document.getElementById("newAdminPass").value = "";
+});
+
+closeLoginModal.addEventListener("click", () => loginModal.classList.remove("show"));
+closeAdminModal.addEventListener("click", () => {
+  adminModal.classList.remove("show");
+  sessionStorage.removeItem("venaAdminPanelOpen");
+});
+
+document.getElementById("adminLogoutBtn").addEventListener("click", async () => {
+  const logoutBtn = document.getElementById("adminLogoutBtn");
+  logoutBtn.disabled = true;
+  logoutBtn.textContent = "Keluar...";
+  const { error } = await sb.auth.signOut();
+  if (error) {
+    logoutBtn.disabled = false;
+    logoutBtn.textContent = "Logout ↗";
+    alert("Logout gagal: " + error.message);
+    return;
+  }
+  sessionStorage.removeItem("venaAdminPanelOpen");
+  adminModal.classList.remove("show");
+  loginModal.classList.remove("show");
+  adminOpenBtn.textContent = "Admin ♡";
+  logoutBtn.disabled = false;
+  logoutBtn.textContent = "Logout ↗";
+  document.getElementById("loginStatus").textContent = "";
+});
+
+// Login admin menggunakan akun Supabase Auth agar izin upload Storage dan update database berlaku.
+document.getElementById("saveNewPassBtn").addEventListener("click", async () => {
+  const status = document.getElementById("loginStatus");
+  status.textContent = "Mengirim link reset password...";
+  const { error } = await sb.auth.resetPasswordForEmail(ADMIN_EMAIL, { redirectTo: window.location.origin });
+  status.textContent = error ? `Gagal mengirim link: ${error.message}` : "Link reset password dikirim ke email admin ♡";
+});
+
+document.getElementById("doLoginBtn").addEventListener("click", async () => {
+  const emailVal = document.getElementById("loginEmail").value.trim().toLowerCase();
+  const passVal = document.getElementById("loginPassword").value;
+  const status = document.getElementById("loginStatus");
+  status.textContent = "Memeriksa akun admin...";
+  const { data, error } = await sb.auth.signInWithPassword({ email: emailVal, password: passVal });
+  if (!error && emailVal === ADMIN_EMAIL) {
+    loginModal.classList.remove("show");
+    adminModal.classList.add("show");
+    sessionStorage.setItem("venaAdminPanelOpen", "1");
+    populateAdminFields();
+  } else {
+    status.textContent = error ? `Login gagal: ${error.message}` : "Email admin tidak sesuai.";
+  }
+});
+
+// Pulihkan sesi admin setelah pindah tab atau reload halaman.
+(async function restoreAdminSession() {
+  try {
+    const { data } = await sb.auth.getSession();
+    if (data?.session?.user?.email?.toLowerCase() === ADMIN_EMAIL) {
+      adminOpenBtn.textContent = "Admin ✓";
+      if (sessionStorage.getItem("venaAdminPanelOpen") === "1") {
+        adminModal.classList.add("show");
+        populateAdminFields();
+      }
+    }
+  } catch (e) { console.warn("Sesi admin belum dapat dipulihkan:", e.message); }
+})();
+sb.auth.onAuthStateChange((event, session) => {
+  if (session?.user?.email?.toLowerCase() === ADMIN_EMAIL) {
+    adminOpenBtn.textContent = "Admin ✓";
+  } else {
+    adminOpenBtn.textContent = "Admin ♡";
+  }
+});
+
+function populateAdminFields() {
+  const texts = readStore(STORE_KEYS.texts, defaultTexts);
+  document.getElementById("txtBrand").value = texts.brand;
+  document.getElementById("txtSticker").value = texts.sticker;
+  document.getElementById("txtHeroDesc").value = texts.heroDesc;
+  document.getElementById("txtDecor").value = texts.decor;
+  document.getElementById("txtPackageTitle").value = texts.packageTitle;
+  document.getElementById("txtPackageNote").value = texts.packageNote;
+  document.getElementById("txtFooter").value = texts.footer;
+
+  const card = readStore(STORE_KEYS.card, defaultCardData);
+  document.getElementById("txtCardTitle").value = card.title;
+  document.getElementById("txtCardHandle").value = card.handle;
+  document.getElementById("txtCardUrl").value = card.url;
+  document.getElementById("txtTelegramUrl").value = card.telegramUrl;
+
+  updateCategorySelect();
+  clearPackageEditor();
+  fillFlashAdminFields();
+}
+
+function updateCategorySelect() {
+  refreshAppGroupControls();
+  const select = document.getElementById("appCategorySelect");
+  let products = readStore(STORE_KEYS.products, defaultProducts);
+  
+  select.innerHTML = `<option value="new">+ Buat Kategori Aplikasi Baru</option>`;
+  products.forEach(p => {
+    const opt = document.createElement("option");
+    opt.value = p.id;
+    opt.textContent = p.name;
+    select.appendChild(opt);
+  });
+  handleCategorySelectChange();
+  if (typeof populateFlashPackageSelect === "function") populateFlashPackageSelect();
+}
+
+const appCategorySelect = document.getElementById("appCategorySelect");
+const deleteAppBtn = document.getElementById("deleteAppBtn");
+const editAppName = document.getElementById("editAppName");
+const editAppDesc = document.getElementById("editAppDesc");
+const editAppGroup = document.getElementById("editAppGroup");
+const editAppLogoText = document.getElementById("editAppLogoText");
+const appLogoFile = document.getElementById("appLogoFile");
+const appLogoPreview = document.getElementById("appLogoPreview");
+const appLogoPreviewWrap = document.getElementById("appLogoPreviewWrap");
+const existingPackageSelect = document.getElementById("existingPackageSelect");
+const updatePackageBtn = document.getElementById("updatePackageBtn");
+const deletePackageBtn = document.getElementById("deletePackageBtn");
+let pendingAppLogoUrl = null;
+
+function refreshExistingPackageSelect(selectedIndex = "") {
+  const products = readStore(STORE_KEYS.products, defaultProducts);
+  const app = products.find(p => p.id === appCategorySelect.value);
+  existingPackageSelect.innerHTML = '<option value="">Pilih paket yang sudah ada ♡</option>';
+  if (app && Array.isArray(app.items)) {
+    app.items.forEach((item, index) => {
+      const option = document.createElement("option");
+      option.value = String(index);
+      option.textContent = `${item.name} — ${formatRp(item.price)}`;
+      existingPackageSelect.appendChild(option);
+    });
+  }
+  existingPackageSelect.value = selectedIndex === "" ? "" : String(selectedIndex);
+  const hasSelection = existingPackageSelect.value !== "";
+  updatePackageBtn.disabled = !hasSelection;
+  deletePackageBtn.disabled = !hasSelection;
+}
+
+function clearPackageEditor() {
+  existingPackageSelect.value = "";
+  document.getElementById("packageNameInput").value = "";
+  document.getElementById("packagePriceInput").value = "";
+  updatePackageBtn.disabled = true;
+  deletePackageBtn.disabled = true;
+}
+
+appLogoFile.addEventListener("change", () => {
+  const file = appLogoFile.files && appLogoFile.files[0];
+  if (!file) { appLogoPreviewWrap.style.display = "none"; return; }
+  if (!file.type.startsWith("image/")) { alert("Pilih file gambar ya ♡"); appLogoFile.value = ""; return; }
+  appLogoPreview.src = URL.createObjectURL(file);
+  appLogoPreviewWrap.style.display = "block";
+});
+
+appCategorySelect.addEventListener("change", handleCategorySelectChange);
+
+document.getElementById("createAppGroupBtn")?.addEventListener("click", async () => {
+  const nameInput = document.getElementById("newAppGroupName");
+  const iconInput = document.getElementById("newAppGroupIcon");
+  const status = document.getElementById("appGroupStatus");
+  const name = nameInput.value.trim();
+  const icon = iconInput.value.trim() || "♡";
+  if (!name) { status.textContent = "Isi nama kelompok kategori dulu ya ♡"; nameInput.focus(); return; }
+  if (name.toLowerCase() === "semua") { status.textContent = 'Nama "Semua" sudah dipakai untuk filter utama.'; return; }
+  if (APP_GROUPS.some(g => g.name.toLowerCase() === name.toLowerCase())) { status.textContent = "Nama kelompok itu sudah ada."; return; }
+  const nextGroups = [...APP_GROUPS.filter(g => g.name !== "Semua"), { name, icon }];
+  try {
+    status.textContent = "Menyimpan kelompok kategori ke cloud...";
+    await saveRemoteSiteText({ app_groups: nextGroups });
+    setAppGroups(nextGroups);
+    renderProducts(searchInput.value);
+    status.textContent = `Kelompok ${icon} ${name} berhasil dibuat ♡`;
+    nameInput.value = "";
+    iconInput.value = "♡";
+  } catch (error) {
+    status.textContent = "Gagal menyimpan kelompok: " + error.message;
+  }
+});
+
+document.getElementById("deleteAppGroupBtn")?.addEventListener("click", async () => {
+  const select = document.getElementById("customAppGroupDelete");
+  const status = document.getElementById("appGroupStatus");
+  const name = (select?.value || "").trim();
+  if (!name) {
+    status.textContent = "Pilih kelompok buatan sendiri yang ingin dihapus dulu ya ♡";
+    return;
+  }
+  if (!APP_GROUPS.some(g => g.name === name) || DEFAULT_APP_GROUPS.some(g => g.name === name)) {
+    status.textContent = "Kelompok bawaan tidak bisa dihapus dari menu ini.";
+    return;
+  }
+  if (!window.confirm(`Hapus kelompok kategori "${name}"? Aplikasi di dalamnya akan dipindahkan ke Hiburan.`)) return;
+
+  const button = document.getElementById("deleteAppGroupBtn");
+  button.disabled = true;
+  status.textContent = "Menghapus kelompok kategori...";
+  const nextGroups = APP_GROUPS.filter(g => g.name !== "Semua" && g.name !== name);
+  const products = readStore(STORE_KEYS.products, defaultProducts).map(app =>
+    (app.group || "Hiburan") === name ? { ...app, group: "Hiburan" } : app
+  );
+
+  try {
+    // Simpan daftar kategori dan pemindahan aplikasi sebagai satu perubahan cloud.
+    await saveRemoteSiteText({ app_groups: nextGroups, products_data: products, cloud_data_version: 1 });
+    cloudDataReady = true;
+    writeStore(STORE_KEYS.products, products);
+    setAppGroups(nextGroups);
+    if (activeAppGroup === name) activeAppGroup = "Semua";
+    renderProducts(searchInput.value);
+    updateCategorySelect();
+    status.textContent = `Berhasil! Kelompok "${name}" dihapus dan aplikasinya dipindahkan ke Hiburan ♡`;
+  } catch (error) {
+    console.error("Gagal menghapus kelompok kategori:", error);
+    status.textContent = "Belum berhasil dihapus dari cloud: " + (error?.message || "Periksa koneksi dan izin Supabase.");
+  } finally {
+    refreshAppGroupControls();
+    button.disabled = document.querySelectorAll("#customAppGroupDelete option[value]:not([value=''])").length === 0;
+  }
+});
+
+function handleCategorySelectChange() {
+  const val = appCategorySelect.value;
+  const products = readStore(STORE_KEYS.products, defaultProducts);
+  
+  if(val === "new") {
+    editAppName.value = "";
+    editAppDesc.value = "";
+    editAppGroup.value = "Hiburan";
+    editAppLogoText.value = "";
+    deleteAppBtn.style.display = "none";
+    refreshExistingPackageSelect();
+    clearPackageEditor();
+  } else {
+    const app = products.find(p => p.id === val);
+    if(app) {
+      editAppName.value = app.name;
+      editAppDesc.value = app.desc || "";
+      editAppGroup.value = app.group || "Hiburan";
+      editAppLogoText.value = app.logoVal || "";
+      appLogoFile.value = ""; pendingAppLogoUrl = app.logoUrl || null;
+      if (app.logoUrl) { appLogoPreview.src = app.logoUrl; appLogoPreviewWrap.style.display = "block"; } else { appLogoPreviewWrap.style.display = "none"; }
+    }
+    deleteAppBtn.style.display = "inline-block";
+    refreshExistingPackageSelect();
+    clearPackageEditor();
+  }
+}
+
+existingPackageSelect.addEventListener("change", () => {
+  const products = readStore(STORE_KEYS.products, defaultProducts);
+  const app = products.find(p => p.id === appCategorySelect.value);
+  const index = existingPackageSelect.value;
+  if (!app || index === "" || !app.items[Number(index)]) {
+    clearPackageEditor();
+    return;
+  }
+  const item = app.items[Number(index)];
+  document.getElementById("packageNameInput").value = item.name || "";
+  document.getElementById("packagePriceInput").value = item.price ?? "";
+  updatePackageBtn.disabled = false;
+  deletePackageBtn.disabled = false;
+});
+
+// Simpan Profil & Logo Avatar ke Supabase
+const avatarFile = document.getElementById("cardAvatarFile");
+document.getElementById("saveCardData").addEventListener("click", async () => {
+  const status = document.getElementById("cardStatus");
+  const cardData = {
+    title: document.getElementById("txtCardTitle").value,
+    handle: document.getElementById("txtCardHandle").value,
+    url: document.getElementById("txtCardUrl").value,
+    telegramUrl: document.getElementById("txtTelegramUrl").value
+  };
+  try {
+    let patch = { card: cardData };
+    if (avatarFile.files && avatarFile.files[0]) {
+      status.textContent = "Mengunggah logo profil ke Supabase...";
+      const avatarUrl = await uploadSiteImage(croppedFiles.avatar || avatarFile.files[0], "avatar");
+      patch.avatar_url = avatarUrl;
+    }
+    await saveRemoteSiteText(patch);
+    writeStore(STORE_KEYS.card, cardData);
+    if (patch.avatar_url) writeStore(STORE_KEYS.avatar, patch.avatar_url);
+    renderSite();
+    avatarFile.value = ""; delete croppedFiles.avatar;
+    status.textContent = "Profil dan logo avatar berhasil disimpan ke Supabase! ♡";
+  } catch (error) {
+    status.textContent = `Gagal menyimpan profil/logo: ${error.message}`;
+  }
+});
+
+document.getElementById("removeAvatar").addEventListener("click", async () => {
+  const status = document.getElementById("cardStatus");
+  try {
+    await saveRemoteSiteText({ avatar_url: null });
+    localStorage.removeItem(STORE_KEYS.avatar);
+    renderSite();
+    status.textContent = "Logo avatar berhasil dihapus dari pengaturan Supabase ♡";
+  } catch (error) {
+    status.textContent = `Gagal menghapus logo: ${error.message}`;
+  }
+});
+
+// Simpan Banner Foto ke Supabase Storage + URL ke tabel store_site_texts
+const bannerFile = document.getElementById("bannerImageFile");
+document.getElementById("saveBanner").addEventListener("click", async () => {
+  const status = document.getElementById("bannerStatus");
+  try {
+    if (!bannerFile.files || !bannerFile.files[0]) throw new Error("Pilih file gambar banner dari galeri terlebih dahulu!");
+    status.textContent = "Mengunggah banner ke Supabase...";
+    const bannerUrl = await uploadSiteImage(croppedFiles.banner || bannerFile.files[0], "banner");
+    await saveRemoteSiteText({ banner_url: bannerUrl });
+    writeStore(STORE_KEYS.banner, bannerUrl);
+    renderSite();
+    bannerFile.value = ""; delete croppedFiles.banner;
+    status.textContent = "Banner berhasil disimpan ke Supabase! ♡";
+  } catch (error) {
+    status.textContent = `Gagal menyimpan banner: ${error.message}`;
+  }
+});
+
+document.getElementById("removeBanner").addEventListener("click", async () => {
+  const status = document.getElementById("bannerStatus");
+  try {
+    await saveRemoteSiteText({ banner_url: null });
+    localStorage.removeItem(STORE_KEYS.banner);
+    renderSite();
+    status.textContent = "Banner berhasil dihapus dari pengaturan Supabase ♡";
+  } catch (error) {
+    status.textContent = `Gagal menghapus banner: ${error.message}`;
+  }
+});
+
+// Buat Kategori Baru
+document.getElementById("saveNewCategoryBtn").addEventListener("click", () => {
+  let products = readStore(STORE_KEYS.products, defaultProducts);
+  const newName = editAppName.value.trim();
+  const newDesc = editAppDesc.value.trim();
+  const logoText = editAppLogoText.value.trim();
+
+  if(!newName) {
+    alert("Nama aplikasi tidak boleh kosong!");
+    return;
+  }
+
+  const newAppId = newName.toLowerCase().replace(/[^a-z0-9]/g, "") + "_" + Date.now();
+  
+  products.push({
+    id: newAppId,
+    name: newName,
+    group: editAppGroup.value || "Hiburan",
+    logoVal: logoText || newName.charAt(0).toUpperCase(),
+    desc: newDesc || "streaming package",
+    items: []
+  });
+
+  writeStore(STORE_KEYS.products, products);
+  renderProducts();
+  updateCategorySelect();
+  
+  appCategorySelect.value = newAppId;
+  handleCategorySelectChange();
+
+  document.getElementById("productStatus").textContent = "Kategori baru berhasil dibuat! ♡";
+  setTimeout(() => document.getElementById("productStatus").textContent = "", 4000);
+});
+
+// Simpan Perubahan Kategori
+document.getElementById("saveCategoryEdit").addEventListener("click", async () => {
+  let products = readStore(STORE_KEYS.products, defaultProducts);
+  const catVal = appCategorySelect.value;
+  if(catVal === "new") {
+    alert("Silakan klik 'Buat Kategori Baru' terlebih dahulu!");
+    return;
+  }
+  const app = products.find(p => p.id === catVal);
+  if(app) {
+    app.name = editAppName.value.trim();
+    app.desc = editAppDesc.value.trim();
+    app.group = editAppGroup.value || "Hiburan";
+    if(editAppLogoText.value.trim()) {
+      app.logoVal = editAppLogoText.value.trim();
+    }
+    try {
+      if (appLogoFile.files && appLogoFile.files[0]) {
+        document.getElementById("productStatus").textContent = "Mengunggah logo aplikasi ke Supabase...";
+        app.logoUrl = await uploadSiteImage(croppedFiles.appLogo || appLogoFile.files[0], `app-${app.id}`);
+      }
+    } catch (uploadError) {
+      document.getElementById("productStatus").textContent = `Gagal upload logo aplikasi: ${uploadError.message}`;
+      return;
+    }
+    writeStore(STORE_KEYS.products, products);
+    if (app.logoUrl) {
+      const appLogos = { ...(remoteSiteTexts.app_logos || {}), [app.id]: app.logoUrl };
+      await saveRemoteSiteText({ app_logos: appLogos });
+    }
+    renderProducts();
+    updateCategorySelect();
+    document.getElementById("productStatus").textContent = "Perubahan aplikasi dan logo berhasil disimpan! ♡";
+    setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
+  }
+});
+
+// Tambah Paket
+document.getElementById("addPackageBtn").addEventListener("click", () => {
+  let products = readStore(STORE_KEYS.products, defaultProducts);
+  const catVal = appCategorySelect.value;
+  const pkgName = document.getElementById("packageNameInput").value.trim();
+  const pkgPrice = Number(document.getElementById("packagePriceInput").value);
+
+  if(catVal === "new") {
+    alert("Silakan buat atau pilih kategori aplikasi terlebih dahulu di atas!");
+    return;
+  }
+  if(!pkgName || !pkgPrice) {
+    alert("Nama paket dan harga harus diisi!");
+    return;
+  }
+
+  const app = products.find(p => p.id === catVal);
+  if(app) {
+    app.items.push({ name: pkgName, price: pkgPrice });
+    writeStore(STORE_KEYS.products, products);
+    clearPackageEditor();
+    refreshExistingPackageSelect();
+    renderProducts();
+    document.getElementById("productStatus").textContent = "Paket / stok baru berhasil ditambahkan! ♡";
+    setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
+  }
+});
+
+// Update paket/stok yang sudah ada (nama dan harga).
+updatePackageBtn.addEventListener("click", () => {
+  const products = readStore(STORE_KEYS.products, defaultProducts);
+  const app = products.find(p => p.id === appCategorySelect.value);
+  const index = Number(existingPackageSelect.value);
+  const pkgName = document.getElementById("packageNameInput").value.trim();
+  const priceInput = document.getElementById("packagePriceInput").value;
+  const pkgPrice = Number(priceInput);
+  if (!app || existingPackageSelect.value === "" || !app.items[index]) {
+    alert("Pilih paket yang ingin di-update terlebih dahulu ya ♡");
+    return;
+  }
+  if (!pkgName || priceInput === "" || !Number.isFinite(pkgPrice) || pkgPrice < 0) {
+    alert("Nama paket dan harga yang valid wajib diisi!");
+    return;
+  }
+  app.items[index] = { ...app.items[index], name: pkgName, price: pkgPrice };
+  if (!writeStore(STORE_KEYS.products, products)) return;
+  renderProducts();
+  refreshExistingPackageSelect(index);
+  existingPackageSelect.dispatchEvent(new Event("change"));
+  document.getElementById("productStatus").textContent = "Paket / stock berhasil di-update! ♡";
+  setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
+});
+
+// Hapus satu paket/stok tanpa menghapus seluruh kategori aplikasi.
+deletePackageBtn.addEventListener("click", () => {
+  const products = readStore(STORE_KEYS.products, defaultProducts);
+  const app = products.find(p => p.id === appCategorySelect.value);
+  const index = Number(existingPackageSelect.value);
+  if (!app || existingPackageSelect.value === "" || !app.items[index]) return;
+  if (!confirm(`Hapus paket "${app.items[index].name}" dari pricelist?`)) return;
+  app.items.splice(index, 1);
+  if (!writeStore(STORE_KEYS.products, products)) return;
+  renderProducts();
+  clearPackageEditor();
+  refreshExistingPackageSelect();
+  document.getElementById("productStatus").textContent = "Paket / stok berhasil dihapus! ♡";
+  setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
+});
+
+// Hapus Kategori
+deleteAppBtn.addEventListener("click", () => {
+  const catVal = appCategorySelect.value;
+  if(catVal === "new") return;
+  if(!confirm("Yakin ingin menghapus seluruh kategori aplikasi ini?")) return;
+
+  let products = readStore(STORE_KEYS.products, defaultProducts);
+  products = products.filter(p => p.id !== catVal);
+  writeStore(STORE_KEYS.products, products);
+  renderProducts();
+  updateCategorySelect();
+  populateFlashPackageSelect();
+  document.getElementById("productStatus").textContent = "Kategori berhasil dihapus! ♡";
+  setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
+});
+
+// Simpan Semua Tulisan
+document.getElementById("saveSiteTexts").addEventListener("click", () => {
+  const texts = {
+    brand: document.getElementById("txtBrand").value,
+    sticker: document.getElementById("txtSticker").value,
+    heroDesc: document.getElementById("txtHeroDesc").value,
+    decor: document.getElementById("txtDecor").value,
+    packageTitle: document.getElementById("txtPackageTitle").value,
+    packageNote: document.getElementById("txtPackageNote").value,
+    footer: document.getElementById("txtFooter").value
+  };
+  writeStore(STORE_KEYS.texts, texts);
+  renderSite();
+  document.getElementById("textsStatus").textContent = "Semua tulisan berhasil disimpan! ♡";
+  setTimeout(() => document.getElementById("textsStatus").textContent = "", 3000);
+});
+
+document.getElementById("resetSiteTexts").addEventListener("click", () => {
+  localStorage.removeItem(STORE_KEYS.texts);
+  renderSite();
+  populateAdminFields();
+  document.getElementById("textsStatus").textContent = "Tulisan dikembalikan ke default! ♡";
+  setTimeout(() => document.getElementById("textsStatus").textContent = "", 3000);
+});
+
+// Tambah Testimoni
+document.getElementById("saveReview").addEventListener("click", () => {
+  const name = document.getElementById("reviewName").value.trim();
+  const text = document.getElementById("reviewText").value.trim();
+  const rating = Number(document.getElementById("reviewRating").value);
+
+  if(!name || !text) {
+    alert("Nama dan isi testimoni harus diisi!");
+    return;
+  }
+
+  let reviews = readStore(STORE_KEYS.reviews, defaultReviews);
+  reviews.unshift({ name, text, rating });
+  writeStore(STORE_KEYS.reviews, reviews);
+  renderReviews();
+
+  document.getElementById("reviewName").value = "";
+  document.getElementById("reviewText").value = "";
+  document.getElementById("reviewStatus").textContent = "Testimoni berhasil ditambahkan! ♡";
+  setTimeout(() => document.getElementById("reviewStatus").textContent = "", 3000);
+});
+
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+}
+
+
+// Crop editor untuk banner, avatar, dan logo aplikasi.
+const cropModal = document.getElementById("cropModal");
+const cropImage = document.getElementById("cropImage");
+const cropZoom = document.getElementById("cropZoom");
+const cropX = document.getElementById("cropX");
+const cropY = document.getElementById("cropY");
+let cropTarget = null;
+let cropSourceFile = null;
+let cropAspect = 1;
+const croppedFiles = {};
+function openCropper(file, target, aspect) {
+  if (!file || !file.type.startsWith("image/")) return;
+  cropTarget = target; cropSourceFile = file; cropAspect = aspect;
+  cropImage.src = URL.createObjectURL(file);
+  cropZoom.value = 1; cropX.value = 50; cropY.value = 50;
+  cropImage.style.aspectRatio = String(aspect);
+  cropImage.style.objectFit = "cover";
+  cropModal.classList.add("show");
+}
+function closeCropper() {
+  cropModal.classList.remove("show");
+  if (cropImage.src.startsWith("blob:")) URL.revokeObjectURL(cropImage.src);
+}
+["cropZoom","cropX","cropY"].forEach(id => document.getElementById(id).addEventListener("input", () => {
+  cropImage.style.objectPosition = `${cropX.value}% ${cropY.value}%`;
+  cropImage.style.transform = `scale(${cropZoom.value})`;
+}));
+document.getElementById("cropClose").addEventListener("click", closeCropper);
+document.getElementById("cropCancel").addEventListener("click", closeCropper);
+document.getElementById("cropApply").addEventListener("click", async () => {
+  if (!cropSourceFile || !cropTarget) return;
+  const img = new Image();
+  img.onload = () => {
+    const zoom = Number(cropZoom.value);
+    const targetAspect = cropAspect;
+    let sw = img.naturalWidth, sh = img.naturalHeight;
+    if (sw / sh > targetAspect) sw = sh * targetAspect;
+    else sh = sw / targetAspect;
+    sw /= zoom; sh /= zoom;
+    const maxX = img.naturalWidth - sw, maxY = img.naturalHeight - sh;
+    const sx = maxX * (Number(cropX.value) / 100);
+    const sy = maxY * (Number(cropY.value) / 100);
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(sw); canvas.height = Math.round(sh);
+    canvas.getContext("2d").drawImage(img, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob(blob => {
+      if (!blob) { alert("Crop gagal, coba pilih foto lain ya ♡"); return; }
+      const baseName = cropSourceFile.name.replace(/\.[^.]+$/, "");
+      croppedFiles[cropTarget] = new File([blob], `${baseName}-crop.jpg`, { type: "image/jpeg" });
+      closeCropper();
+      const statusId = cropTarget === "banner" ? "bannerStatus" : cropTarget === "avatar" ? "cardStatus" : "productStatus";
+      document.getElementById(statusId).textContent = "Crop foto siap digunakan ♡";
+    }, "image/jpeg", 0.92);
+  };
+  img.src = URL.createObjectURL(cropSourceFile);
+});
+document.getElementById("bannerImageFile").addEventListener("change", e => openCropper(e.target.files[0], "banner", 2.35));
+document.getElementById("cardAvatarFile").addEventListener("change", e => openCropper(e.target.files[0], "avatar", 1));
+document.getElementById("appLogoFile").addEventListener("change", e => {
+  const f = e.target.files[0];
+  if (f) { appLogoPreview.src = URL.createObjectURL(f); appLogoPreviewWrap.style.display = "block"; openCropper(f, "appLogo", 1); }
+});
+
+// Initial Load
+renderSite();
+loadRemoteSiteMedia();
+
+// Build a real navigable admin dashboard while keeping every existing form ID and handler.
+(function buildAdminDashboard(){
+  const area=document.getElementById('manageArea');
+  if(!area || area.dataset.dashboardReady==='1') return;
+  area.dataset.dashboardReady='1';
+  const nodes=Array.from(area.children);
+  const cloud=nodes.find(n=>n.id==='cloudSyncPanel');
+  const sections=[]; let current=null;
+  nodes.forEach(node=>{
+    if(node===cloud) return;
+    if(node.tagName==='HR') return;
+    if(node.tagName==='H2'){
+      current={title:node.textContent.trim(),nodes:[]}; sections.push(current);
+    }
+    if(current) current.nodes.push(node);
+  });
+  const shell=document.createElement('div'); shell.className='admin-dashboard';
+  const sidebar=document.createElement('aside'); sidebar.className='admin-sidebar';
+  sidebar.innerHTML='<div class="admin-side-brand">Vena Studio ♡<small>ADMIN WORKSPACE</small></div><nav class="admin-nav" aria-label="Menu admin"></nav>';
+  const nav=sidebar.querySelector('.admin-nav');
+  const content=document.createElement('div'); content.className='admin-content';
+  const welcome=document.createElement('div'); welcome.className='admin-welcome';
+  welcome.innerHTML='<h3>Welcome back, Vena! ♡</h3><p>Atur toko kecilmu dengan lebih mudah dan rapi.</p>';
+  content.appendChild(welcome);
+  const overview=document.createElement('section'); overview.className='admin-overview-cards';
+  const productCount=()=>{try{return JSON.parse(localStorage.getItem('venaProductsDataV9')||'[]').reduce((n,p)=>n+(p.items||[]).length,0)}catch(e){return 0}};
+  const reviewCount=()=>{try{return JSON.parse(localStorage.getItem('venaReviewsV9')||'[]').length}catch(e){return 0}};
+  overview.innerHTML=`<div class="admin-overview-card"><span>♡ Paket terdaftar</span><strong id="adminStatPackages">${productCount()}</strong></div><div class="admin-overview-card"><span>✿ Testimoni</span><strong id="adminStatReviews">${reviewCount()}</strong></div><div class="admin-overview-card"><span>☁️ Sinkronisasi</span><strong style="font-size:15px">Cloud</strong></div>`;
+  content.appendChild(overview);
+  if(cloud) content.appendChild(cloud);
+  const labels=['Profil & Sosial','Banner Toko','Pricelist & Stok','Tulisan Website','Testimoni'];
+  const icons=['♡','▧','✿','Aa','☆'];
+  const panels=[];
+  sections.forEach((section,i)=>{
+    const panel=document.createElement('section'); panel.className='admin-panel-section';
+    section.nodes.forEach(n=>panel.appendChild(n));
+    panel.hidden=true; content.appendChild(panel); panels.push(panel);
+    const btn=document.createElement('button'); btn.type='button'; btn.innerHTML=`<span>${icons[i]||'♡'}</span>${labels[i]||section.title}`;
+    btn.addEventListener('click',()=>activate(i)); nav.appendChild(btn);
+  });
+  const homeBtn=document.createElement('button'); homeBtn.type='button'; homeBtn.innerHTML='<span>⌂</span>Ringkasan';
+  nav.insertBefore(homeBtn,nav.firstChild);
+  function activate(index){
+    overview.hidden=index!==-1;
+    panels.forEach((p,i)=>p.hidden=i!==index);
+    Array.from(nav.children).forEach((b,i)=>b.classList.toggle('active',i===(index+1)));
+    if(index>=0){document.getElementById('adminStatPackages').textContent=productCount();document.getElementById('adminStatReviews').textContent=reviewCount();}
+  }
+  homeBtn.addEventListener('click',()=>activate(-1));
+  shell.append(sidebar,content); area.replaceChildren(shell); activate(-1);
+})();
+
+</script>
+</body>
+</html>
