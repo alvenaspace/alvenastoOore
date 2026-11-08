@@ -30,12 +30,14 @@ header{display:flex;align-items:center;justify-content:space-between;gap:12px;ma
 .pill{border:2px solid white;background:#fef6fa;border-radius:30px;padding:7px 12px;font-size:11px;font-weight:900;color:var(--ink);box-shadow:0 3px 0 #f0e1ea;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
 
 .hero{position:relative;text-align:center;background:#fff;border:5px solid white;border-radius:34px;padding:22px 18px 25px;box-shadow:var(--shadow);overflow:hidden}
-.hero-banner{display:block;width:100%;max-height:250px;object-fit:cover;border-radius:22px;margin:0 auto 16px;border:3px solid white;box-shadow:var(--shadow)}
+.hero-banner-box{position:relative;width:100%;min-height:160px;max-height:260px;border-radius:22px;margin:0 auto 16px;border:3px solid white;box-shadow:var(--shadow);overflow:hidden;background:linear-gradient(135deg,#ff9a9e,#fad0c4,#ffd1ff);display:flex;align-items:center;justify-content:center}
+.hero-banner-box img{width:100%;height:100%;object-fit:cover;display:none}
+.hero-banner-title{color:#fff;font:800 24px "Baloo 2";text-shadow:0 2px 4px rgba(0,0,0,0.2)}
 
 .profile-card{background:#fff0f7;border:2px solid #fce4ef;border-radius:26px;padding:18px;max-width:440px;margin:0 auto 16px;text-align:center}
 .profile-head{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:12px}
-.profile-avatar{width:54px;height:48px;border-radius:20px;background:var(--pink);color:white;display:grid;place-items:center;font-weight:900;font-size:22px;box-shadow:0 4px 0 #e670ad;overflow:hidden}
-.profile-avatar img{width:100%;height:100%;object-fit:cover}
+.profile-avatar{width:54px;height:54px;border-radius:20px;background:var(--pink);color:white;display:grid;place-items:center;font-weight:900;font-size:22px;box-shadow:0 4px 0 #e670ad;overflow:hidden}
+.profile-avatar img{width:100%;height:100%;object-fit:cover;display:none}
 .profile-info{text-align:left}
 .profile-title{font:800 18px "Baloo 2";line-height:1.1;color:var(--ink)}
 .profile-badge-row{display:flex;align-items:center;gap:8px;margin-top:3px}
@@ -65,7 +67,7 @@ h2{font:800 22px "Baloo 2";margin:0}
 .app-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .app-info-left{display:flex;align-items:center;gap:12px}
 .app-logo{width:48px;height:48px;border-radius:17px;background:var(--pink);color:#fff;display:grid;place-items:center;font:800 22px "Baloo 2";box-shadow:0 4px 0 #e9b4d0;overflow:hidden}
-.app-logo img{width:100%;height:100%;object-fit:cover}
+.app-logo img{width:100%;height:100%;object-fit:cover;display:none}
 .app-title{font:800 19px "Baloo 2"}
 .app-desc{font-size:11px;color:var(--muted);font-weight:800}
 .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
@@ -108,7 +110,7 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
 .field input,.field textarea,.field select{width:100%;border:2px solid var(--line);border-radius:13px;padding:11px;outline:none;background:#fffdfd}
 .field textarea{min-height:75px;resize:vertical}
 .admin-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.secondary{border:2px solid var(--line);background:#fff;border-radius:13px;padding:10px 13px;font-weight:900;cursor:pointer;color:var(--ink)}
+.secondary{border:2px solid white;background:#f4edf2;border-radius:13px;padding:10px 13px;font-weight:900;cursor:pointer;color:var(--ink)}
 .danger{border:0;background:#ffb4b4;color:#7a1d1d;border-radius:13px;padding:10px 13px;font-weight:900;cursor:pointer}
 .status{font-size:12px;color:var(--muted);font-weight:800;min-height:18px;margin:8px 0}
 .search-box{width:100%;border:2px solid var(--line);border-radius:15px;padding:13px 15px;margin:0 0 14px;background:#fffdfd;color:var(--ink);outline:none}
@@ -118,7 +120,7 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
 <body>
 
 <audio id="bgMusic" loop preload="auto">
-  <source id="musicSource" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+  <source id="musicSource" src="https://actions.google.com/sounds/v1/ambiences/coffee_shop.ogg" type="audio/ogg">
 </audio>
 
 <main class="wrap">
@@ -135,13 +137,19 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
 </header>
 
 <section class="hero">
-  <img id="heroBanner" class="hero-banner" alt="Banner Vena Store">
+  <div class="hero-banner-box" id="bannerBox">
+    <span class="hero-banner-title" id="bannerTitle">Vena's Lucky Store ♡</span>
+    <img id="bannerImg" alt="Banner Vena Store">
+  </div>
 
   <div class="sticker" id="heroSticker">✿ little digital treats ✿</div>
   
   <div class="profile-card">
     <div class="profile-head">
-      <div class="profile-avatar" id="profileAvatarBox">V</div>
+      <div class="profile-avatar" id="profileAvatarBox">
+        <span id="avatarText">V</span>
+        <img id="avatarImg" alt="Logo Profile">
+      </div>
       <div class="profile-info">
         <div class="profile-title" id="cardStoreTitle">Vena Store ✦ v.ᵉ</div>
         <div class="profile-badge-row">
@@ -217,12 +225,10 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
   <div id="manageArea">
    <h2>Pengaturan Musik Latar ♡</h2>
    <div class="field">
-      <label>Pilih Musik / Lagu TikTok</label>
+      <label>Pilih Musik / Lagu Latar</label>
       <select id="musicSelect">
-        <option value="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3">Cute & Funny Cat (Default)</option>
-        <option value="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73213.mp3">Playful Whistle</option>
-        <option value="https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f7e531.mp3">Cute Ukulele</option>
-        <option value="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3">TikTok Remix Vibes (Rama Kaki Patah Style)</option>
+        <option value="https://actions.google.com/sounds/v1/ambiences/coffee_shop.ogg">Cozy Ambient (Default)</option>
+        <option value="https://actions.google.com/sounds/v1/animals/cat_meow.ogg">Cat Purr & Meow Vibes</option>
       </select>
    </div>
    <div class="admin-actions">
@@ -236,48 +242,50 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
    <div class="field"><label>Username X (@handle)</label><input id="txtCardHandle" placeholder="@venastore"></div>
    <div class="field"><label>Link URL X (Twitter)</label><input id="txtCardUrl" placeholder="https://x.com/venastore"></div>
    <div class="field"><label>Link URL Telegram Testimoni</label><input id="txtTelegramUrl" placeholder="https://t.me/channeltestimoni"></div>
-   <div class="field"><label>Upload Foto Profil / Avatar (Opsional)</label><input id="cardAvatarFile" type="file" accept="image/*"></div>
+   <div class="field"><label>Upload Logo Foto Profil (Maks 500 KB)</label><input id="cardAvatarFile" type="file" accept="image/*"></div>
    <div class="admin-actions">
-     <button class="primary" id="saveCardData">Simpan Profil & Telegram</button>
-     <button class="secondary" id="removeAvatar">Hapus Foto Profil</button>
+     <button class="primary" id="saveCardData">Simpan Profil & Logo Avatar</button>
+     <button class="secondary" id="removeAvatar">Hapus Logo Avatar</button>
    </div>
    <div class="status" id="cardStatus"></div>
 
    <hr style="border:0;border-top:2px dashed var(--line);margin:18px 0">
-   <h2>Edit Nama, Harga & Logo Aplikasi / Stok ♡</h2>
+   <h2>Pengaturan Banner Foto (Maks 500 KB) ♡</h2>
+   <div class="field"><label>Foto Banner X/Twitter (Galeri)</label><input id="bannerImageFile" type="file" accept="image/*"></div>
+   <div class="admin-actions">
+     <button class="primary" id="saveBanner">Simpan Banner Foto</button>
+     <button class="secondary" id="removeBanner">Hapus Banner Foto</button>
+   </div>
+   <div class="status" id="bannerStatus"></div>
+
+   <hr style="border:0;border-top:2px dashed var(--line);margin:18px 0">
+   <h2>Edit Nama, Harga & Aplikasi / Stok ♡</h2>
    <div class="field">
-     <label>Pilih Kategori Aplikasi untuk Diedit / Ditambah Stok</label>
+     <label>Pilih Kategori Aplikasi / Buat Baru</label>
      <select id="appCategorySelect">
        <option value="new">+ Buat Kategori Aplikasi Baru</option>
      </select>
    </div>
    
    <div id="editCategoryFields" style="background:#fef6fa; padding:10px; border-radius:12px; margin-bottom:10px;">
-     <div class="field"><label>Ubah Nama Aplikasi</label><input id="editAppName" placeholder="Netflix"></div>
-     <div class="field"><label>Ubah Keterangan Aplikasi</label><input id="editAppDesc" placeholder="streaming package"></div>
-     <div class="field"><label>Ganti Foto Logo Aplikasi (Opsional)</label><input id="editAppLogoFile" type="file" accept="image/*"></div>
-     <div class="field"><label>Atau Huruf Logo</label><input id="editAppLogoText" maxlength="2" placeholder="N"></div>
-     <div class="admin-actions"><button class="secondary" id="saveCategoryEdit">Simpan Perubahan Nama/Logo App</button></div>
+     <div class="field"><label>Nama Aplikasi</label><input id="editAppName" placeholder="Netflix / Iqiyi"></div>
+     <div class="field"><label>Keterangan Aplikasi</label><input id="editAppDesc" placeholder="streaming package · ready to order"></div>
+     <div class="field"><label>Huruf Logo Aplikasi (Jika Tanpa Foto)</label><input id="editAppLogoText" maxlength="2" placeholder="N / I"></div>
+     <div class="admin-actions">
+       <button class="primary" id="saveNewCategoryBtn">✨ Buat Kategori Baru</button>
+       <button class="secondary" id="saveCategoryEdit">Simpan Perubahan App</button>
+     </div>
    </div>
 
    <div class="field"><label>Nama Paket / Stok Baru</label><input id="packageNameInput" placeholder="1U · 3 hari"></div>
    <div class="field"><label>Harga Paket (Angka saja)</label><input id="packagePriceInput" type="number" placeholder="12000"></div>
    
    <div class="admin-actions">
-     <button class="primary" id="addPackageBtn">Tambah Paket / Stok Baru</button>
-     <button class="danger" id="deleteAppBtn" style="display:none">Hapus Seluruh Kategori Ini</button>
+     <button class="primary" id="addPackageBtn">+ Tambah Paket ke Kategori Terpilih</button>
+     <button class="danger" id="deleteAppBtn" style="display:none">Hapus Kategori Ini</button>
    </div>
    <div class="status" id="productStatus"></div>
 
-   <hr style="border:0;border-top:2px dashed var(--line);margin:18px 0">
-   <h2>Pengaturan Banner ♡</h2>
-   <div class="field"><label>Foto Banner (Galeri)</label><input id="bannerImageFile" type="file" accept="image/*"></div>
-   <div class="admin-actions">
-     <button class="primary" id="saveBanner">Simpan Banner</button>
-     <button class="secondary" id="removeBanner">Hapus Banner</button>
-   </div>
-   <div class="status" id="bannerStatus"></div>
-   
    <hr style="border:0;border-top:2px dashed var(--line);margin:18px 0">
    <h2>Edit Semua Tulisan Website ♡</h2>
    <div class="field"><label>Nama toko di header</label><input id="txtBrand"></div>
@@ -321,17 +329,25 @@ let isPlaying = false;
 let cart = [];
 
 const STORE_KEYS = { 
-  texts: "venaSiteTexts", 
-  reviews: "venaReviews", 
-  banner: "venaBannerUrl", 
-  music: "venaMusicUrl",
-  products: "venaProductsData",
-  card: "venaCardData",
-  avatar: "venaAvatarUrl"
+  texts: "venaSiteTextsV4", 
+  reviews: "venaReviewsV4", 
+  music: "venaMusicUrlV4",
+  products: "venaProductsDataV4",
+  card: "venaCardDataV4",
+  banner: "venaBannerUrlV4",
+  avatar: "venaAvatarUrlV4"
 };
 
 const readStore = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key)) ?? fallback } catch { return fallback } };
-const writeStore = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+const writeStore = (key, value) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+    return true;
+  } catch(e) {
+    alert("Gagal menyimpan! Ukuran foto terlalu besar untuk browser HP. Mohon kurangi/kompres ukuran foto kamu dulu ya (maksimal 500 KB) ♡");
+    return false;
+  }
+};
 
 const defaultTexts = {
   brand: "vena's lucky store", 
@@ -360,7 +376,6 @@ const defaultProducts = [
   {
     id: "netflix",
     name: "Netflix",
-    logoType: "text",
     logoVal: "N",
     desc: "streaming package · ready to order",
     items: [
@@ -371,6 +386,15 @@ const defaultProducts = [
       { name: "Netflix 2U — 1 bulan", price: 33000 },
       { name: "Netflix 2U — 7 hari", price: 15000 },
       { name: "Netflix semi privat", price: 55000 }
+    ]
+  },
+  {
+    id: "iqiyi",
+    name: "Iqiyi",
+    logoVal: "I",
+    desc: "streaming package · ready to order",
+    items: [
+      { name: "premium 1 bulan", price: 13000 }
     ]
   }
 ];
@@ -390,7 +414,11 @@ musicBtn.addEventListener("click", () => {
       isPlaying = true;
       musicBtn.textContent = "🎵 Musik: PAUSE";
     }).catch(() => {
-      // Jika browser memblokir otomatis, cukup abaikan tanpa memunculkan alert pop-up mengganggu
+      bgMusic.load();
+      bgMusic.play().then(() => {
+        isPlaying = true;
+        musicBtn.textContent = "🎵 Musik: PAUSE";
+      }).catch(() => {});
     });
   } else {
     bgMusic.pause();
@@ -416,21 +444,31 @@ function renderSite() {
   document.getElementById("xSocialLink").href = cardData.url;
   document.getElementById("telegramLink").href = cardData.telegramUrl;
 
-  const banner = localStorage.getItem(STORE_KEYS.banner);
-  const bannerEl = document.getElementById("heroBanner");
+  // Banner Render
+  const banner = readStore(STORE_KEYS.banner, null);
+  const bannerImg = document.getElementById("bannerImg");
+  const bannerTitle = document.getElementById("bannerTitle");
   if(banner) {
-    bannerEl.src = banner;
-    bannerEl.style.display = "block";
+    bannerImg.src = banner;
+    bannerImg.style.display = "block";
+    bannerTitle.style.display = "none";
   } else {
-    bannerEl.style.display = "none";
+    bannerImg.style.display = "none";
+    bannerTitle.style.display = "block";
   }
 
-  const avatar = localStorage.getItem(STORE_KEYS.avatar);
-  const avatarBox = document.getElementById("profileAvatarBox");
+  // Avatar Render
+  const avatar = readStore(STORE_KEYS.avatar, null);
+  const avatarImg = document.getElementById("avatarImg");
+  const avatarText = document.getElementById("avatarText");
   if(avatar) {
-    avatarBox.innerHTML = `<img src="${avatar}" alt="Avatar">`;
+    avatarImg.src = avatar;
+    avatarImg.style.display = "block";
+    avatarText.style.display = "none";
   } else {
-    avatarBox.textContent = cardData.title ? cardData.title.charAt(0).toUpperCase() : "V";
+    avatarImg.style.display = "none";
+    avatarText.style.display = "block";
+    avatarText.textContent = cardData.title ? cardData.title.charAt(0).toUpperCase() : "V";
   }
 
   renderProducts();
@@ -440,7 +478,11 @@ function renderSite() {
 
 function renderProducts(filter = "") {
   const container = document.getElementById("productsContainer");
-  const products = readStore(STORE_KEYS.products, defaultProducts);
+  let products = readStore(STORE_KEYS.products, null);
+  if(!products) {
+    products = defaultProducts;
+    writeStore(STORE_KEYS.products, products);
+  }
   container.innerHTML = "";
 
   let totalItemsCount = 0;
@@ -459,17 +501,10 @@ function renderProducts(filter = "") {
     const pkgDiv = document.createElement("div");
     pkgDiv.className = "package";
 
-    let logoContent = "";
-    if(app.logoType === "img" && app.logoVal) {
-      logoContent = `<img src="${app.logoVal}" alt="${app.name}">`;
-    } else {
-      logoContent = app.logoVal || app.name.charAt(0).toUpperCase();
-    }
-
     pkgDiv.innerHTML = `
       <div class="app-head">
         <div class="app-info-left">
-          <div class="app-logo">${logoContent}</div>
+          <div class="app-logo">${app.logoVal || app.name.charAt(0).toUpperCase()}</div>
           <div>
             <div class="app-title">${app.name}</div>
             <div class="app-desc">${app.desc || ""}</div>
@@ -583,7 +618,6 @@ window.deleteStockItem = function(appId, itemIndex) {
 function updateCartUI() {
   const listEl = document.getElementById("cartItemsList");
   const countEl = document.getElementById("cartCount");
-  const totalEl = document.getElementById("total");
 
   let totalCount = 0;
   let totalPrice = 0;
@@ -653,7 +687,7 @@ function populateAdminFields() {
 
 function updateCategorySelect() {
   const select = document.getElementById("appCategorySelect");
-  const products = readStore(STORE_KEYS.products, defaultProducts);
+  let products = readStore(STORE_KEYS.products, defaultProducts);
   
   select.innerHTML = `<option value="new">+ Buat Kategori Aplikasi Baru</option>`;
   products.forEach(p => {
@@ -687,7 +721,7 @@ function handleCategorySelectChange() {
     if(app) {
       editAppName.value = app.name;
       editAppDesc.value = app.desc || "";
-      if(app.logoType === "text") editAppLogoText.value = app.logoVal || "";
+      editAppLogoText.value = app.logoVal || "";
     }
     deleteAppBtn.style.display = "inline-block";
   }
@@ -702,7 +736,7 @@ document.getElementById("saveMusic").addEventListener("click", () => {
   setTimeout(() => document.getElementById("musicStatus").textContent = "", 3000);
 });
 
-// Simpan Profil, Avatar & Telegram
+// Simpan Profil & Logo Avatar
 const avatarFile = document.getElementById("cardAvatarFile");
 document.getElementById("saveCardData").addEventListener("click", async () => {
   const cardData = {
@@ -714,106 +748,139 @@ document.getElementById("saveCardData").addEventListener("click", async () => {
   writeStore(STORE_KEYS.card, cardData);
 
   if(avatarFile.files && avatarFile.files[0]) {
-    const base64Avatar = await toBase64(avatarFile.files[0]);
-    writeStore(STORE_KEYS.avatar, base64Avatar);
+    const file = avatarFile.files[0];
+    if(file.size > 800000) {
+      alert("Ukuran foto logo terlalu besar! Tolong kompres fotonya di bawah 500 KB agar bisa tampil di HP pembeli ya ♡");
+      return;
+    }
+    const base64 = await toBase64(file);
+    writeStore(STORE_KEYS.avatar, base64);
   }
 
   renderSite();
-  document.getElementById("cardStatus").textContent = "Berhasil menyimpan profil & telegram! ♡";
+  document.getElementById("cardStatus").textContent = "Berhasil menyimpan profil! ♡";
   setTimeout(() => document.getElementById("cardStatus").textContent = "", 3000);
 });
 
 document.getElementById("removeAvatar").addEventListener("click", () => {
   localStorage.removeItem(STORE_KEYS.avatar);
   renderSite();
-  document.getElementById("cardStatus").textContent = "Foto profil dihapus! ♡";
+  document.getElementById("cardStatus").textContent = "Logo avatar dihapus! ♡";
   setTimeout(() => document.getElementById("cardStatus").textContent = "", 3000);
 });
 
-// Simpan Edit Nama / Logo Kategori Aplikasi
-document.getElementById("saveCategoryEdit").addEventListener("click", async () => {
+// Simpan Banner Foto
+const bannerFile = document.getElementById("bannerImageFile");
+document.getElementById("saveBanner").addEventListener("click", async () => {
+  if(bannerFile.files && bannerFile.files[0]) {
+    const file = bannerFile.files[0];
+    if(file.size > 800000) {
+      alert("Ukuran foto banner terlalu besar! Tolong kompres fotonya di bawah 500 KB (atau pakai TinyPNG.com) agar bisa tampil di HP pembeli ya ♡");
+      return;
+    }
+    const base64 = await toBase64(file);
+    if(writeStore(STORE_KEYS.banner, base64)) {
+      renderSite();
+      document.getElementById("bannerStatus").textContent = "Banner foto berhasil disimpan! ♡";
+      setTimeout(() => document.getElementById("bannerStatus").textContent = "", 3000);
+    }
+  } else {
+    alert("Pilih file gambar banner dari galeri terlebih dahulu!");
+  }
+});
+
+document.getElementById("removeBanner").addEventListener("click", () => {
+  localStorage.removeItem(STORE_KEYS.banner);
+  renderSite();
+  document.getElementById("bannerStatus").textContent = "Banner foto dihapus! ♡";
+  setTimeout(() => document.getElementById("bannerStatus").textContent = "", 3000);
+});
+
+// Tombol Buat Kategori Baru
+document.getElementById("saveNewCategoryBtn").addEventListener("click", () => {
   let products = readStore(STORE_KEYS.products, defaultProducts);
-  const catVal = appCategorySelect.value;
   const newName = editAppName.value.trim();
   const newDesc = editAppDesc.value.trim();
   const logoText = editAppLogoText.value.trim();
-  const fileInput = document.getElementById("editAppLogoFile");
 
   if(!newName) {
     alert("Nama aplikasi tidak boleh kosong!");
     return;
   }
 
-  if(catVal === "new") {
-    let logoVal = logoText || newName.charAt(0).toUpperCase();
-    let logoType = "text";
-    if(fileInput.files && fileInput.files[0]) {
-      logoVal = await toBase64(fileInput.files[0]);
-      logoType = "img";
-    }
-    const newAppId = newName.toLowerCase().replace(/[^a-z0-9]/g, "");
-    products.push({
-      id: newAppId,
-      name: newName,
-      logoType: logoType,
-      logoVal: logoVal,
-      desc: newDesc || "streaming package",
-      items: []
-    });
-  } else {
-    const app = products.find(p => p.id === catVal);
-    if(app) {
-      app.name = newName;
-      app.desc = newDesc;
-      if(logoText) {
-        app.logoType = "text";
-        app.logoVal = logoText;
-      }
-      if(fileInput.files && fileInput.files[0]) {
-        app.logoType = "img";
-        app.logoVal = await toBase64(fileInput.files[0]);
-      }
-    }
-  }
+  const newAppId = newName.toLowerCase().replace(/[^a-z0-9]/g, "") + "_" + Date.now();
+  
+  products.push({
+    id: newAppId,
+    name: newName,
+    logoVal: logoText || newName.charAt(0).toUpperCase(),
+    desc: newDesc || "streaming package",
+    items: []
+  });
 
   writeStore(STORE_KEYS.products, products);
   renderProducts();
   updateCategorySelect();
-  document.getElementById("productStatus").textContent = "Informasi aplikasi berhasil disimpan! ♡";
-  setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
+  
+  appCategorySelect.value = newAppId;
+  handleCategorySelectChange();
+
+  document.getElementById("productStatus").textContent = "Kategori baru berhasil dibuat! Sekarang silakan isi paket di bawah ♡";
+  setTimeout(() => document.getElementById("productStatus").textContent = "", 4000);
 });
 
-// Tambah Paket / Stok Baru
+// Simpan Perubahan Kategori
+document.getElementById("saveCategoryEdit").addEventListener("click", () => {
+  let products = readStore(STORE_KEYS.products, defaultProducts);
+  const catVal = appCategorySelect.value;
+  if(catVal === "new") {
+    alert("Silakan klik tombol 'Buat Kategori Baru' terlebih dahulu!");
+    return;
+  }
+  const app = products.find(p => p.id === catVal);
+  if(app) {
+    app.name = editAppName.value.trim();
+    app.desc = editAppDesc.value.trim();
+    if(editAppLogoText.value.trim()) {
+      app.logoVal = editAppLogoText.value.trim();
+    }
+    writeStore(STORE_KEYS.products, products);
+    renderProducts();
+    updateCategorySelect();
+    document.getElementById("productStatus").textContent = "Perubahan aplikasi berhasil disimpan! ♡";
+    setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
+  }
+});
+
+// Tambah Paket
 document.getElementById("addPackageBtn").addEventListener("click", () => {
   let products = readStore(STORE_KEYS.products, defaultProducts);
   const catVal = appCategorySelect.value;
   const pkgName = document.getElementById("packageNameInput").value.trim();
   const pkgPrice = Number(document.getElementById("packagePriceInput").value);
 
+  if(catVal === "new") {
+    alert("Silakan buat atau pilih kategori aplikasi terlebih dahulu di atas!");
+    return;
+  }
   if(!pkgName || !pkgPrice) {
     alert("Nama paket dan harga harus diisi!");
     return;
   }
 
-  if(catVal === "new") {
-    alert("Silakan simpan kategori aplikasi baru terlebih dahulu atau pilih kategori yang sudah ada!");
-    return;
-  } else {
-    const app = products.find(p => p.id === catVal);
-    if(app) {
-      app.items.push({ name: pkgName, price: pkgPrice });
-    }
+  const app = products.find(p => p.id === catVal);
+  if(app) {
+    app.items.push({ name: pkgName, price: pkgPrice });
+    writeStore(STORE_KEYS.products, products);
+    document.getElementById("packageNameInput").value = "";
+    document.getElementById("packagePriceInput").value = "";
+    renderProducts();
+    document.getElementById("productStatus").textContent = "Paket baru berhasil ditambahkan! ♡";
+    setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
   }
-
-  writeStore(STORE_KEYS.products, products);
-  document.getElementById("packageNameInput").value = "";
-  document.getElementById("packagePriceInput").value = "";
-  renderProducts();
-  document.getElementById("productStatus").textContent = "Paket baru berhasil ditambahkan! ♡";
-  setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
 });
 
-// Hapus Kategori Aplikasi
+// Hapus Kategori
 deleteAppBtn.addEventListener("click", () => {
   const catVal = appCategorySelect.value;
   if(catVal === "new") return;
@@ -824,29 +891,8 @@ deleteAppBtn.addEventListener("click", () => {
   writeStore(STORE_KEYS.products, products);
   renderProducts();
   updateCategorySelect();
-  document.getElementById("productStatus").textContent = "Kategori aplikasi berhasil dihapus! ♡";
+  document.getElementById("productStatus").textContent = "Kategori berhasil dihapus! ♡";
   setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
-});
-
-// Banner Handlers
-const bannerFile = document.getElementById("bannerImageFile");
-document.getElementById("saveBanner").addEventListener("click", async () => {
-  if(bannerFile.files && bannerFile.files[0]) {
-    const base64 = await toBase64(bannerFile.files[0]);
-    writeStore(STORE_KEYS.banner, base64);
-    renderSite();
-    document.getElementById("bannerStatus").textContent = "Banner berhasil disimpan! ♡";
-    setTimeout(() => document.getElementById("bannerStatus").textContent = "", 3000);
-  } else {
-    alert("Pilih file gambar banner terlebih dahulu!");
-  }
-});
-
-document.getElementById("removeBanner").addEventListener("click", () => {
-  localStorage.removeItem(STORE_KEYS.banner);
-  renderSite();
-  document.getElementById("bannerStatus").textContent = "Banner dihapus! ♡";
-  setTimeout(() => document.getElementById("bannerStatus").textContent = "", 3000);
 });
 
 // Simpan Semua Tulisan
