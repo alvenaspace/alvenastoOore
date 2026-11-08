@@ -30,7 +30,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:12px;ma
 .pill{border:2px solid white;background:#fef6fa;border-radius:30px;padding:7px 12px;font-size:11px;font-weight:900;color:var(--ink);box-shadow:0 3px 0 #f0e1ea;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
 
 .hero{position:relative;text-align:center;background:#fff;border:5px solid white;border-radius:34px;padding:22px 18px 25px;box-shadow:var(--shadow);overflow:hidden}
-.hero-banner{display:none;width:100%;max-height:250px;object-fit:cover;border-radius:22px;margin:0 auto 16px;border:3px solid white;box-shadow:var(--shadow)}
+.hero-banner{display:block;width:100%;max-height:250px;object-fit:cover;border-radius:22px;margin:0 auto 16px;border:3px solid white;box-shadow:var(--shadow)}
 
 .profile-card{background:#fff0f7;border:2px solid #fce4ef;border-radius:26px;padding:18px;max-width:440px;margin:0 auto 16px;text-align:center}
 .profile-head{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:12px}
@@ -131,8 +131,10 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
 </header>
 
 <section class="hero">
-  <div class="sticker" id="heroSticker">✿ little digital treats ✿</div>
+  <!-- Banner Toko -->
   <img id="heroBanner" class="hero-banner" alt="Banner Vena Store">
+
+  <div class="sticker" id="heroSticker">✿ little digital treats ✿</div>
   
   <div class="profile-card">
     <div class="profile-head">
@@ -163,7 +165,7 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
 
     <div class="profile-actions">
       <a class="profile-btn" id="xSocialLink" href="https://x.com/" target="_blank">Social links ↗</a>
-      <a class="profile-btn" href="#testimonials-section">Testimonials ↗</a>
+      <a class="profile-btn" id="telegramLink" href="https://t.me/" target="_blank">Testimonials ↗</a>
     </div>
   </div>
 
@@ -225,11 +227,12 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
    <div class="status" id="musicStatus"></div>
 
    <hr style="border:0;border-top:2px dashed var(--line);margin:18px 0">
-   <h2>Kelola Kartu Bio / Profil ♡</h2>
+   <h2>Kelola Kartu Bio / Profil & Telegram ♡</h2>
    <div class="field"><label>Nama Judul Kartu</label><input id="txtCardTitle" placeholder="Vena Store ✦ v.ᵉ"></div>
    <div class="field"><label>Username X (@handle)</label><input id="txtCardHandle" placeholder="@venastore"></div>
-   <div class="field"><label>Link Social / X (Twitter)</label><input id="txtCardUrl" placeholder="https://x.com/venastore"></div>
-   <div class="admin-actions"><button class="primary" id="saveCardData">Simpan Kartu Bio</button></div>
+   <div class="field"><label>Link URL X (Twitter)</label><input id="txtCardUrl" placeholder="https://x.com/venastore"></div>
+   <div class="field"><label>Link URL Telegram Testimoni</label><input id="txtTelegramUrl" placeholder="https://t.me/channeltestimoni"></div>
+   <div class="admin-actions"><button class="primary" id="saveCardData">Simpan Profil & Telegram</button></div>
    <div class="status" id="cardStatus"></div>
 
    <hr style="border:0;border-top:2px dashed var(--line);margin:18px 0">
@@ -244,7 +247,7 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
    <div id="newAppFields" style="display:none; background:#fef6fa; padding:10px; border-radius:12px; margin-bottom:10px;">
      <div class="field"><label>Nama Aplikasi Baru</label><input id="newAppName" placeholder="Netflix"></div>
      <div class="field"><label>Upload Foto Logo (Opsional)</label><input id="newAppLogoFile" type="file" accept="image/*"></div>
-     <div class="field"><label>Atau Huruf Logo (Jika tidak upload foto)</label><input id="newAppLogoText" maxlength="2" placeholder="N"></div>
+     <div class="field"><label>Atau Huruf Logo</label><input id="newAppLogoText" maxlength="2" placeholder="N"></div>
      <div class="field"><label>Keterangan Aplikasi</label><input id="newAppDesc" placeholder="streaming package"></div>
    </div>
 
@@ -333,7 +336,8 @@ const defaultTexts = {
 const defaultCardData = {
   title: "Vena Store ✦ v.ᵉ",
   handle: "@venastore",
-  url: "https://x.com/"
+  url: "https://x.com/",
+  telegramUrl: "https://t.me/"
 };
 
 const defaultReviews = [
@@ -381,6 +385,7 @@ function applyTexts() {
   document.getElementById("cardHandleText").textContent = card.handle;
   document.getElementById("headerHandleText").textContent = card.handle;
   document.getElementById("xSocialLink").href = card.url;
+  document.getElementById("telegramLink").href = card.telegramUrl || "https://t.me/";
 }
 
 function loadTextsToForm() {
@@ -397,6 +402,7 @@ function loadTextsToForm() {
   document.getElementById("txtCardTitle").value = card.title;
   document.getElementById("txtCardHandle").value = card.handle;
   document.getElementById("txtCardUrl").value = card.url;
+  document.getElementById("txtTelegramUrl").value = card.telegramUrl || "";
 }
 
 function applyBanner() {
@@ -406,7 +412,9 @@ function applyBanner() {
     img.src = url;
     img.style.display = "block";
   } else {
-    img.style.display = "none";
+    // Default placeholder banner cantik kalau belum upload
+    img.src = "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=800&auto=format&fit=crop&q=60";
+    img.style.display = "block";
   }
 }
 
@@ -539,7 +547,6 @@ document.getElementById("appCategorySelect").addEventListener("change", (e) => {
   }
 });
 
-// Add / Update Package & App with Image Logo Support
 document.getElementById("addPackageBtn").addEventListener("click", () => {
   const categoryId = document.getElementById("appCategorySelect").value;
   const pkgName = document.getElementById("packageNameInput").value.trim();
@@ -664,12 +671,13 @@ document.getElementById("saveCardData").addEventListener("click", () => {
   const cardData = {
     title: document.getElementById("txtCardTitle").value.trim(),
     handle: document.getElementById("txtCardHandle").value.trim(),
-    url: document.getElementById("txtCardUrl").value.trim()
+    url: document.getElementById("txtCardUrl").value.trim(),
+    telegramUrl: document.getElementById("txtTelegramUrl").value.trim()
   };
   writeStore(STORE_KEYS.card, cardData);
   applyTexts();
   const status = document.getElementById("cardStatus");
-  status.textContent = "Kartu Bio berhasil disimpan! ✨";
+  status.textContent = "Profil & Telegram berhasil disimpan! ✨";
   setTimeout(() => status.textContent = "", 3000);
 });
 
