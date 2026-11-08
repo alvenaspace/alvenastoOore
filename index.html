@@ -217,11 +217,12 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
   <div id="manageArea">
    <h2>Pengaturan Musik Latar ♡</h2>
    <div class="field">
-      <label>Pilih Musik Lucu</label>
+      <label>Pilih Musik / Lagu TikTok</label>
       <select id="musicSelect">
-        <option value="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3">Cute & Funny Cat</option>
+        <option value="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3">Cute & Funny Cat (Default)</option>
         <option value="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73213.mp3">Playful Whistle</option>
         <option value="https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f7e531.mp3">Cute Ukulele</option>
+        <option value="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3">TikTok Remix Vibes (Rama Kaki Patah Style)</option>
       </select>
    </div>
    <div class="admin-actions">
@@ -235,7 +236,6 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
    <div class="field"><label>Username X (@handle)</label><input id="txtCardHandle" placeholder="@venastore"></div>
    <div class="field"><label>Link URL X (Twitter)</label><input id="txtCardUrl" placeholder="https://x.com/venastore"></div>
    <div class="field"><label>Link URL Telegram Testimoni</label><input id="txtTelegramUrl" placeholder="https://t.me/channeltestimoni"></div>
-   
    <div class="field"><label>Upload Foto Profil / Avatar (Opsional)</label><input id="cardAvatarFile" type="file" accept="image/*"></div>
    <div class="admin-actions">
      <button class="primary" id="saveCardData">Simpan Profil & Telegram</button>
@@ -244,27 +244,28 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
    <div class="status" id="cardStatus"></div>
 
    <hr style="border:0;border-top:2px dashed var(--line);margin:18px 0">
-   <h2>Kelola Stok / Paket Aplikasi ♡</h2>
+   <h2>Edit Nama, Harga & Logo Aplikasi / Stok ♡</h2>
    <div class="field">
-     <label>Pilih / Tambah Kategori Aplikasi</label>
+     <label>Pilih Kategori Aplikasi untuk Diedit / Ditambah Stok</label>
      <select id="appCategorySelect">
        <option value="new">+ Buat Kategori Aplikasi Baru</option>
      </select>
    </div>
    
-   <div id="newAppFields" style="background:#fef6fa; padding:10px; border-radius:12px; margin-bottom:10px;">
-     <div class="field"><label>Nama Aplikasi</label><input id="newAppName" placeholder="Netflix"></div>
-     <div class="field"><label>Upload Foto Logo (Opsional)</label><input id="newAppLogoFile" type="file" accept="image/*"></div>
-     <div class="field"><label>Atau Huruf Logo (jika tidak upload foto)</label><input id="newAppLogoText" maxlength="2" placeholder="N"></div>
-     <div class="field"><label>Keterangan Aplikasi</label><input id="newAppDesc" placeholder="streaming package"></div>
+   <div id="editCategoryFields" style="background:#fef6fa; padding:10px; border-radius:12px; margin-bottom:10px;">
+     <div class="field"><label>Ubah Nama Aplikasi</label><input id="editAppName" placeholder="Netflix"></div>
+     <div class="field"><label>Ubah Keterangan Aplikasi</label><input id="editAppDesc" placeholder="streaming package"></div>
+     <div class="field"><label>Ganti Foto Logo Aplikasi (Opsional)</label><input id="editAppLogoFile" type="file" accept="image/*"></div>
+     <div class="field"><label>Atau Huruf Logo</label><input id="editAppLogoText" maxlength="2" placeholder="N"></div>
+     <div class="admin-actions"><button class="secondary" id="saveCategoryEdit">Simpan Perubahan Nama/Logo App</button></div>
    </div>
 
-   <div class="field"><label>Nama Paket / Stok</label><input id="packageNameInput" placeholder="1U · 3 hari"></div>
+   <div class="field"><label>Nama Paket / Stok Baru</label><input id="packageNameInput" placeholder="1U · 3 hari"></div>
    <div class="field"><label>Harga Paket (Angka saja)</label><input id="packagePriceInput" type="number" placeholder="12000"></div>
    
    <div class="admin-actions">
-     <button class="primary" id="addPackageBtn">Tambah / Simpan Paket</button>
-     <button class="danger" id="deleteAppBtn" style="display:none">Hapus Kategori Ini</button>
+     <button class="primary" id="addPackageBtn">Tambah Paket / Stok Baru</button>
+     <button class="danger" id="deleteAppBtn" style="display:none">Hapus Seluruh Kategori Ini</button>
    </div>
    <div class="status" id="productStatus"></div>
 
@@ -388,7 +389,9 @@ musicBtn.addEventListener("click", () => {
     bgMusic.play().then(() => {
       isPlaying = true;
       musicBtn.textContent = "🎵 Musik: PAUSE";
-    }).catch(() => {});
+    }).catch(() => {
+      alert("Ketuk sekali lagi atau izinkan audio diputar yaa ♡");
+    });
   } else {
     bgMusic.pause();
     isPlaying = false;
@@ -484,12 +487,12 @@ function renderProducts(filter = "") {
       choiceCard.className = "choice-card";
       choiceCard.innerHTML = `
         <div>
-          <div class="choice-name">${item.name}</div>
-          <div class="choice-price">${formatRp(item.price)}</div>
+          <div class="choice-name" contenteditable="true" onblur="updateItemName('${app.id}', ${realIndex}, this.innerText)" title="Klik untuk edit nama paket">${item.name}</div>
+          <div class="choice-price" contenteditable="true" onblur="updateItemPrice('${app.id}', ${realIndex}, this.innerText)" title="Klik untuk edit harga">${formatRp(item.price)}</div>
         </div>
         <div class="choice-footer">
           <button class="add-cart-btn" onclick="addToCart('${app.id}', ${realIndex})">+ Keranjang</button>
-          <button class="delete-choice-btn" title="Hapus Stok Ini" onclick="deleteStockItem('${app.id}', ${realIndex})">×</button>
+          <button class="delete-choice-btn" title="Hapus Paket Ini" onclick="deleteStockItem('${app.id}', ${realIndex})">×</button>
         </div>
       `;
       choicesContainer.appendChild(choiceCard);
@@ -500,6 +503,28 @@ function renderProducts(filter = "") {
 
   document.getElementById("statGoodies").textContent = totalItemsCount;
 }
+
+window.updateItemName = function(appId, index, newName) {
+  let products = readStore(STORE_KEYS.products, defaultProducts);
+  const app = products.find(p => p.id === appId);
+  if(app && app.items[index]) {
+    app.items[index].name = newName.trim();
+    writeStore(STORE_KEYS.products, products);
+  }
+};
+
+window.updateItemPrice = function(appId, index, newPriceStr) {
+  let products = readStore(STORE_KEYS.products, defaultProducts);
+  const app = products.find(p => p.id === appId);
+  if(app && app.items[index]) {
+    let cleanNum = Number(newPriceStr.replace(/[^0-9]/g, ""));
+    if(!isNaN(cleanNum) && cleanNum > 0) {
+      app.items[index].price = cleanNum;
+      writeStore(STORE_KEYS.products, products);
+      renderProducts(searchInput.value);
+    }
+  }
+};
 
 function renderReviews() {
   const container = document.getElementById("testimonials");
@@ -637,21 +662,33 @@ function updateCategorySelect() {
     opt.textContent = p.name;
     select.appendChild(opt);
   });
-  toggleNewAppFields();
+  handleCategorySelectChange();
 }
 
 const appCategorySelect = document.getElementById("appCategorySelect");
-const newAppFields = document.getElementById("newAppFields");
 const deleteAppBtn = document.getElementById("deleteAppBtn");
+const editAppName = document.getElementById("editAppName");
+const editAppDesc = document.getElementById("editAppDesc");
+const editAppLogoText = document.getElementById("editAppLogoText");
 
-appCategorySelect.addEventListener("change", toggleNewAppFields);
+appCategorySelect.addEventListener("change", handleCategorySelectChange);
 
-function toggleNewAppFields() {
-  if(appCategorySelect.value === "new") {
-    newAppFields.style.display = "block";
+function handleCategorySelectChange() {
+  const val = appCategorySelect.value;
+  const products = readStore(STORE_KEYS.products, defaultProducts);
+  
+  if(val === "new") {
+    editAppName.value = "";
+    editAppDesc.value = "";
+    editAppLogoText.value = "";
     deleteAppBtn.style.display = "none";
   } else {
-    newAppFields.style.display = "none";
+    const app = products.find(p => p.id === val);
+    if(app) {
+      editAppName.value = app.name;
+      editAppDesc.value = app.desc || "";
+      if(app.logoType === "text") editAppLogoText.value = app.logoVal || "";
+    }
     deleteAppBtn.style.display = "inline-block";
   }
 }
@@ -693,8 +730,61 @@ document.getElementById("removeAvatar").addEventListener("click", () => {
   setTimeout(() => document.getElementById("cardStatus").textContent = "", 3000);
 });
 
-// Tambah / Edit Stok & Paket
-document.getElementById("addPackageBtn").addEventListener("click", async () => {
+// Simpan Edit Nama / Logo Kategori Aplikasi
+document.getElementById("saveCategoryEdit").addEventListener("click", async () => {
+  let products = readStore(STORE_KEYS.products, defaultProducts);
+  const catVal = appCategorySelect.value;
+  const newName = editAppName.value.trim();
+  const newDesc = editAppDesc.value.trim();
+  const logoText = editAppLogoText.value.trim();
+  const fileInput = document.getElementById("editAppLogoFile");
+
+  if(!newName) {
+    alert("Nama aplikasi tidak boleh kosong!");
+    return;
+  }
+
+  if(catVal === "new") {
+    let logoVal = logoText || newName.charAt(0).toUpperCase();
+    let logoType = "text";
+    if(fileInput.files && fileInput.files[0]) {
+      logoVal = await toBase64(fileInput.files[0]);
+      logoType = "img";
+    }
+    const newAppId = newName.toLowerCase().replace(/[^a-z0-9]/g, "");
+    products.push({
+      id: newAppId,
+      name: newName,
+      logoType: logoType,
+      logoVal: logoVal,
+      desc: newDesc || "streaming package",
+      items: []
+    });
+  } else {
+    const app = products.find(p => p.id === catVal);
+    if(app) {
+      app.name = newName;
+      app.desc = newDesc;
+      if(logoText) {
+        app.logoType = "text";
+        app.logoVal = logoText;
+      }
+      if(fileInput.files && fileInput.files[0]) {
+        app.logoType = "img";
+        app.logoVal = await toBase64(fileInput.files[0]);
+      }
+    }
+  }
+
+  writeStore(STORE_KEYS.products, products);
+  renderProducts();
+  updateCategorySelect();
+  document.getElementById("productStatus").textContent = "Informasi aplikasi berhasil disimpan! ♡";
+  setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
+});
+
+// Tambah Paket / Stok Baru
+document.getElementById("addPackageBtn").addEventListener("click", () => {
   let products = readStore(STORE_KEYS.products, defaultProducts);
   const catVal = appCategorySelect.value;
   const pkgName = document.getElementById("packageNameInput").value.trim();
@@ -706,33 +796,8 @@ document.getElementById("addPackageBtn").addEventListener("click", async () => {
   }
 
   if(catVal === "new") {
-    const appName = document.getElementById("newAppName").value.trim();
-    const appDesc = document.getElementById("newAppDesc").value.trim();
-    const logoText = document.getElementById("newAppLogoText").value.trim();
-    const fileInput = document.getElementById("newAppLogoFile");
-
-    if(!appName) {
-      alert("Nama aplikasi baru harus diisi!");
-      return;
-    }
-
-    let logoVal = logoText || appName.charAt(0).toUpperCase();
-    let logoType = "text";
-
-    if(fileInput.files && fileInput.files[0]) {
-      logoVal = await toBase64(fileInput.files[0]);
-      logoType = "img";
-    }
-
-    const newAppId = appName.toLowerCase().replace(/[^a-z0-9]/g, "");
-    products.push({
-      id: newAppId,
-      name: appName,
-      logoType: logoType,
-      logoVal: logoVal,
-      desc: appDesc || "streaming package",
-      items: [{ name: pkgName, price: pkgPrice }]
-    });
+    alert("Silakan simpan kategori aplikasi baru terlebih dahulu atau pilih kategori yang sudah ada!");
+    return;
   } else {
     const app = products.find(p => p.id === catVal);
     if(app) {
@@ -744,8 +809,7 @@ document.getElementById("addPackageBtn").addEventListener("click", async () => {
   document.getElementById("packageNameInput").value = "";
   document.getElementById("packagePriceInput").value = "";
   renderProducts();
-  updateCategorySelect();
-  document.getElementById("productStatus").textContent = "Paket berhasil ditambahkan! ♡";
+  document.getElementById("productStatus").textContent = "Paket baru berhasil ditambahkan! ♡";
   setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
 });
 
@@ -789,14 +853,13 @@ document.getElementById("removeBanner").addEventListener("click", () => {
 document.getElementById("saveSiteTexts").addEventListener("click", () => {
   const texts = {
     brand: document.getElementById("txtBrand").value,
-    sticker: document.getElementById("txtTextSticker") ? document.getElementById("txtTextSticker").value : document.getElementById("txtSticker").value,
+    sticker: document.getElementById("txtSticker").value,
     heroDesc: document.getElementById("txtHeroDesc").value,
     decor: document.getElementById("txtDecor").value,
     packageTitle: document.getElementById("txtPackageTitle").value,
     packageNote: document.getElementById("txtPackageNote").value,
     footer: document.getElementById("txtFooter").value
   };
-  texts.sticker = document.getElementById("txtSticker").value;
   writeStore(STORE_KEYS.texts, texts);
   renderSite();
   document.getElementById("textsStatus").textContent = "Semua tulisan berhasil disimpan! ♡";
@@ -808,7 +871,7 @@ document.getElementById("resetSiteTexts").addEventListener("click", () => {
   renderSite();
   populateAdminFields();
   document.getElementById("textsStatus").textContent = "Tulisan dikembalikan ke default! ♡";
-  setTimeout(() => document.getElementById("textsStatus".value) = "", 3000);
+  setTimeout(() => document.getElementById("textsStatus").textContent = "", 3000);
 });
 
 // Tambah Testimoni
