@@ -118,7 +118,7 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
 </head>
 <body>
 
-<!-- Musik Kitty Imut & Cute Ambient Lock -->
+<!-- Musik Kitty Imut (Cute Xylophone) -->
 <audio id="bgMusic" loop preload="auto">
   <source id="musicSource" src="https://actions.google.com/sounds/v1/cartoon/xylophone_music.ogg" type="audio/ogg">
 </audio>
@@ -217,18 +217,28 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
 </footer>
 </main>
 
-<!-- Modal Login Admin -->
+<!-- Modal Login Admin Khusus Email (Dengan Menu Reset Password) -->
 <div class="modal" id="loginModal">
  <div class="modal-box" style="max-width:380px;">
   <div class="modal-head"><h2>Login Admin Vena ♡</h2><button class="close" id="closeLoginModal">×</button></div>
   <div class="field"><label>Email Admin</label><input id="loginEmail" type="email" placeholder="roosevelts120@gmail.com"></div>
-  <div class="field"><label>Password Admin</label><input id="loginPassword" type="password" placeholder="••••••••"></div>
-  <div class="admin-actions"><button class="primary" id="doLoginBtn" style="width:100%;">Masuk Mode Admin</button></div>
-  <div class="status" id="loginStatus" style="color:#ff5577; text-align:center;"></div>
+  <div class="field"><label>Password Admin</label><input id="loginPassword" type="password" placeholder="Masukkan password (default: 12345)"></div>
+  <div class="admin-actions" style="margin-top:10px;"><button class="primary" id="doLoginBtn" style="width:100%;">Masuk Mode Admin</button></div>
+
+  <!-- BAGIAN RESET / ATUR PASSWORD BARU -->
+  <div style="margin-top:18px; border-top:2px dashed var(--line); padding-top:14px;">
+    <div class="field" style="margin:0 0 8px 0;">
+      <label style="font-size:11px; color:#e66da9;">✨ Lupa password admin?</label>
+      <input id="newAdminPass" type="password" placeholder="Link reset akan dikirim ke email admin">
+    </div>
+    <button class="secondary" id="saveNewPassBtn" style="width:100%; font-size:11px; background:#fff0f7; border-color:#fce4ef;">Kirim Link Reset Password ♡</button>
+  </div>
+
+  <div class="status" id="loginStatus" style="color:#ff5577; text-align:center; margin-top:8px;"></div>
  </div>
 </div>
 
-<!-- Modal Admin Panel -->
+<!-- Modal Panel Admin Utama -->
 <div class="modal" id="adminModal">
  <div class="modal-box">
   <div class="modal-head"><h2 id="modalTitle">Admin Panel Vena ♡</h2><button class="close" id="closeAdminModal">×</button></div>
@@ -309,7 +319,14 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
  </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+const SUPABASE_URL = "https://rgktegkxtrtxrzmogbhg.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_uJQEW1rLbitiI6sLnY4wOA_3zBUTvdA";
+const STORAGE_BUCKET = "product-images";
+const SETTINGS_TABLE = "store_site_texts";
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 const WHATSAPP_NUMBER = "6289692908700";
 const ADMIN_EMAIL = "roosevelts120@gmail.com";
 
@@ -331,13 +348,13 @@ let isPlaying = false;
 let cart = [];
 
 const STORE_KEYS = { 
-  texts: "venaSiteTextsV7", 
-  reviews: "venaReviewsV7", 
-  products: "venaProductsDataV7",
-  card: "venaCardDataV7",
-  banner: "venaBannerUrlV7",
-  avatar: "venaAvatarUrlV7",
-  pass: "venaAdminPassV7"
+  texts: "venaSiteTextsV9", 
+  reviews: "venaReviewsV9", 
+  products: "venaProductsDataV9",
+  card: "venaCardDataV9",
+  banner: "venaBannerUrlV9",
+  avatar: "venaAvatarUrlV9",
+  pass: "venaAdminEmailPassV9"
 };
 
 const readStore = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key)) ?? fallback } catch { return fallback } };
@@ -350,6 +367,44 @@ const writeStore = (key, value) => {
     return false;
   }
 };
+
+// Media banner dan avatar disimpan di Supabase Storage, URL-nya di store_site_texts.texts (id=1).
+let remoteSiteTexts = {};
+async function loadRemoteSiteMedia() {
+  try {
+    const { data, error } = await sb.from(SETTINGS_TABLE).select("texts").eq("id", 1).maybeSingle();
+    if (error) throw error;
+    remoteSiteTexts = data?.texts || {};
+    if (remoteSiteTexts.banner_url) writeStore(STORE_KEYS.banner, remoteSiteTexts.banner_url);
+    if (remoteSiteTexts.avatar_url) writeStore(STORE_KEYS.avatar, remoteSiteTexts.avatar_url);
+    renderSite();
+  } catch (error) {
+    console.warn("Media Supabase belum dapat dimuat:", error.message);
+  }
+}
+
+async function saveRemoteSiteText(patch) {
+  const { data, error: readError } = await sb.from(SETTINGS_TABLE).select("texts").eq("id", 1).maybeSingle();
+  if (readError) throw readError;
+  const merged = { ...(data?.texts || remoteSiteTexts || {}), ...patch };
+  const { error } = await sb.from(SETTINGS_TABLE).upsert({ id: 1, texts: merged, updated_at: new Date().toISOString() }, { onConflict: "id" });
+  if (error) throw error;
+  remoteSiteTexts = merged;
+  return merged;
+}
+
+async function uploadSiteImage(file, kind) {
+  if (!file) throw new Error("Pilih foto dari galeri terlebih dahulu.");
+  if (!file.type.startsWith("image/")) throw new Error("File harus berupa gambar.");
+  if (file.size > 500 * 1024) throw new Error("Ukuran foto maksimal 500 KB. Kompres foto lalu coba lagi ya ♡");
+  const ext = (file.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "") || "jpg";
+  const path = `site/${kind}-${Date.now()}.${ext}`;
+  const { error: uploadError } = await sb.storage.from(STORAGE_BUCKET).upload(path, file, { upsert: true, contentType: file.type, cacheControl: "3600" });
+  if (uploadError) throw uploadError;
+  const { data } = sb.storage.from(STORAGE_BUCKET).getPublicUrl(path);
+  if (!data?.publicUrl) throw new Error("URL publik foto tidak berhasil dibuat.");
+  return data.publicUrl;
+}
 
 const defaultTexts = {
   brand: "vena's lucky store", 
@@ -441,9 +496,10 @@ function renderSite() {
   const bannerImg = document.getElementById("bannerImg");
   const bannerTitle = document.getElementById("bannerTitle");
   if(banner) {
+    bannerImg.onerror = () => { bannerImg.style.display = "none"; bannerTitle.style.display = "block"; };
+    bannerImg.onload = () => { bannerImg.style.display = "block"; bannerTitle.style.display = "none"; };
     bannerImg.src = banner;
-    bannerImg.style.display = "block";
-    bannerTitle.style.display = "none";
+    if (bannerImg.complete && bannerImg.naturalWidth > 0) { bannerImg.style.display = "block"; bannerTitle.style.display = "none"; }
   } else {
     bannerImg.style.display = "none";
     bannerTitle.style.display = "block";
@@ -453,9 +509,10 @@ function renderSite() {
   const avatarImg = document.getElementById("avatarImg");
   const avatarText = document.getElementById("avatarText");
   if(avatar) {
+    avatarImg.onerror = () => { avatarImg.style.display = "none"; avatarText.style.display = "block"; };
+    avatarImg.onload = () => { avatarImg.style.display = "block"; avatarText.style.display = "none"; };
     avatarImg.src = avatar;
-    avatarImg.style.display = "block";
-    avatarText.style.display = "none";
+    if (avatarImg.complete && avatarImg.naturalWidth > 0) { avatarImg.style.display = "block"; avatarText.style.display = "none"; }
   } else {
     avatarImg.style.display = "none";
     avatarText.style.display = "block";
@@ -617,22 +674,34 @@ orderBtn.addEventListener("click", () => {
 adminOpenBtn.addEventListener("click", () => {
   loginModal.classList.add("show");
   document.getElementById("loginStatus").textContent = "";
+  document.getElementById("loginEmail").value = "";
+  document.getElementById("loginPassword").value = "";
+  document.getElementById("newAdminPass").value = "";
 });
 
 closeLoginModal.addEventListener("click", () => loginModal.classList.remove("show"));
 closeAdminModal.addEventListener("click", () => adminModal.classList.remove("show"));
 
-document.getElementById("doLoginBtn").addEventListener("click", () => {
-  const emailVal = document.getElementById("loginEmail").value.trim().toLowerCase();
-  const passVal = document.getElementById("loginPassword").value.trim();
-  const savedPass = readStore(STORE_KEYS.pass, "12345");
+// Login admin menggunakan akun Supabase Auth agar izin upload Storage dan update database berlaku.
+document.getElementById("saveNewPassBtn").addEventListener("click", async () => {
+  const status = document.getElementById("loginStatus");
+  status.textContent = "Mengirim link reset password...";
+  const { error } = await sb.auth.resetPasswordForEmail(ADMIN_EMAIL, { redirectTo: window.location.origin });
+  status.textContent = error ? `Gagal mengirim link: ${error.message}` : "Link reset password dikirim ke email admin ♡";
+});
 
-  if(emailVal === ADMIN_EMAIL && passVal === savedPass) {
+document.getElementById("doLoginBtn").addEventListener("click", async () => {
+  const emailVal = document.getElementById("loginEmail").value.trim().toLowerCase();
+  const passVal = document.getElementById("loginPassword").value;
+  const status = document.getElementById("loginStatus");
+  status.textContent = "Memeriksa akun admin...";
+  const { data, error } = await sb.auth.signInWithPassword({ email: emailVal, password: passVal });
+  if (!error && emailVal === ADMIN_EMAIL) {
     loginModal.classList.remove("show");
     adminModal.classList.add("show");
     populateAdminFields();
   } else {
-    document.getElementById("loginStatus").textContent = "Email atau Password Admin Salah!";
+    status.textContent = error ? `Login gagal: ${error.message}` : "Email admin tidak sesuai.";
   }
 });
 
@@ -697,64 +766,74 @@ function handleCategorySelectChange() {
   }
 }
 
-// Simpan Profil & Avatar
+// Simpan Profil & Logo Avatar ke Supabase
 const avatarFile = document.getElementById("cardAvatarFile");
 document.getElementById("saveCardData").addEventListener("click", async () => {
+  const status = document.getElementById("cardStatus");
   const cardData = {
     title: document.getElementById("txtCardTitle").value,
     handle: document.getElementById("txtCardHandle").value,
     url: document.getElementById("txtCardUrl").value,
     telegramUrl: document.getElementById("txtTelegramUrl").value
   };
-  writeStore(STORE_KEYS.card, cardData);
-
-  if(avatarFile.files && avatarFile.files[0]) {
-    const file = avatarFile.files[0];
-    if(file.size > 800000) {
-      alert("Ukuran foto logo terlalu besar! Tolong kompres fotonya di bawah 500 KB ya ♡");
-      return;
+  try {
+    let patch = { card: cardData };
+    if (avatarFile.files && avatarFile.files[0]) {
+      status.textContent = "Mengunggah logo profil ke Supabase...";
+      const avatarUrl = await uploadSiteImage(avatarFile.files[0], "avatar");
+      patch.avatar_url = avatarUrl;
     }
-    const base64 = await toBase64(file);
-    writeStore(STORE_KEYS.avatar, base64);
+    await saveRemoteSiteText(patch);
+    writeStore(STORE_KEYS.card, cardData);
+    if (patch.avatar_url) writeStore(STORE_KEYS.avatar, patch.avatar_url);
+    renderSite();
+    avatarFile.value = "";
+    status.textContent = "Profil dan logo avatar berhasil disimpan ke Supabase! ♡";
+  } catch (error) {
+    status.textContent = `Gagal menyimpan profil/logo: ${error.message}`;
   }
-
-  renderSite();
-  document.getElementById("cardStatus").textContent = "Berhasil menyimpan profil! ♡";
-  setTimeout(() => document.getElementById("cardStatus").textContent = "", 3000);
 });
 
-document.getElementById("removeAvatar").addEventListener("click", () => {
-  localStorage.removeItem(STORE_KEYS.avatar);
-  renderSite();
-  document.getElementById("cardStatus").textContent = "Logo avatar dihapus! ♡";
-  setTimeout(() => document.getElementById("cardStatus").textContent = "", 3000);
+document.getElementById("removeAvatar").addEventListener("click", async () => {
+  const status = document.getElementById("cardStatus");
+  try {
+    await saveRemoteSiteText({ avatar_url: null });
+    localStorage.removeItem(STORE_KEYS.avatar);
+    renderSite();
+    status.textContent = "Logo avatar berhasil dihapus dari pengaturan Supabase ♡";
+  } catch (error) {
+    status.textContent = `Gagal menghapus logo: ${error.message}`;
+  }
 });
 
-// Simpan Banner Foto
+// Simpan Banner Foto ke Supabase Storage + URL ke tabel store_site_texts
 const bannerFile = document.getElementById("bannerImageFile");
 document.getElementById("saveBanner").addEventListener("click", async () => {
-  if(bannerFile.files && bannerFile.files[0]) {
-    const file = bannerFile.files[0];
-    if(file.size > 800000) {
-      alert("Ukuran foto banner terlalu besar! Tolong kompres fotonya di bawah 500 KB ya ♡");
-      return;
-    }
-    const base64 = await toBase64(file);
-    if(writeStore(STORE_KEYS.banner, base64)) {
-      renderSite();
-      document.getElementById("bannerStatus").textContent = "Banner foto berhasil disimpan! ♡";
-      setTimeout(() => document.getElementById("bannerStatus").textContent = "", 3000);
-    }
-  } else {
-    alert("Pilih file gambar banner dari galeri terlebih dahulu!");
+  const status = document.getElementById("bannerStatus");
+  try {
+    if (!bannerFile.files || !bannerFile.files[0]) throw new Error("Pilih file gambar banner dari galeri terlebih dahulu!");
+    status.textContent = "Mengunggah banner ke Supabase...";
+    const bannerUrl = await uploadSiteImage(bannerFile.files[0], "banner");
+    await saveRemoteSiteText({ banner_url: bannerUrl });
+    writeStore(STORE_KEYS.banner, bannerUrl);
+    renderSite();
+    bannerFile.value = "";
+    status.textContent = "Banner berhasil disimpan ke Supabase! ♡";
+  } catch (error) {
+    status.textContent = `Gagal menyimpan banner: ${error.message}`;
   }
 });
 
-document.getElementById("removeBanner").addEventListener("click", () => {
-  localStorage.removeItem(STORE_KEYS.banner);
-  renderSite();
-  document.getElementById("bannerStatus").textContent = "Banner foto dihapus! ♡";
-  setTimeout(() => document.getElementById("bannerStatus").textContent = "", 3000);
+document.getElementById("removeBanner").addEventListener("click", async () => {
+  const status = document.getElementById("bannerStatus");
+  try {
+    await saveRemoteSiteText({ banner_url: null });
+    localStorage.removeItem(STORE_KEYS.banner);
+    renderSite();
+    status.textContent = "Banner berhasil dihapus dari pengaturan Supabase ♡";
+  } catch (error) {
+    status.textContent = `Gagal menghapus banner: ${error.message}`;
+  }
 });
 
 // Buat Kategori Baru
@@ -914,6 +993,7 @@ function toBase64(file) {
 
 // Initial Load
 renderSite();
+loadRemoteSiteMedia();
 </script>
 </body>
 </html>
