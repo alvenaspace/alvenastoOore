@@ -352,6 +352,67 @@ body, button, input, textarea, select {
 }
 @media(max-width:390px){.side-cute{opacity:.48;width:65px}.profile-card{max-width:calc(100% - 52px)!important}.side-cute .cute-main{font-size:34px}}
 
+
+/* Compact two-column catalog + choose-variant modal */
+#productsContainer{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  align-items:stretch;
+}
+#productsContainer > .package{
+  min-width:0;
+  margin:0;
+  padding:13px;
+  border-radius:20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  box-shadow:0 5px 14px #8c668010;
+}
+#productsContainer .app-head{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:10px;
+  margin:0;
+  min-width:0;
+}
+#productsContainer .app-info-left{
+  width:100%;
+  min-width:0;
+  align-items:center;
+  gap:9px;
+}
+#productsContainer .app-logo{
+  width:43px;height:43px;flex-basis:43px;border-radius:14px;
+  font-size:19px;
+}
+#productsContainer .app-title{font-size:16px;line-height:1.15;overflow-wrap:anywhere}
+#productsContainer .app-desc{font-size:10px;line-height:1.35;overflow-wrap:anywhere}
+#productsContainer .app-group-tag{font-size:9px;padding:4px 8px}
+#productsContainer .choose-variants-btn{
+  width:100%;margin-top:12px;border:0;border-radius:999px;
+  padding:10px 8px;background:var(--pink);color:white;
+  font-size:12px;font-weight:900;cursor:pointer;
+  box-shadow:0 3px 0 #d65e9c;
+}
+#productsContainer .choose-variants-btn:active{transform:translateY(1px);box-shadow:0 1px 0 #d65e9c}
+#variantModal .modal-box{width:min(480px,100%);max-height:88vh}
+#variantModal .variant-product-head{display:flex;align-items:center;gap:11px;padding:10px 0 14px;border-bottom:1px dashed #f0dce8;margin-bottom:12px}
+#variantModal .variant-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+#variantModal .variant-item{min-width:0;padding:11px;border:2px solid #f2e4ed;border-radius:16px;background:#fff8fb;display:flex;flex-direction:column;gap:7px}
+#variantModal .variant-name{font-size:12px;font-weight:900;overflow-wrap:anywhere}
+#variantModal .variant-price{font:700 15px Fredoka,Baloo 2,sans-serif;color:#df6da6}
+#variantModal .variant-item .add-cart-btn{width:100%;padding:8px 6px}
+@media(max-width:360px){
+  #productsContainer{gap:8px}
+  #productsContainer > .package{padding:10px}
+  #productsContainer .app-title{font-size:14px}
+  #productsContainer .app-logo{width:37px;height:37px;flex-basis:37px}
+  #variantModal .variant-list{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
@@ -466,6 +527,13 @@ body, button, input, textarea, select {
   <div id="footerText">made with love by vena ♡ thank you for visiting!</div>
 </footer>
 </main>
+<div class="modal" id="variantModal" style="z-index:20">
+ <div class="modal-box">
+  <div class="modal-head"><h2 id="variantModalTitle">Pilih Varian ♡</h2><button class="close" id="variantModalClose" type="button">×</button></div>
+  <div id="variantModalContent"></div>
+ </div>
+</div>
+
 <div class="modal" id="cropModal" style="z-index:30">
  <div class="modal-box">
   <div class="modal-head"><h2>Atur Crop Foto ♡</h2><button class="close" id="cropClose">×</button></div>
@@ -1116,7 +1184,6 @@ function renderProducts(filter = "") {
     products = defaultProducts;
     writeStore(STORE_KEYS.products, products);
   }
-  // Older saved app entries remain compatible; unassigned apps appear under Hiburan.
   products.forEach(app => { if (!app.group) app.group = "Hiburan"; });
   container.innerHTML = "";
   renderCategoryFilters();
@@ -1126,51 +1193,81 @@ function renderProducts(filter = "") {
   products.forEach(app => {
     const appGroup = app.group || "Hiburan";
     const filteredItems = (app.items || []).filter(item =>
-      item.name.toLowerCase().includes(filter.toLowerCase()) ||
-      app.name.toLowerCase().includes(filter.toLowerCase())
+      String(item.name || "").toLowerCase().includes(filter.toLowerCase()) ||
+      String(app.name || "").toLowerCase().includes(filter.toLowerCase())
     );
     if (activeAppGroup !== "Semua" && appGroup !== activeAppGroup) return;
-    if (filter && filteredItems.length === 0 && !app.name.toLowerCase().includes(filter.toLowerCase())) return;
+    if (filter && filteredItems.length === 0 && !String(app.name || "").toLowerCase().includes(filter.toLowerCase())) return;
 
-    const itemsToDisplay = filter && !app.name.toLowerCase().includes(filter.toLowerCase()) ? filteredItems : (app.items || []);
+    const itemsToDisplay = filter && !String(app.name || "").toLowerCase().includes(filter.toLowerCase()) ? filteredItems : (app.items || []);
     totalItemsCount += (app.items || []).length;
     visibleApps++;
 
     const pkgDiv = document.createElement("div");
     pkgDiv.className = "package";
+    const logo = app.logoUrl
+      ? `<img src="${escapeHtml(app.logoUrl)}" alt="Logo ${escapeHtml(app.name)}">`
+      : escapeHtml(app.logoVal || String(app.name || "?").charAt(0).toUpperCase());
     pkgDiv.innerHTML = `
       <div class="app-head">
         <div class="app-info-left">
-          <div class="app-logo">${app.logoUrl ? `<img src="${app.logoUrl}" alt="Logo ${app.name}">` : (app.logoVal || app.name.charAt(0).toUpperCase())}</div>
-          <div>
-            <div class="app-title">${app.name}</div>
-            <div class="app-desc">${app.desc || ""}</div>
+          <div class="app-logo">${logo}</div>
+          <div style="min-width:0">
+            <div class="app-title">${escapeHtml(app.name || "")}</div>
+            <div class="app-desc">${escapeHtml(app.desc || "")}</div>
           </div>
         </div>
-        <span class="app-group-tag">${appGroup}</span>
+        <span class="app-group-tag">${escapeHtml(appGroup)}</span>
       </div>
-      <div class="choices" id="choices-${app.id}"></div>
+      <button class="choose-variants-btn" type="button">Pilih Varian <span aria-hidden="true">›</span></button>
     `;
-
-    const choicesContainer = pkgDiv.querySelector(`#choices-${app.id}`);
-    itemsToDisplay.forEach((item) => {
-      const realIndex = app.items.findIndex(it => it.name === item.name && it.price === item.price);
-      const choiceCard = document.createElement("div");
-      choiceCard.className = "choice-card";
-      const promoPrice = getFlashSaleFor(app.id, realIndex);
-      choiceCard.innerHTML = `
-        <div><div class="choice-name">${item.name}</div>${promoPrice ? `<div class="flash-old">${formatRp(item.price)}</div><div class="choice-price" style="color:#df5795">${formatRp(promoPrice)} <small style="font-size:9px">FLASH SALE</small></div>` : `<div class="choice-price">${formatRp(item.price)}</div>`}</div>
-        <div class="choice-footer"><button class="add-cart-btn" onclick="addToCart('${app.id}', ${realIndex})">+ Keranjang</button></div>
-      `;
-      choicesContainer.appendChild(choiceCard);
+    pkgDiv.querySelector(".choose-variants-btn").addEventListener("click", () => {
+      openVariantModal(app, itemsToDisplay);
     });
     container.appendChild(pkgDiv);
   });
   if (!visibleApps) {
-    container.innerHTML = `<div class="empty-category">Belum ada aplikasi di kategori ini ♡</div>`;
+    container.innerHTML = `<div class="empty-category" style="grid-column:1/-1">Belum ada aplikasi di kategori ini ♡</div>`;
   }
   document.getElementById("statGoodies").textContent = totalItemsCount;
 }
+
+function openVariantModal(app, items) {
+  const modal = document.getElementById("variantModal");
+  const content = document.getElementById("variantModalContent");
+  if (!modal || !content) return;
+  document.getElementById("variantModalTitle").textContent = `Pilih Varian ${app.name} ♡`;
+  const logo = app.logoUrl
+    ? `<img src="${escapeHtml(app.logoUrl)}" alt="" style="width:46px;height:46px;object-fit:cover;border-radius:14px">`
+    : `<div class="app-logo">${escapeHtml(app.logoVal || String(app.name || "?").charAt(0).toUpperCase())}</div>`;
+  content.innerHTML = `<div class="variant-product-head">${logo}<div><strong>${escapeHtml(app.name || "")}</strong><div class="app-desc">${escapeHtml(app.desc || "")}</div></div></div><div class="variant-list"></div>`;
+  const list = content.querySelector(".variant-list");
+  items.forEach(item => {
+    const realIndex = (app.items || []).findIndex(it => it === item);
+    const promoPrice = getFlashSaleFor(app.id, realIndex);
+    const card = document.createElement("div");
+    card.className = "variant-item";
+    card.innerHTML = `
+      <div class="variant-name">${escapeHtml(item.name || "")}</div>
+      ${promoPrice ? `<div><div class="flash-old">${formatRp(item.price)}</div><div class="variant-price">${formatRp(promoPrice)} <small style="font-size:9px">FLASH SALE</small></div></div>` : `<div class="variant-price">${formatRp(item.price)}</div>`}
+      <button class="add-cart-btn" type="button">+ Keranjang</button>
+    `;
+    card.querySelector("button").addEventListener("click", () => {
+      addToCart(app.id, realIndex);
+      card.querySelector("button").textContent = "✓ Ditambahkan";
+      setTimeout(() => { if (card.isConnected) card.querySelector("button").textContent = "+ Keranjang"; }, 900);
+    });
+    list.appendChild(card);
+  });
+  modal.classList.add("show");
+}
+
+document.getElementById("variantModalClose")?.addEventListener("click", () => {
+  document.getElementById("variantModal")?.classList.remove("show");
+});
+document.getElementById("variantModal")?.addEventListener("click", (event) => {
+  if (event.target.id === "variantModal") event.currentTarget.classList.remove("show");
+});
 
 function renderReviews() {
   const container = document.getElementById("testimonials");
