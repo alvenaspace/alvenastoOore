@@ -185,8 +185,8 @@ function renderCatalog(){
   });group.append(head,choices);catalogRoot.append(group);
  });
 }
-searchInput.addEventListener("input",renderCatalog);renderCatalog();
-orderBtn.addEventListener("click",()=>{const selected=document.querySelector('input[name="package"]:checked');if(!selected)return;if(WHATSAPP_NUMBER.includes("x")){alert("Isi WHATSAPP_NUMBER di bagian script dengan nomor WhatsApp kamu dulu ya.");return;}const message=["Hai Vena! ♡","","Aku mau order:","• Paket: "+selected.value,"• Harga: "+formatRp(Number(selected.dataset.price)),"","Boleh dibantu proses pesanannya yaa. Terima kasih!"].join("\\n");window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message),"_blank");});
+searchInput.addEventListener("input",()=>{document.querySelectorAll('input[name="package"]').forEach(x=>x.checked=false);orderBtn.disabled=true;total.textContent="Rp0";renderCatalog();});renderCatalog();
+orderBtn.addEventListener("click",()=>{const selected=document.querySelector('input[name="package"]:checked');if(!selected)return;if(WHATSAPP_NUMBER.includes("x")){alert("Isi WHATSAPP_NUMBER di bagian script dengan nomor WhatsApp kamu dulu ya.");return;}const message=["Hai Vena! ♡","","Aku mau order:","• Paket: "+selected.value,"• Harga: "+formatRp(Number(selected.dataset.price)),"","Boleh dibantu proses pesanannya yaa. Terima kasih!"].join("\n");window.location.href="https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message);});
 
 // Supabase-powered admin authentication and testimonial management.
 const $ = id => document.getElementById(id);
@@ -205,7 +205,7 @@ $("loginBtn").onclick=async()=>{
  currentUser=data.user;showManager();
 };
 function showManager(){
- $("loginArea").style.display="none";$("manageArea").style.display="block";$("modalTitle").textContent="Admin panel ♡";loadReviews();
+ $("loginArea").style.display="none";$("manageArea").style.display="block";$("modalTitle").textContent="Admin panel ♡";loadReviews();loadAdminProducts();
 }
 function showLogin(){
  $("loginArea").style.display="block";$("manageArea").style.display="none";$("modalTitle").textContent="Admin login ♡";
@@ -249,4 +249,4 @@ async function deleteReview(id){
 }
 function clearProductForm(){["productEditId","productName","productCategory","productDescription","productPrice"].forEach(id=>$(id).value="");$("productStock").value="10";$("saveProduct").textContent="Simpan produk";}
 $("clearProduct").onclick=clearProductForm;
-$("saveProduct").onclick=async()=>{const name=$("productName").value.trim(),category=$("productCategory").value.trim(),description=$("productDescription").value.trim(),price=Number($("productPrice").value),stock=Number($("productStock").value);if(!name||!category||!description||!Number.isFinite(price)||price<0||!Number.isInteger(stock)||stock<0){$("productStatus").textContent="Lengkapi nama, kategori, paket, harga, dan stok
+$("saveProduct").onclick=async()=>{const name=$("productName").value.trim(),category=$("productCategory").value.trim(),description=$("productDescription").value.trim(),price=Number($("productPrice").value),stock=Number($("productStock").value);if(!name||!category||!descripti
