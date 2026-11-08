@@ -132,7 +132,7 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
     <div class="handle-header" id="headerHandleText">@venastore</div>
   </div>
   <nav class="nav">
-    <select class="pill" id="musicModeSelect" aria-label="Pilih musik"><option value="cute">🎀 Cute</option><option value="dj">🔥 DJ TikTok</option></select><button class="pill" id="musicBtn">🎵 Musik: PLAY</button>
+    <select class="pill" id="musicModeSelect" aria-label="Pilih musik"><option value="cute">🎀 Cute Music Box</option><option value="dj">🔥 DJ Party Mix</option></select><button class="pill" id="musicBtn">🎵 Musik: PLAY</button>
     <a class="pill" href="#order">Order ✿</a>
     <button class="pill" id="adminOpen">Admin ♡</button>
   </nav>
@@ -280,9 +280,6 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
      <button class="secondary" id="removeBanner">Hapus Banner Foto</button>
    </div>
    <div class="status" id="bannerStatus"></div>
-   <div class="field"><label>Musik DJ TikTok pilihanmu (upload audio sendiri)</label><input id="djMusicFile" type="file" accept="audio/*"><small style="color:var(--muted)">Pilih file audio DJ Josjis atau Rama Kaki Patah yang kamu punya izin untuk pakai.</small></div>
-   <div class="admin-actions"><button class="secondary" id="saveDjMusic">Simpan Musik DJ ♡</button><button class="secondary" id="removeDjMusic">Hapus Musik DJ</button></div>
-   <div class="status" id="musicStatus"></div>
 
    <hr style="border:0;border-top:2px dashed var(--line);margin:18px 0">
    <h2>Edit Nama, Harga & Aplikasi / Stok ♡</h2>
@@ -483,24 +480,88 @@ const defaultProducts = [
   }
 ];
 
+
+// Dua lagu original buatan web: Cute music-box dan DJ party mix.
+// Tidak perlu upload audio; tekan PLAY untuk mulai. Audio dibuat lokal dengan Web Audio API.
+const musicModeSelect = document.getElementById("musicModeSelect");
+let musicContext = null;
+let musicLoopTimer = null;
+let musicStep = 0;
+let activeMusicMode = "cute";
+let musicNodes = [];
+
+function ensureMusicContext() {
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  if (!AudioCtx) throw new Error("Browser ini belum mendukung pemutar musik.");
+  if (!musicContext) musicContext = new AudioCtx();
+  if (musicContext.state === "suspended") musicContext.resume();
+}
+function stopGeneratedMusic() {
+  if (musicLoopTimer) { clearInterval(musicLoopTimer); musicLoopTimer = null; }
+  musicNodes.forEach(node => { try { node.stop(); } catch(e) {} });
+  musicNodes = [];
+}
+function tone(freq, duration, type="sine", volume=0.07, when=0) {
+  const osc = musicContext.createOscillator();
+  const gain = musicContext.createGain();
+  const now = musicContext.currentTime + when;
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, now);
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(Math.max(0.0002, volume), now + 0.018);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+  osc.connect(gain); gain.connect(musicContext.destination);
+  osc.start(now); osc.stop(now + duration + 0.03);
+  musicNodes.push(osc);
+  osc.onended = () => { musicNodes = musicNodes.filter(n => n !== osc); };
+}
+function cuteStep() {
+  const melody = [659.25, 783.99, 987.77, 783.99, 880, 987.77, 1174.66, 987.77,
+                  783.99, 659.25, 587.33, 659.25, 783.99, 880, 783.99, 659.25];
+  const bass = [261.63, 329.63, 392.00, 329.63];
+  tone(melody[musicStep % melody.length], 0.34, "sine", 0.055);
+  if (musicStep % 4 === 0) tone(bass[Math.floor(musicStep / 4) % bass.length], 0.72, "triangle", 0.025);
+  musicStep++;
+}
+function djStep() {
+  const bass = [110, 110, 130.81, 98];
+  const lead = [523.25, 659.25, 783.99, 659.25, 587.33, 698.46, 880, 698.46];
+  const step = musicStep % 16;
+  if (step % 4 === 0) tone(bass[Math.floor(step / 4) % bass.length], 0.26, "sawtooth", 0.045);
+  if (step % 2 === 0) tone(lead[musicStep % lead.length], 0.13, "square", 0.025);
+  // Kick/snare-like percussive thumps synthesized locally.
+  if (step % 4 === 0) tone(55, 0.10, "sine", 0.09);
+  if (step === 4 || step === 12) tone(190, 0.055, "triangle", 0.035);
+  musicStep++;
+}
+function startGeneratedMusic(mode) {
+  ensureMusicContext();
+  stopGeneratedMusic();
+  musicStep = 0;
+  const stepFn = mode === "dj" ? djStep : cuteStep;
+  stepFn();
+  musicLoopTimer = setInterval(stepFn, mode === "dj" ? 150 : 300);
+  isPlaying = true;
+  musicBtn.textContent = "🎵 Musik: PAUSE";
+}
+function stopMusic() {
+  stopGeneratedMusic();
+  isPlaying = false;
+  musicBtn.textContent = "🎵 Musik: PLAY";
+}
+musicModeSelect.addEventListener("change", () => {
+  activeMusicMode = musicModeSelect.value;
+  if (isPlaying) startGeneratedMusic(activeMusicMode);
+});
 musicBtn.addEventListener("click", () => {
-  if(!isPlaying) {
-    bgMusic.play().then(() => {
-      isPlaying = true;
-      musicBtn.textContent = "🎵 Musik: PAUSE";
-    }).catch(() => {
-      bgMusic.load();
-      bgMusic.play().then(() => {
-        isPlaying = true;
-        musicBtn.textContent = "🎵 Musik: PAUSE";
-      }).catch(() => {});
-    });
-  } else {
-    bgMusic.pause();
-    isPlaying = false;
-    musicBtn.textContent = "🎵 Musik: PLAY";
+  try {
+    if (isPlaying) stopMusic();
+    else startGeneratedMusic(activeMusicMode);
+  } catch (error) {
+    alert("Musik belum bisa diputar: " + error.message);
   }
 });
+
 
 function renderSite() {
   const texts = readStore(STORE_KEYS.texts, defaultTexts);
@@ -698,16 +759,27 @@ orderBtn.addEventListener("click", () => {
 });
 
 // Admin Authentication Modal logic
-adminOpenBtn.addEventListener("click", () => {
+adminOpenBtn.addEventListener("click", async () => {
+  const { data } = await sb.auth.getSession();
+  if (data?.session?.user?.email?.toLowerCase() === ADMIN_EMAIL) {
+    loginModal.classList.remove("show");
+    adminModal.classList.add("show");
+    sessionStorage.setItem("venaAdminPanelOpen", "1");
+    populateAdminFields();
+    return;
+  }
   loginModal.classList.add("show");
   document.getElementById("loginStatus").textContent = "";
-  document.getElementById("loginEmail").value = "";
+  document.getElementById("loginEmail").value = ADMIN_EMAIL;
   document.getElementById("loginPassword").value = "";
   document.getElementById("newAdminPass").value = "";
 });
 
 closeLoginModal.addEventListener("click", () => loginModal.classList.remove("show"));
-closeAdminModal.addEventListener("click", () => adminModal.classList.remove("show"));
+closeAdminModal.addEventListener("click", () => {
+  adminModal.classList.remove("show");
+  sessionStorage.removeItem("venaAdminPanelOpen");
+});
 
 // Login admin menggunakan akun Supabase Auth agar izin upload Storage dan update database berlaku.
 document.getElementById("saveNewPassBtn").addEventListener("click", async () => {
@@ -726,9 +798,31 @@ document.getElementById("doLoginBtn").addEventListener("click", async () => {
   if (!error && emailVal === ADMIN_EMAIL) {
     loginModal.classList.remove("show");
     adminModal.classList.add("show");
+    sessionStorage.setItem("venaAdminPanelOpen", "1");
     populateAdminFields();
   } else {
     status.textContent = error ? `Login gagal: ${error.message}` : "Email admin tidak sesuai.";
+  }
+});
+
+// Pulihkan sesi admin setelah pindah tab atau reload halaman.
+(async function restoreAdminSession() {
+  try {
+    const { data } = await sb.auth.getSession();
+    if (data?.session?.user?.email?.toLowerCase() === ADMIN_EMAIL) {
+      adminOpenBtn.textContent = "Admin ✓";
+      if (sessionStorage.getItem("venaAdminPanelOpen") === "1") {
+        adminModal.classList.add("show");
+        populateAdminFields();
+      }
+    }
+  } catch (e) { console.warn("Sesi admin belum dapat dipulihkan:", e.message); }
+})();
+sb.auth.onAuthStateChange((event, session) => {
+  if (session?.user?.email?.toLowerCase() === ADMIN_EMAIL) {
+    adminOpenBtn.textContent = "Admin ✓";
+  } else {
+    adminOpenBtn.textContent = "Admin ♡";
   }
 });
 
@@ -863,36 +957,6 @@ document.getElementById("saveBanner").addEventListener("click", async () => {
   } catch (error) {
     status.textContent = `Gagal menyimpan banner: ${error.message}`;
   }
-});
-
-// Upload musik DJ milik pengguna ke Supabase Storage.
-document.getElementById("saveDjMusic").addEventListener("click", async () => {
-  const status = document.getElementById("musicStatus");
-  const file = document.getElementById("djMusicFile").files?.[0];
-  try {
-    if (!file) throw new Error("Pilih file audio DJ dari galeri terlebih dahulu.");
-    if (!file.type.startsWith("audio/")) throw new Error("File harus berupa audio.");
-    status.textContent = "Mengunggah musik DJ...";
-    const ext = (file.name.split(".").pop() || "mp3").toLowerCase().replace(/[^a-z0-9]/g, "") || "mp3";
-    const path = `site/dj-track-${Date.now()}.${ext}`;
-    const { error } = await sb.storage.from(STORAGE_BUCKET).upload(path, file, { upsert: true, contentType: file.type, cacheControl: "3600" });
-    if (error) throw error;
-    const { data } = sb.storage.from(STORAGE_BUCKET).getPublicUrl(path);
-    await saveRemoteSiteText({ dj_music_url: data.publicUrl });
-    djAudioUrl = data.publicUrl;
-    activeMusicMode = "dj";
-    document.getElementById("djMusicFile").value = "";
-    status.textContent = "Musik DJ berhasil disimpan! Pilih mode DJ lalu tekan Musik ♡";
-  } catch (e) { status.textContent = `Gagal menyimpan musik: ${e.message}`; }
-});
-document.getElementById("removeDjMusic").addEventListener("click", async () => {
-  const status = document.getElementById("musicStatus");
-  try {
-    await saveRemoteSiteText({ dj_music_url: null });
-    djAudioUrl = null; activeMusicMode = "cute";
-    stopAllMusic(); isPlaying = false; musicBtn.textContent = "🎵 Musik: PLAY";
-    status.textContent = "Musik DJ dihapus. Musik cute tetap tersedia ♡";
-  } catch (e) { status.textContent = `Gagal menghapus musik: ${e.message}`; }
 });
 
 document.getElementById("removeBanner").addEventListener("click", async () => {
