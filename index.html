@@ -45,6 +45,11 @@ h2{font:800 22px "Baloo 2";margin:0}
 .app-title{font:800 19px "Baloo 2"}
 .app-desc{font-size:11px;color:var(--muted);font-weight:800}
 .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.search-wrap{margin:0 0 15px}.search-wrap input{width:100%;border:2px solid var(--line);border-radius:16px;padding:12px 15px;background:#fffdfd;color:var(--ink);outline:none}
+.catalog-group{margin:14px 0 18px}.stock-note{font-size:10px;color:var(--muted);font-weight:800;margin-top:3px}
+.admin-product{display:flex;justify-content:space-between;gap:10px;align-items:center;border:1px solid var(--line);padding:10px;border-radius:13px;margin:7px 0;font-size:12px}
+.admin-product-actions{display:flex;gap:6px;flex-wrap:wrap}.admin-product button{border:0;background:#ffe8f1;color:#b94f83;border-radius:9px;padding:6px 9px;font-weight:900;cursor:pointer}
+.admin-subtitle{font:800 17px "Baloo 2";margin:16px 0 8px}
 .choice{cursor:pointer;position:relative}
 .choice input{position:absolute;opacity:0}
 .choice-card{min-height:68px;padding:10px;border-radius:17px;border:2px solid #f0e7ee;display:flex;flex-direction:column;justify-content:center;gap:3px;transition:.15s}
@@ -104,16 +109,8 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
 <section class="section" id="order">
   <div class="section-title"><h2>♡ Choose your package</h2><span class="small-note">pilih satu paket yaa!</span></div>
   <div class="package">
-    <div class="app-head"><div class="app-logo">N</div><div><div class="app-title">Netflix</div><div class="app-desc">streaming package · ready to order</div></div></div>
-    <div class="choices">
-      <label class="choice"><input type="radio" name="package" value="Netflix 1U — 3 hari" data-price="12000"><span class="choice-card"><span class="choice-name">1U · 3 hari</span><span class="choice-price">Rp12.000</span></span></label>
-      <label class="choice"><input type="radio" name="package" value="Netflix 1U — 7 hari" data-price="18000"><span class="choice-card"><span class="choice-name">1U · 7 hari</span><span class="choice-price">Rp18.000</span></span></label>
-      <label class="choice"><input type="radio" name="package" value="Netflix 1U — 14 hari" data-price="30000"><span class="choice-card"><span class="choice-name">1U · 14 hari</span><span class="choice-price">Rp30.000</span></span></label>
-      <label class="choice"><input type="radio" name="package" value="Netflix 1U — 1 bulan" data-price="45000"><span class="choice-card"><span class="choice-name">1U · 1 bulan</span><span class="choice-price">Rp45.000</span></span></label>
-      <label class="choice"><input type="radio" name="package" value="Netflix 2U — 1 bulan" data-price="33000"><span class="choice-card"><span class="choice-name">2U · 1 bulan</span><span class="choice-price">Rp33.000</span></span></label>
-      <label class="choice"><input type="radio" name="package" value="Netflix 2U — 7 hari" data-price="15000"><span class="choice-card"><span class="choice-name">2U · 7 hari</span><span class="choice-price">Rp15.000</span></span></label>
-      <label class="choice"><input type="radio" name="package" value="Netflix semi privat" data-price="55000"><span class="choice-card"><span class="choice-name">Semi privat</span><span class="choice-price">Rp55.000</span></span></label>
-    </div>
+    <div class="search-wrap"><input id="productSearch" type="search" placeholder="Cari aplikasi atau paket... ♡" aria-label="Cari produk"></div>
+    <div id="productCatalog"></div>
   </div>
   <div class="checkout"><div><div class="total-label">TOTAL ORDER ♡</div><div class="total" id="total">Rp0</div></div><button class="primary" id="orderBtn" disabled>ORDER NOW ↗</button></div>
 </section>
@@ -141,7 +138,17 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
    <div class="status" id="loginStatus"></div>
   </div>
   <div id="manageArea" style="display:none">
-   <p class="small-note">Kelola testimoni yang tampil di halaman utama.</p>
+   <p class="small-note">Kelola produk, harga, stok, dan testimoni tokomu.</p>
+   <div class="admin-subtitle">♡ Kelola produk</div>
+   <input type="hidden" id="productEditId">
+   <div class="field"><label>Nama aplikasi / produk</label><input id="productName" placeholder="Contoh: Netflix"></div>
+   <div class="field"><label>Kategori</label><input id="productCategory" placeholder="Contoh: Netflix, Spotify, Canva"></div>
+   <div class="field"><label>Nama paket</label><input id="productDescription" placeholder="Contoh: 1U · 7 hari"></div>
+   <div class="field"><label>Harga (angka saja)</label><input id="productPrice" type="number" min="0" placeholder="18000"></div>
+   <div class="field"><label>Stok</label><input id="productStock" type="number" min="0" value="10"></div>
+   <div class="admin-actions"><button class="primary" id="saveProduct">Simpan produk</button><button class="secondary" id="clearProduct">Kosongkan</button></div>
+   <div class="status" id="productStatus"></div><div id="adminProductList"></div>
+   <div class="admin-subtitle">♡ Kelola testimoni</div>
    <div class="field"><label>Nama customer</label><input id="reviewName" placeholder="contoh: customer vena"></div>
    <div class="field"><label>Testimoni</label><textarea id="reviewText" placeholder="Tulis testimoni customer..."></textarea></div>
    <div class="field"><label>Rating (1–5)</label><input id="reviewRating" type="number" min="1" max="5" value="5"></div>
@@ -161,20 +168,25 @@ const SUPABASE_URL = "https://rgktegkxtrtxrzmogbhg.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_uJQEW1rLbitiI6sLnY4wOA_3zBUTvdA";
 const WHATSAPP_NUMBER = "6289692908700";
 
-const formatRp = n => new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(n);
-const radios = document.querySelectorAll('input[name="package"]');
-const total = document.getElementById("total");
-const orderBtn = document.getElementById("orderBtn");
-radios.forEach(r => r.addEventListener("change",()=>{
- const selected=document.querySelector('input[name="package"]:checked');
- total.textContent=formatRp(Number(selected.dataset.price)); orderBtn.disabled=false;
-}));
-orderBtn.addEventListener("click",()=>{
- const selected=document.querySelector('input[name="package"]:checked'); if(!selected)return;
- if(WHATSAPP_NUMBER.includes("x")){alert("Isi WHATSAPP_NUMBER di bagian script dengan nomor WhatsApp kamu dulu ya.");return;}
- const message=["Hai Vena! ♡","","Aku mau order:","• Paket: "+selected.value,"• Harga: "+formatRp(Number(selected.dataset.price)),"","Boleh dibantu proses pesanannya yaa. Terima kasih!"].join("\n");
- window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message),"_blank");
-});
+const formatRp=n=>new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(n);
+const orderBtn=document.getElementById("orderBtn"),total=document.getElementById("total"),catalogRoot=document.getElementById("productCatalog"),searchInput=document.getElementById("productSearch");
+let catalogProducts=[["1U · 3 hari",12000],["1U · 7 hari",18000],["1U · 14 hari",30000],["1U · 1 bulan",45000],["2U · 1 bulan",33000],["2U · 7 hari",15000],["Semi privat",55000]].map((x,i)=>({id:"default-"+i,name:"Netflix",category:"Netflix",description:x[0],price:x[1],stock:10,icon:"N"}));
+function renderCatalog(){
+ const q=(searchInput.value||"").trim().toLowerCase(),visible=catalogProducts.filter(p=>[p.name,p.category,p.description].join(" ").toLowerCase().includes(q));catalogRoot.innerHTML="";
+ if(!visible.length){catalogRoot.innerHTML='<div class="empty">Produk tidak ditemukan ♡</div>';return;}
+ const groups={};visible.forEach(p=>{const k=p.category||p.name||"Lainnya";(groups[k]??=[]).push(p);});
+ Object.entries(groups).forEach(([category,items])=>{
+  const group=document.createElement("div");group.className="catalog-group";const head=document.createElement("div");head.className="app-head";const logo=document.createElement("div");logo.className="app-logo";logo.textContent=(items[0].icon||category[0]||"♡").slice(0,2);
+  const info=document.createElement("div"),title=document.createElement("div"),desc=document.createElement("div");title.className="app-title";title.textContent=category;desc.className="app-desc";desc.textContent="digital package · ready to order";info.append(title,desc);head.append(logo,info);
+  const choices=document.createElement("div");choices.className="choices";
+  items.forEach(p=>{const label=document.createElement("label");label.className="choice";const input=document.createElement("input");input.type="radio";input.name="package";input.value=p.name+" — "+p.description;input.dataset.price=p.price;input.disabled=Number(p.stock)<=0;
+   const card=document.createElement("span");card.className="choice-card";const nm=document.createElement("span");nm.className="choice-name";nm.textContent=p.description||p.name;const pr=document.createElement("span");pr.className="choice-price";pr.textContent=formatRp(Number(p.price)||0);const st=document.createElement("span");st.className="stock-note";st.textContent=Number(p.stock)>0?"Stok: "+p.stock:"Stok habis";card.append(nm,pr,st);
+   input.addEventListener("change",()=>{total.textContent=formatRp(Number(input.dataset.price));orderBtn.disabled=false;});label.append(input,card);choices.append(label);
+  });group.append(head,choices);catalogRoot.append(group);
+ });
+}
+searchInput.addEventListener("input",renderCatalog);renderCatalog();
+orderBtn.addEventListener("click",()=>{const selected=document.querySelector('input[name="package"]:checked');if(!selected)return;if(WHATSAPP_NUMBER.includes("x")){alert("Isi WHATSAPP_NUMBER di bagian script dengan nomor WhatsApp kamu dulu ya.");return;}const message=["Hai Vena! ♡","","Aku mau order:","• Paket: "+selected.value,"• Harga: "+formatRp(Number(selected.dataset.price)),"","Boleh dibantu proses pesanannya yaa. Terima kasih!"].join("\\n");window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message),"_blank");});
 
 // Supabase-powered admin authentication and testimonial management.
 const $ = id => document.getElementById(id);
@@ -184,7 +196,7 @@ function configReady(){return SUPABASE_URL.startsWith("https://") && SUPABASE_AN
 $("adminOpen").onclick=()=>{modal.classList.add("show");};
 $("closeModal").onclick=()=>modal.classList.remove("show");
 modal.addEventListener("click",e=>{if(e.target===modal)modal.classList.remove("show");});
-if(configReady() && window.supabase){db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY); db.auth.getSession().then(({data})=>{if(data.session){currentUser=data.session.user;showManager();}});}
+if(configReady() && window.supabase){db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY); loadStoreProducts(); db.auth.getSession().then(({data})=>{if(data.session){currentUser=data.session.user;showManager();}});}
 $("loginBtn").onclick=async()=>{
  if(!db){$("loginStatus").textContent="Isi SUPABASE_URL dan SUPABASE_ANON_KEY di bagian script terlebih dahulu.";return;}
  $("loginStatus").textContent="Sedang login...";
@@ -235,7 +247,6 @@ async function deleteReview(id){
  const {error}=await db.from("testimonials").delete().eq("id",id);
  if(error){$("manageStatus").textContent="Gagal menghapus: "+error.message;return;}loadReviews();
 }
-$("logoutBtn").onclick=async()=>{if(db)await db.auth.signOut();currentUser=null;showLogin();};
-</script>
-</body>
-</html>
+function clearProductForm(){["productEditId","productName","productCategory","productDescription","productPrice"].forEach(id=>$(id).value="");$("productStock").value="10";$("saveProduct").textContent="Simpan produk";}
+$("clearProduct").onclick=clearProductForm;
+$("saveProduct").onclick=async()=>{const name=$("productName").value.trim(),category=$("productCategory").value.trim(),description=$("productDescription").value.trim(),price=Number($("productPrice").value),stock=Number($("productStock").value);if(!name||!category||!description||!Number.isFinite(price)||price<0||!Number.isInteger(stock)||stock<0){$("productStatus").textContent="Lengkapi nama, kategori, paket, harga, dan stok
