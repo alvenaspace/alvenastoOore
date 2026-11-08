@@ -474,6 +474,43 @@ body, button, input, textarea, select {
 .flash-variant-label small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
 .flash-variant-row .flash-item-price{width:100%;min-width:0;padding:7px 8px;border:1px solid #e8bfd1;border-radius:8px;font-size:12px}
 @media(max-width:520px){.flash-variant-list{grid-template-columns:1fr}.flash-groups{max-height:360px}}
+
+/* Flash Sale selector: fixed-height scroll box with a visible scrollbar at the right edge.
+   Search input remains outside and above this scrolling area. */
+#flashSaleItemsEditor.flash-groups{
+  display:block !important;
+  height: min(390px, 42vh) !important;
+  min-height: 190px !important;
+  max-height: min(390px, 42vh) !important;
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  scrollbar-width: auto;
+  scrollbar-color: #df78aa #fff0f7;
+  scrollbar-gutter: stable;
+  padding: 8px 7px 8px 3px !important;
+  border: 1px solid #efc5da !important;
+  border-radius: 13px;
+  background: #fffafd;
+}
+#flashSaleItemsEditor.flash-groups::-webkit-scrollbar{width:12px}
+#flashSaleItemsEditor.flash-groups::-webkit-scrollbar-track{
+  background:#fff0f7;border-radius:12px;margin:5px 0;
+}
+#flashSaleItemsEditor.flash-groups::-webkit-scrollbar-thumb{
+  background:#df78aa;border:3px solid #fff0f7;border-radius:12px;
+}
+#flashSaleItemsEditor .flash-product-group{overflow:visible}
+#flashSaleItemsEditor .flash-variant-list{padding-bottom:12px}
+@media(max-width:700px){
+  #flashSaleItemsEditor.flash-groups{
+    height:min(360px, 40vh) !important;
+    max-height:min(360px, 40vh) !important;
+  }
+}
+
 </style>
 
 </head>
