@@ -336,6 +336,13 @@ body {
   <div class="modal-head"><h2 id="modalTitle">Admin Panel Vena ♡</h2><div style="display:flex;gap:8px;align-items:center"><button class="secondary" id="adminLogoutBtn" type="button">Logout ↗</button><button class="close" id="closeAdminModal">×</button></div></div>
   
   <div id="manageArea">
+  <div id="cloudSyncPanel" style="background:#f2f8ff;border:2px solid #dceefa;border-radius:16px;padding:14px;margin:12px 0 18px">
+   <h3 style="margin:0 0 6px;color:var(--ink)">☁️ Sinkronkan Data ke Semua Perangkat</h3>
+   <p style="margin:0 0 10px;color:var(--muted);font-size:13px">Gunakan sekali dari tablet yang berisi pricelist lengkap. Data lokal tablet akan disalin ke Supabase agar tampil sama di HP, laptop, dan browser lain.</p>
+   <button class="primary" id="cloudSyncNowBtn" type="button">☁️ Simpan Data Tablet ke Cloud</button>
+   <div class="status" id="cloudSyncStatus" style="margin-top:8px"></div>
+  </div>
+  
    <h2>Kelola Kartu Bio / Profil & Telegram ♡</h2>
    <div class="field"><label>Nama Judul Kartu</label><input id="txtCardTitle" placeholder="Vena Store ✦ v.ᵉ"></div>
    <div class="field"><label>Username X (@handle)</label><input id="txtCardHandle" placeholder="@venastore"></div>
@@ -455,15 +462,44 @@ const STORE_KEYS = {
 };
 
 const readStore = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key)) ?? fallback } catch { return fallback } };
+// Data utama tetap disimpan lokal sebagai cache, lalu disinkronkan ke cloud
+// setelah admin melakukan migrasi awal dari perangkat yang memiliki data lengkap.
+const CLOUD_STORE_FIELDS = {
+  [STORE_KEYS.products]: "products_data",
+  [STORE_KEYS.reviews]: "reviews_data",
+  [STORE_KEYS.card]: "card_data",
+  [STORE_KEYS.texts]: "site_texts"
+};
+let cloudDataReady = false;
+let cloudWriteQueue = Promise.resolve();
+
 const writeStore = (key, value) => {
   try {
     localStorage.setItem(key, JSON.stringify(value));
+    if (cloudDataReady && CLOUD_STORE_FIELDS[key]) {
+      queueStoreCloudSave(CLOUD_STORE_FIELDS[key], value);
+    }
     return true;
   } catch(e) {
     alert("Gagal menyimpan! Ukuran foto terlalu besar. Mohon kompres fotonya di bawah 500 KB ya ♡");
     return false;
   }
 };
+
+function queueStoreCloudSave(field, value) {
+  cloudWriteQueue = cloudWriteQueue
+    .then(async () => {
+      const { data } = await sb.auth.getSession();
+      const email = data?.session?.user?.email?.toLowerCase();
+      if (email !== ADMIN_EMAIL.toLowerCase()) return;
+      await saveRemoteSiteText({ [field]: value, cloud_data_version: 1 });
+    })
+    .catch(error => {
+      console.error("Sinkronisasi cloud gagal:", error);
+      const status = document.getElementById("cloudSyncStatus");
+      if (status) status.textContent = "Perubahan tersimpan di perangkat ini, tetapi sinkronisasi cloud gagal: " + error.message;
+    });
+}
 
 // Media banner dan avatar disimpan di Supabase Storage, URL-nya di store_site_texts.texts (id=1).
 let remoteSiteTexts = {};
@@ -472,6 +508,23 @@ async function loadRemoteSiteMedia() {
     const { data, error } = await sb.from(SETTINGS_TABLE).select("texts").eq("id", 1).maybeSingle();
     if (error) throw error;
     remoteSiteTexts = data?.texts || {};
+
+    // Restore shared data from Supabase on every device, once the first migration exists.
+    cloudDataReady = remoteSiteTexts.cloud_data_version === 1;
+    if (cloudDataReady) {
+      const cloudFields = {
+        [STORE_KEYS.products]: "products_data",
+        [STORE_KEYS.reviews]: "reviews_data",
+        [STORE_KEYS.card]: "card_data",
+        [STORE_KEYS.texts]: "site_texts"
+      };
+      Object.entries(cloudFields).forEach(([localKey, cloudKey]) => {
+        if (Object.prototype.hasOwnProperty.call(remoteSiteTexts, cloudKey)) {
+          localStorage.setItem(localKey, JSON.stringify(remoteSiteTexts[cloudKey]));
+        }
+      });
+    }
+
     if (remoteSiteTexts.app_logos && typeof remoteSiteTexts.app_logos === "object") {
       const savedProducts = readStore(STORE_KEYS.products, defaultProducts);
       savedProducts.forEach(app => { if (remoteSiteTexts.app_logos[app.id]) app.logoUrl = remoteSiteTexts.app_logos[app.id]; });
@@ -495,6 +548,37 @@ async function saveRemoteSiteText(patch) {
   remoteSiteTexts = merged;
   return merged;
 }
+
+// One-time migration: run this on the tablet that still has the complete pricelist.
+document.getElementById("cloudSyncNowBtn")?.addEventListener("click", async () => {
+  const status = document.getElementById("cloudSyncStatus");
+  const button = document.getElementById("cloudSyncNowBtn");
+  try {
+    const { data: sessionData, error: sessionError } = await sb.auth.getSession();
+    if (sessionError) throw sessionError;
+    const email = sessionData?.session?.user?.email?.toLowerCase();
+    if (email !== ADMIN_EMAIL.toLowerCase()) {
+      status.textContent = "Login sebagai admin terlebih dahulu untuk menyinkronkan data ♡";
+      return;
+    }
+    button.disabled = true;
+    status.textContent = "Menyimpan pricelist dan pengaturan tablet ke Supabase...";
+    const payload = {
+      products_data: readStore(STORE_KEYS.products, defaultProducts),
+      reviews_data: readStore(STORE_KEYS.reviews, defaultReviews),
+      card_data: readStore(STORE_KEYS.card, defaultCardData),
+      site_texts: readStore(STORE_KEYS.texts, defaultTexts),
+      cloud_data_version: 1
+    };
+    await saveRemoteSiteText(payload);
+    cloudDataReady = true;
+    status.textContent = "Berhasil! ♡ Data tablet sudah tersimpan di cloud. Buka website dari HP/browser lain lalu refresh untuk melihat data yang sama.";
+  } catch (error) {
+    status.textContent = "Gagal sinkronisasi: " + error.message + ". Data lokal tablet tidak dihapus.";
+  } finally {
+    button.disabled = false;
+  }
+});
 
 async function uploadSiteImage(file, kind) {
   if (!file) throw new Error("Pilih foto dari galeri terlebih dahulu.");
