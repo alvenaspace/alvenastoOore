@@ -14,7 +14,7 @@
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
  --lime:#e8f58a;--lime2:#cfe86d;--pink:#f27fba;--pink2:#ffd1e7;
@@ -198,6 +198,89 @@ body {
   background-size: cover;
 }
 
+
+
+/* ===== REAL CUTE ADMIN DASHBOARD ===== */
+#adminModal{align-items:flex-start;padding:12px;background:rgba(54,38,58,.62);backdrop-filter:blur(8px)}
+#adminModal .modal-box{width:min(1120px,100%);max-height:calc(100vh - 24px);padding:0;overflow:auto;border:0;border-radius:25px;background:#fffafd;box-shadow:0 25px 80px #30213c44}
+#adminModal .modal-head{position:sticky;top:0;z-index:8;margin:0;padding:16px 22px;background:#fffafd;border-bottom:1px solid #f2e2eb;border-radius:25px 25px 0 0}
+#adminModal #modalTitle{font:800 25px 'Baloo 2',sans-serif;color:#71566f}
+#adminModal #manageArea{display:block;padding:18px}
+.admin-dashboard{display:grid;grid-template-columns:205px minmax(0,1fr);gap:17px;align-items:start}
+.admin-sidebar{position:sticky;top:78px;padding:15px 11px;border:1px solid #f2dfeb;border-radius:20px;background:linear-gradient(160deg,#fff0f7,#f4faff 75%,#f8fbe9)}
+.admin-side-brand{font:800 17px 'Baloo 2';color:#765b77;padding:4px 9px 13px}
+.admin-side-brand small{display:block;font:800 10px Nunito;color:#ae91a8;letter-spacing:1px;text-transform:uppercase}
+.admin-nav{display:grid;gap:6px}
+.admin-nav button{display:flex;align-items:center;gap:9px;width:100%;border:0;border-radius:12px;padding:11px 10px;background:transparent;color:#806e82;text-align:left;font:800 12px Nunito;cursor:pointer}
+.admin-nav button.active{background:#fff;color:#d66c9d;box-shadow:0 4px 13px #d78caf20}
+.admin-nav button:hover{background:#ffffffc9}
+.admin-content{min-width:0}
+.admin-welcome{padding:18px 20px;margin-bottom:14px;border:1px solid #f3e1eb;border-radius:19px;background:linear-gradient(110deg,#fff0f7,#f1f8ff 68%,#f6fbe8)}
+.admin-welcome h3{margin:0 0 3px;font:800 22px 'Baloo 2';color:#71566f}
+.admin-welcome p{margin:0;color:#9b879b;font-size:12px;font-weight:800}
+.admin-overview-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:15px}
+.admin-overview-card{padding:14px;border:1px solid #f0e2eb;border-radius:16px;background:#fff;box-shadow:0 5px 15px #886b8110}
+.admin-overview-card span{display:block;font-size:11px;font-weight:800;color:#a18da0}
+.admin-overview-card strong{display:block;margin-top:4px;font:800 23px 'Baloo 2';color:#d873a2}
+.admin-panel-section{padding:17px;border:1px solid #f0e2eb;border-radius:19px;background:#fff;margin-bottom:13px;box-shadow:0 5px 17px #886b810a}
+.admin-panel-section>h2{margin:0 0 13px;padding:0 0 10px;border-bottom:1px dashed #efdce8;font:800 19px 'Baloo 2';color:#725b78}
+.admin-panel-section>hr{display:none}
+.admin-panel-section .field{margin:9px 0 13px}
+.admin-panel-section .field label{color:#76647b;font-size:12px}
+.admin-panel-section .field input,.admin-panel-section .field textarea,.admin-panel-section .field select{border:1.5px solid #efdfeb;border-radius:12px;background:#fffafd;padding:11px 12px;min-height:42px}
+.admin-panel-section .field input:focus,.admin-panel-section .field textarea:focus,.admin-panel-section .field select:focus{outline:0;border-color:#e99ac0;box-shadow:0 0 0 3px #fdebf3}
+.admin-panel-section .admin-actions{gap:8px}
+.admin-panel-section .admin-actions button{border-radius:12px}
+#adminModal .primary{background:linear-gradient(135deg,#f28abb,#e875ac);box-shadow:0 4px 0 #d9669e}
+#adminModal .secondary{border:1px solid #eadce9;background:#f7f1f7;color:#705f76}
+#adminModal .danger{border-radius:12px}
+#adminModal .status{border-radius:10px;background:#fff5fa;padding:7px 9px;color:#a36b8a}
+#adminModal #cloudSyncPanel{margin:0 0 14px!important;border:1px solid #e3eaf0!important;border-radius:17px!important;background:linear-gradient(110deg,#f1f8ff,#f8fbe9)!important}
+@media(max-width:700px){
+ #adminModal{padding:5px}
+ #adminModal .modal-box{max-height:calc(100vh - 10px);border-radius:19px}
+ #adminModal .modal-head{padding:12px 14px;border-radius:19px 19px 0 0}
+ #adminModal #modalTitle{font-size:20px}
+ #adminModal #manageArea{padding:11px}
+ .admin-dashboard{grid-template-columns:1fr;gap:10px}
+ .admin-sidebar{position:static;padding:9px;border-radius:15px}
+ .admin-side-brand{padding:2px 6px 8px}
+ .admin-nav{display:flex;overflow-x:auto;padding-bottom:3px;gap:5px}
+ .admin-nav button{width:auto;white-space:nowrap;flex:0 0 auto;padding:9px 11px;font-size:11px}
+ .admin-overview-cards{gap:7px}
+ .admin-overview-card{padding:10px}
+ .admin-overview-card strong{font-size:19px}
+ .admin-panel-section{padding:13px;border-radius:16px}
+}
+
+
+/* Vena soft cute typography — font-only refinement */
+body, button, input, textarea, select {
+  font-family: "Nunito", sans-serif !important;
+}
+.brand, .profile-title, h2, .app-title, .choice-name, .choice-price, .total,
+.stat-num, .hero-banner-title, .sticker, #adminModal #modalTitle,
+.admin-side-brand, .admin-welcome h3, .admin-overview-card strong,
+.admin-panel-section > h2 {
+  font-family: "Fredoka", "Baloo 2", sans-serif !important;
+  font-weight: 600;
+}
+/* Store name stays a single soft blue; no rainbow lettering */
+.brand {
+  color: #83b8ee !important;
+  background: none !important;
+  -webkit-text-fill-color: #83b8ee !important;
+}
+/* Keep the rest of the typography calm and readable */
+.profile-title, h2, .app-title, .choice-name, .total,
+.stat-num, #adminModal #modalTitle, .admin-side-brand,
+.admin-welcome h3, .admin-panel-section > h2 {
+  color: var(--ink);
+  -webkit-text-fill-color: var(--ink);
+}
+.choice-price, .admin-overview-card strong { color: #d873a2; -webkit-text-fill-color: #d873a2; }
+.hero-banner-title, .sticker { color: #fff; -webkit-text-fill-color: #fff; }
+
 </style>
 </head>
 <body>
@@ -211,7 +294,7 @@ body {
 <main class="wrap">
 <header>
   <div class="brand-box">
-    <div class="brand" id="siteBrand">vena's <span>♡</span> store</div>
+    <div class="brand" id="siteBrand">vena's store</div>
     <div class="handle-header" id="headerHandleText">@venastore</div>
   </div>
   <nav class="nav">
@@ -222,11 +305,6 @@ body {
 </header>
 
 <section class="hero">
-  <div class="hero-banner-box" id="bannerBox">
-    <span class="hero-banner-title" id="bannerTitle">Vena Cantik</span>
-    <img id="bannerImg" alt="Banner Vena Store">
-  </div>
-
   <div class="sticker" id="heroSticker">✿ little digital treats ✿</div>
   
   <div class="profile-card">
@@ -735,7 +813,7 @@ musicBtn.addEventListener("click", () => {
 
 function renderSite() {
   const texts = readStore(STORE_KEYS.texts, defaultTexts);
-  document.getElementById("siteBrand").innerHTML = texts.brand.replace("store", "<span>♡</span> store");
+  document.getElementById("siteBrand").textContent = texts.brand.replace(/♡/g, "").replace(/\s+/g, " ").trim();
   document.getElementById("heroSticker").textContent = texts.sticker;
   document.getElementById("mainHeroDesc").textContent = texts.heroDesc;
   document.getElementById("mainDecor").textContent = texts.decor;
@@ -750,18 +828,8 @@ function renderSite() {
   document.getElementById("xSocialLink").href = cardData.url;
   document.getElementById("telegramLink").href = cardData.telegramUrl;
 
-  const banner = readStore(STORE_KEYS.banner, null);
-  const bannerImg = document.getElementById("bannerImg");
-  const bannerTitle = document.getElementById("bannerTitle");
-  if(banner) {
-    bannerImg.onerror = () => { bannerImg.style.display = "none"; bannerTitle.style.display = "block"; };
-    bannerImg.onload = () => { bannerImg.style.display = "block"; bannerTitle.style.display = "none"; };
-    bannerImg.src = banner;
-    if (bannerImg.complete && bannerImg.naturalWidth > 0) { bannerImg.style.display = "block"; bannerTitle.style.display = "none"; }
-  } else {
-    bannerImg.style.display = "none";
-    bannerTitle.style.display = "block";
-  }
+  // Banner utama sengaja dihilangkan dari tampilan depan.
+  // Pengaturan banner di admin tetap tersimpan agar data lama tidak terhapus.
 
   const avatar = readStore(STORE_KEYS.avatar, null);
   const avatarImg = document.getElementById("avatarImg");
@@ -1486,6 +1554,59 @@ document.getElementById("appLogoFile").addEventListener("change", e => {
 // Initial Load
 renderSite();
 loadRemoteSiteMedia();
+
+// Build a real navigable admin dashboard while keeping every existing form ID and handler.
+(function buildAdminDashboard(){
+  const area=document.getElementById('manageArea');
+  if(!area || area.dataset.dashboardReady==='1') return;
+  area.dataset.dashboardReady='1';
+  const nodes=Array.from(area.children);
+  const cloud=nodes.find(n=>n.id==='cloudSyncPanel');
+  const sections=[]; let current=null;
+  nodes.forEach(node=>{
+    if(node===cloud) return;
+    if(node.tagName==='HR') return;
+    if(node.tagName==='H2'){
+      current={title:node.textContent.trim(),nodes:[]}; sections.push(current);
+    }
+    if(current) current.nodes.push(node);
+  });
+  const shell=document.createElement('div'); shell.className='admin-dashboard';
+  const sidebar=document.createElement('aside'); sidebar.className='admin-sidebar';
+  sidebar.innerHTML='<div class="admin-side-brand">Vena Studio ♡<small>ADMIN WORKSPACE</small></div><nav class="admin-nav" aria-label="Menu admin"></nav>';
+  const nav=sidebar.querySelector('.admin-nav');
+  const content=document.createElement('div'); content.className='admin-content';
+  const welcome=document.createElement('div'); welcome.className='admin-welcome';
+  welcome.innerHTML='<h3>Welcome back, Vena! ♡</h3><p>Atur toko kecilmu dengan lebih mudah dan rapi.</p>';
+  content.appendChild(welcome);
+  const overview=document.createElement('section'); overview.className='admin-overview-cards';
+  const productCount=()=>{try{return JSON.parse(localStorage.getItem('venaProductsDataV9')||'[]').reduce((n,p)=>n+(p.items||[]).length,0)}catch(e){return 0}};
+  const reviewCount=()=>{try{return JSON.parse(localStorage.getItem('venaReviewsV9')||'[]').length}catch(e){return 0}};
+  overview.innerHTML=`<div class="admin-overview-card"><span>♡ Paket terdaftar</span><strong id="adminStatPackages">${productCount()}</strong></div><div class="admin-overview-card"><span>✿ Testimoni</span><strong id="adminStatReviews">${reviewCount()}</strong></div><div class="admin-overview-card"><span>☁️ Sinkronisasi</span><strong style="font-size:15px">Cloud</strong></div>`;
+  content.appendChild(overview);
+  if(cloud) content.appendChild(cloud);
+  const labels=['Profil & Sosial','Banner Toko','Pricelist & Stok','Tulisan Website','Testimoni'];
+  const icons=['♡','▧','✿','Aa','☆'];
+  const panels=[];
+  sections.forEach((section,i)=>{
+    const panel=document.createElement('section'); panel.className='admin-panel-section';
+    section.nodes.forEach(n=>panel.appendChild(n));
+    panel.hidden=true; content.appendChild(panel); panels.push(panel);
+    const btn=document.createElement('button'); btn.type='button'; btn.innerHTML=`<span>${icons[i]||'♡'}</span>${labels[i]||section.title}`;
+    btn.addEventListener('click',()=>activate(i)); nav.appendChild(btn);
+  });
+  const homeBtn=document.createElement('button'); homeBtn.type='button'; homeBtn.innerHTML='<span>⌂</span>Ringkasan';
+  nav.insertBefore(homeBtn,nav.firstChild);
+  function activate(index){
+    overview.hidden=index!==-1;
+    panels.forEach((p,i)=>p.hidden=i!==index);
+    Array.from(nav.children).forEach((b,i)=>b.classList.toggle('active',i===(index+1)));
+    if(index>=0){document.getElementById('adminStatPackages').textContent=productCount();document.getElementById('adminStatReviews').textContent=reviewCount();}
+  }
+  homeBtn.addEventListener('click',()=>activate(-1));
+  shell.append(sidebar,content); area.replaceChildren(shell); activate(-1);
+})();
+
 </script>
 </body>
 </html>
