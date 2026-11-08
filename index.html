@@ -30,32 +30,8 @@ header{display:flex;align-items:center;justify-content:space-between;gap:12px;ma
 .pill{border:2px solid white;background:#fef6fa;border-radius:30px;padding:7px 12px;font-size:11px;font-weight:900;color:var(--ink);box-shadow:0 3px 0 #f0e1ea;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
 
 .hero{position:relative;text-align:center;background:#fff;border:5px solid white;border-radius:34px;padding:22px 18px 25px;box-shadow:var(--shadow);overflow:hidden}
-/* Banner memakai rasio tetap di semua ukuran layar (desktop, tablet, dan HP). */
-.hero-banner-box{
-  position:relative;
-  width:100%;
-  aspect-ratio: 2.4 / 1;
-  min-height:0;
-  max-height:none;
-  border-radius:22px;
-  margin:0 auto 16px;
-  border:3px solid white;
-  box-shadow:var(--shadow);
-  overflow:hidden;
-  background:linear-gradient(135deg,#ff9a9e,#fad0c4,#ffd1ff);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.hero-banner-box img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center center;
-  display:none;
-}
+.hero-banner-box{position:relative;width:100%;aspect-ratio:2.35/1;min-height:0;max-height:none;border-radius:22px;margin:0 auto 16px;border:3px solid white;box-shadow:var(--shadow);overflow:hidden;background:linear-gradient(135deg,#ff9a9e,#fad0c4,#ffd1ff);display:flex;align-items:center;justify-content:center}
+.hero-banner-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:none}
 .hero-banner-title{color:#fff;font:800 24px "Baloo 2";text-shadow:0 2px 4px rgba(0,0,0,0.2)}
 
 .profile-card{background:#fff0f7;border:2px solid #fce4ef;border-radius:26px;padding:18px;max-width:440px;margin:0 auto 16px;text-align:center}
@@ -281,7 +257,7 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
 <!-- Modal Panel Admin Utama -->
 <div class="modal" id="adminModal">
  <div class="modal-box">
-  <div class="modal-head"><h2 id="modalTitle">Admin Panel Vena ♡</h2><button class="close" id="closeAdminModal">×</button></div>
+  <div class="modal-head"><h2 id="modalTitle">Admin Panel Vena ♡</h2><div style="display:flex;gap:8px;align-items:center"><button class="secondary" id="adminLogoutBtn" type="button">Logout ↗</button><button class="close" id="closeAdminModal">×</button></div></div>
   
   <div id="manageArea">
    <h2>Kelola Kartu Bio / Profil & Telegram ♡</h2>
@@ -326,11 +302,14 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
      </div>
    </div>
 
-   <div class="field"><label>Nama Paket / Stok Baru</label><input id="packageNameInput" placeholder="1U · 3 hari"></div>
-   <div class="field"><label>Harga Paket (Angka saja)</label><input id="packagePriceInput" type="number" placeholder="12000"></div>
+   <div class="field"><label>Pilih satu paket / stok untuk update atau hapus</label><select id="existingPackageSelect"><option value="">Pilih satu paket yang sudah ada ♡</option></select><small style="color:var(--muted)">Pilih satu item saja. Tombol Update Stock mengubah item tersebut, sedangkan Hapus Paket Terpilih hanya menghapus item itu—bukan seluruh kategori.</small></div>
+   <div class="field"><label>Nama Paket / Stok</label><input id="packageNameInput" placeholder="1U · 3 hari"></div>
+   <div class="field"><label>Harga Paket (Angka saja)</label><input id="packagePriceInput" type="number" min="0" placeholder="12000"></div>
    
    <div class="admin-actions">
-     <button class="primary" id="addPackageBtn">+ Tambah Paket ke Kategori Terpilih</button>
+     <button class="primary" id="addPackageBtn">+ Tambah Paket / Stok</button>
+     <button class="secondary" id="updatePackageBtn" type="button" disabled>Update Stock ♡</button>
+     <button class="danger" id="deletePackageBtn" type="button" disabled>Hapus 1 Paket Terpilih</button>
      <button class="danger" id="deleteAppBtn" style="display:none">Hapus Kategori Ini</button>
    </div>
    <div class="status" id="productStatus"></div>
@@ -805,6 +784,26 @@ closeAdminModal.addEventListener("click", () => {
   sessionStorage.removeItem("venaAdminPanelOpen");
 });
 
+document.getElementById("adminLogoutBtn").addEventListener("click", async () => {
+  const logoutBtn = document.getElementById("adminLogoutBtn");
+  logoutBtn.disabled = true;
+  logoutBtn.textContent = "Keluar...";
+  const { error } = await sb.auth.signOut();
+  if (error) {
+    logoutBtn.disabled = false;
+    logoutBtn.textContent = "Logout ↗";
+    alert("Logout gagal: " + error.message);
+    return;
+  }
+  sessionStorage.removeItem("venaAdminPanelOpen");
+  adminModal.classList.remove("show");
+  loginModal.classList.remove("show");
+  adminOpenBtn.textContent = "Admin ♡";
+  logoutBtn.disabled = false;
+  logoutBtn.textContent = "Logout ↗";
+  document.getElementById("loginStatus").textContent = "";
+});
+
 // Login admin menggunakan akun Supabase Auth agar izin upload Storage dan update database berlaku.
 document.getElementById("saveNewPassBtn").addEventListener("click", async () => {
   const status = document.getElementById("loginStatus");
@@ -867,6 +866,7 @@ function populateAdminFields() {
   document.getElementById("txtTelegramUrl").value = card.telegramUrl;
 
   updateCategorySelect();
+  clearPackageEditor();
 }
 
 function updateCategorySelect() {
@@ -891,7 +891,36 @@ const editAppLogoText = document.getElementById("editAppLogoText");
 const appLogoFile = document.getElementById("appLogoFile");
 const appLogoPreview = document.getElementById("appLogoPreview");
 const appLogoPreviewWrap = document.getElementById("appLogoPreviewWrap");
+const existingPackageSelect = document.getElementById("existingPackageSelect");
+const updatePackageBtn = document.getElementById("updatePackageBtn");
+const deletePackageBtn = document.getElementById("deletePackageBtn");
 let pendingAppLogoUrl = null;
+
+function refreshExistingPackageSelect(selectedIndex = "") {
+  const products = readStore(STORE_KEYS.products, defaultProducts);
+  const app = products.find(p => p.id === appCategorySelect.value);
+  existingPackageSelect.innerHTML = '<option value="">Pilih paket yang sudah ada ♡</option>';
+  if (app && Array.isArray(app.items)) {
+    app.items.forEach((item, index) => {
+      const option = document.createElement("option");
+      option.value = String(index);
+      option.textContent = `${item.name} — ${formatRp(item.price)}`;
+      existingPackageSelect.appendChild(option);
+    });
+  }
+  existingPackageSelect.value = selectedIndex === "" ? "" : String(selectedIndex);
+  const hasSelection = existingPackageSelect.value !== "";
+  updatePackageBtn.disabled = !hasSelection;
+  deletePackageBtn.disabled = !hasSelection;
+}
+
+function clearPackageEditor() {
+  existingPackageSelect.value = "";
+  document.getElementById("packageNameInput").value = "";
+  document.getElementById("packagePriceInput").value = "";
+  updatePackageBtn.disabled = true;
+  deletePackageBtn.disabled = true;
+}
 
 appLogoFile.addEventListener("change", () => {
   const file = appLogoFile.files && appLogoFile.files[0];
@@ -912,6 +941,8 @@ function handleCategorySelectChange() {
     editAppDesc.value = "";
     editAppLogoText.value = "";
     deleteAppBtn.style.display = "none";
+    refreshExistingPackageSelect();
+    clearPackageEditor();
   } else {
     const app = products.find(p => p.id === val);
     if(app) {
@@ -922,8 +953,25 @@ function handleCategorySelectChange() {
       if (app.logoUrl) { appLogoPreview.src = app.logoUrl; appLogoPreviewWrap.style.display = "block"; } else { appLogoPreviewWrap.style.display = "none"; }
     }
     deleteAppBtn.style.display = "inline-block";
+    refreshExistingPackageSelect();
+    clearPackageEditor();
   }
 }
+
+existingPackageSelect.addEventListener("change", () => {
+  const products = readStore(STORE_KEYS.products, defaultProducts);
+  const app = products.find(p => p.id === appCategorySelect.value);
+  const index = existingPackageSelect.value;
+  if (!app || index === "" || !app.items[Number(index)]) {
+    clearPackageEditor();
+    return;
+  }
+  const item = app.items[Number(index)];
+  document.getElementById("packageNameInput").value = item.name || "";
+  document.getElementById("packagePriceInput").value = item.price ?? "";
+  updatePackageBtn.disabled = false;
+  deletePackageBtn.disabled = false;
+});
 
 // Simpan Profil & Logo Avatar ke Supabase
 const avatarFile = document.getElementById("cardAvatarFile");
@@ -1084,12 +1132,53 @@ document.getElementById("addPackageBtn").addEventListener("click", () => {
   if(app) {
     app.items.push({ name: pkgName, price: pkgPrice });
     writeStore(STORE_KEYS.products, products);
-    document.getElementById("packageNameInput").value = "";
-    document.getElementById("packagePriceInput").value = "";
+    clearPackageEditor();
+    refreshExistingPackageSelect();
     renderProducts();
-    document.getElementById("productStatus").textContent = "Paket baru berhasil ditambahkan! ♡";
+    document.getElementById("productStatus").textContent = "Paket / stok baru berhasil ditambahkan! ♡";
     setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
   }
+});
+
+// Update paket/stok yang sudah ada (nama dan harga).
+updatePackageBtn.addEventListener("click", () => {
+  const products = readStore(STORE_KEYS.products, defaultProducts);
+  const app = products.find(p => p.id === appCategorySelect.value);
+  const index = Number(existingPackageSelect.value);
+  const pkgName = document.getElementById("packageNameInput").value.trim();
+  const priceInput = document.getElementById("packagePriceInput").value;
+  const pkgPrice = Number(priceInput);
+  if (!app || existingPackageSelect.value === "" || !app.items[index]) {
+    alert("Pilih paket yang ingin di-update terlebih dahulu ya ♡");
+    return;
+  }
+  if (!pkgName || priceInput === "" || !Number.isFinite(pkgPrice) || pkgPrice < 0) {
+    alert("Nama paket dan harga yang valid wajib diisi!");
+    return;
+  }
+  app.items[index] = { ...app.items[index], name: pkgName, price: pkgPrice };
+  if (!writeStore(STORE_KEYS.products, products)) return;
+  renderProducts();
+  refreshExistingPackageSelect(index);
+  existingPackageSelect.dispatchEvent(new Event("change"));
+  document.getElementById("productStatus").textContent = "Paket / stock berhasil di-update! ♡";
+  setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
+});
+
+// Hapus satu paket/stok tanpa menghapus seluruh kategori aplikasi.
+deletePackageBtn.addEventListener("click", () => {
+  const products = readStore(STORE_KEYS.products, defaultProducts);
+  const app = products.find(p => p.id === appCategorySelect.value);
+  const index = Number(existingPackageSelect.value);
+  if (!app || existingPackageSelect.value === "" || !app.items[index]) return;
+  if (!confirm(`Hapus paket "${app.items[index].name}" dari pricelist?`)) return;
+  app.items.splice(index, 1);
+  if (!writeStore(STORE_KEYS.products, products)) return;
+  renderProducts();
+  clearPackageEditor();
+  refreshExistingPackageSelect();
+  document.getElementById("productStatus").textContent = "Paket / stok berhasil dihapus! ♡";
+  setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
 });
 
 // Hapus Kategori
