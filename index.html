@@ -200,45 +200,75 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-/* SETUP: isi dua nilai ini dari Supabase > Project Settings > API.
-   Gunakan Project URL dan Publishable key (boleh dipakai di frontend).
-   Jangan pernah memasukkan service_role key ke file HTML. */
+/* Konfigurasi toko */
 const SUPABASE_URL = "https://rgktegkxtrtxrzmogbhg.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_uJQEW1rLbitiI6sLnY4wOA_3zBUTvdA";
 const WHATSAPP_NUMBER = "6289692908700";
 
-const formatRp = n => new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(n);
+const $ = id => document.getElementById(id);
+const formatRp = n => new Intl.NumberFormat("id-ID", {style:"currency",currency:"IDR",maximumFractionDigits:0}).format(Number(n)||0);
+const modal = $("adminModal");
 const radios = document.querySelectorAll('input[name="package"]');
-const total = document.getElementById("total");
-const orderBtn = document.getElementById("orderBtn");
-const productSearch = document.getElementById("productSearch");
+const orderBtn = $("orderBtn");
+const totalEl = $("total");
+const productSearch = $("productSearch");
+let db = null;
+let currentUser = null;
+let products = [];
+let reviews = JSON.parse(localStorage.getItem("venaReviews") || "null") || null;
+
+function setStatus(id, message, error=false) {
+  const el=$(id); if(!el) return;
+  el.textContent=message;
+  el.style.color=error ? "#c04d78" : "#65965b";
+}
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+}
+function configReady(){
+  return /^https:\/\//.test(SUPABASE_URL) && SUPABASE_ANON_KEY.length>20 && !SUPABASE_URL.includes("ISI_");
+}
+
+/* Order: aktifkan tombol setelah salah satu paket dipilih. */
+function updateTotal(){
+  const selected=document.querySelector('input[name="package"]:checked');
+  const price=selected ? Number(selected.dataset.price) : 0;
+  totalEl.textContent=formatRp(price);
+  orderBtn.disabled=!selected;
+}
+document.addEventListener("change", e=>{
+  if(e.target.matches('input[name="package"]')) updateTotal();
+});
+updateTotal();
 productSearch.addEventListener("input",()=>{
- const q=productSearch.value.toLowerCase().trim();
- document.querySelectorAll("#netflixPackage .choice").forEach(card=>{card.style.display=card.innerText.toLowerCase().includes(q)?"":"none";});
- document.getElementById("netflixPackage").style.display=("netflix".includes(q)||!q||Array.from(document.querySelectorAll("#netflixPackage .choice")).some(c=>c.style.display!=="none"))?"":"none";
- document.querySelectorAll("#extraProducts .package").forEach(card=>{card.style.display=card.innerText.toLowerCase().includes(q)?"":"none";});
+  const q=productSearch.value.toLowerCase().trim();
+  const netflixCards=[...document.querySelectorAll("#netflixPackage .choice")];
+  netflixCards.forEach(card=>card.style.display=card.innerText.toLowerCase().includes(q)?"":"none");
+  const netflixMatch=!q || "netflix".includes(q) || netflixCards.some(card=>card.style.display!=="none");
+  $("netflixPackage").style.display=netflixMatch?"":"none";
+  document.querySelectorAll("#extraProducts .package").forEach(card=>card.style.display=card.innerText.toLowerCase().includes(q)?"":"none");
 });
 orderBtn.addEventListener("click",()=>{
- const selected=document.querySelector('input[name="package"]:checked'); if(!selected){alert("Pilih paket dulu ya ♡");return;}
- if(WHATSAPP_NUMBER.includes("x")){alert("Isi WHATSAPP_NUMBER di bagian script dengan nomor WhatsApp kamu dulu ya.");return;}
- const message=["Hai Vena! ♡","","Aku mau order:","• Paket: "+selected.value,"• Harga: "+formatRp(Number(selected.dataset.price)),"","Boleh dibantu proses pesanannya yaa. Terima kasih!"].join("\n");
- window.location.href="https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message);
+  const selected=document.querySelector('input[name="package"]:checked');
+  if(!selected){alert("Pilih paket dulu ya ♡");return;}
+  const number=WHATSAPP_NUMBER.replace(/\D/g,"");
+  if(!number || number.length<10){alert("Nomor WhatsApp toko belum diatur dengan benar.");return;}
+  const message=["Hai Vena! ♡","","Aku mau order:","• Paket: "+selected.value,"• Harga: "+formatRp(selected.dataset.price),"","Boleh dibantu proses pesanannya yaa. Terima kasih!"].join("\n");
+  const url="https://wa.me/"+number+"?text="+encodeURIComponent(message);
+  window.open(url,"_blank","noopener");
 });
 
-// Supabase-powered admin authentication and testimonial management.
-const $ = id => document.getElementById(id);
-const modal=$("adminModal");
-let db=null, currentUser=null;
-function configReady(){return SUPABASE_URL.startsWith("https://") && SUPABASE_ANON_KEY.length>20 && !SUPABASE_URL.includes("ISI_") && !SUPABASE_ANON_KEY.includes("ISI_");}
-const bannerPath="store-banner/banner";
-function showBanner(url){const img=$("heroBanner"),hero=img.closest(".hero");if(!url){img.removeAttribute("src");img.style.display="none";hero.classList.remove("has-banner");return;}img.onload=()=>{img.style.display="block";hero.classList.add("has-banner");};img.onerror=()=>{img.style.display="none";hero.classList.remove("has-banner");};img.src=url;}
-async function loadBanner(){if(!db)return;const url=db.storage.from("product-images").getPublicUrl(bannerPath).data.publicUrl;showBanner(url+"?v="+Date.now());}
-if(!window.__venaBannerLoadBound){window.__venaBannerLoadBound=true;window.addEventListener("load",()=>{if(db)loadBanner();});}
-// Pasang kontrol UI sebelum koneksi Supabase agar tombol tetap bisa diklik.
-$("adminOpen").addEventListener("click",()=>modal.classList.add("show"));
+/* Modal admin */
+$("adminOpen").addEventListener("click",()=>{
+  modal.classList.add("show");
+  if(currentUser) showAdmin();
+});
 $("closeModal").addEventListener("click",()=>modal.classList.remove("show"));
-modal.addEventListener("click",e=>{if(e.target===modal)modal.classList.remove("show");});
-try {
- if(configReady() && window.supabase){
-  db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-  loadProducts().catch(err=>console.error("loadProducts:",err))
+modal.addEventListener("click",e=>{if(e.target===modal) modal.classList.remove("show");});
+document.addEventListener("keydown",e=>{if(e.key==="Escape") modal.classList.remove("show");});
+
+function showAdmin(){
+  $("loginArea").style.display=currentUser?"none":"block";
+  $("manageArea").style.display=currentUser?"block":"none";
+  $("modalTitle").textContent=currentUser?"Admin dashboard ♡":"Admin login ♡";
+  if(curre
