@@ -1,758 +1,98 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#e8f58a">
-<title>Vena's Lucky Store ♡</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-:root{
- --lime:#e8f58a;--lime2:#cfe86d;--pink:#f27fba;--pink2:#ffd1e7;
- --blue:#9bd5fa;--yellow:#fff19b;--purple:#d8b9e5;--ink:#51465b;
- --muted:#8e8493;--white:#fff;--line:#f2e8ef;--shadow:0 12px 30px #77627d18;
-}
-*{box-sizing:border-box}
-body{margin:0;color:var(--ink);font-family:Nunito,sans-serif;background-color:#fffefa;
- background-image:linear-gradient(90deg,#eaf59b55 1px,transparent 1px),linear-gradient(#eaf59b55 1px,transparent 1px);
- background-size:30px 30px}
-button,input,textarea,select{font:inherit}
-.wrap{width:min(1000px,calc(100% - 28px));margin:auto;padding:18px 0 50px}
-
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px;background:#fff;padding:12px 18px;border-radius:22px;border:3px solid white;box-shadow:var(--shadow)}
-.brand-box{display:flex;flex-direction:column}
-.brand{font:800 22px "Baloo 2";color:#83b8ee;line-height:1}
-.brand span{color:var(--pink)}
-.handle-header{font-size:11px;color:var(--muted);font-weight:800;margin-top:2px}
-.nav{display:flex;align-items:center;gap:8px}
-.pill{border:2px solid white;background:#fef6fa;border-radius:30px;padding:7px 12px;font-size:11px;font-weight:900;color:var(--ink);box-shadow:0 3px 0 #f0e1ea;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
-
-.hero{position:relative;text-align:center;background:#fff;border:5px solid white;border-radius:34px;padding:22px 18px 25px;box-shadow:var(--shadow);overflow:hidden}
-.hero-banner{display:block;width:100%;max-height:250px;object-fit:cover;border-radius:22px;margin:0 auto 16px;border:3px solid white;box-shadow:var(--shadow)}
-
-.profile-card{background:#fff0f7;border:2px solid #fce4ef;border-radius:26px;padding:18px;max-width:440px;margin:0 auto 16px;text-align:center}
-.profile-head{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:12px}
-.profile-avatar{width:54px;height:48px;border-radius:20px;background:var(--pink);color:white;display:grid;place-items:center;font-weight:900;font-size:22px;box-shadow:0 4px 0 #e670ad}
-.profile-info{text-align:left}
-.profile-title{font:800 18px "Baloo 2";line-height:1.1;color:var(--ink)}
-.profile-badge-row{display:flex;align-items:center;gap:8px;margin-top:3px}
-.profile-handle{font-size:11px;color:var(--muted);font-weight:800}
-.status-badge{display:inline-flex;align-items:center;gap:4px;background:#e7f9ee;color:#2e7d32;font-size:10px;font-weight:900;padding:2px 8px;border-radius:10px}
-.status-dot{width:6px;height:6px;background:#4caf50;border-radius:50%}
-
-.profile-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
-.stat-box{background:#fff;border:2px solid #f7e0ed;border-radius:16px;padding:8px 4px;text-align:center}
-.stat-num{font:800 15px "Baloo 2";color:var(--ink)}
-.stat-lbl{font-size:10px;color:var(--muted);font-weight:800}
-
-.profile-actions{display:flex;gap:10px}
-.profile-btn{flex:1;text-align:center;background:#fff;color:var(--ink);border:2px solid #f0d8e6;border-radius:16px;padding:10px;font-weight:900;font-size:12px;text-decoration:none;box-shadow:0 3px 0 #ecd6e3;transition:.15s}
-.profile-btn:hover{transform:translateY(-2px);background:#fff8fa}
-
-.sticker{display:inline-block;background:var(--yellow);border:3px solid white;border-radius:30px;padding:5px 15px;font:800 13px "Baloo 2";transform:rotate(-2deg);box-shadow:0 4px 0 #e8e1c0;margin-bottom:10px}
-.hero p{margin:0 auto;max-width:520px;color:var(--muted);font-size:13px;font-weight:700;line-height:1.6}
-.decor-row{font-size:20px;letter-spacing:8px;margin-top:12px}
-
-.section{margin-top:25px;background:#fff;border:3px solid white;border-radius:27px;padding:20px;box-shadow:var(--shadow)}
-.section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
-h2{font:800 22px "Baloo 2";margin:0}
-.small-note{font-size:11px;color:var(--muted);font-weight:800}
-
-.package{border:2px solid var(--line);border-radius:22px;padding:16px;background:#fffdfd;margin-bottom:16px}
-.app-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-.app-logo{width:48px;height:48px;border-radius:17px;background:var(--pink);color:#fff;display:grid;place-items:center;font:800 22px "Baloo 2";box-shadow:0 4px 0 #e9b4d0;overflow:hidden}
-.app-logo img{width:100%;height:100%;object-fit:cover}
-.app-title{font:800 19px "Baloo 2"}
-.app-desc{font-size:11px;color:var(--muted);font-weight:800}
-.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
-.choice-card{min-height:75px;padding:10px;border-radius:17px;border:2px solid #f0e7ee;display:flex;flex-direction:column;justify-content:space-between;transition:.15s;background:#fff0f7}
-.choice-name{font-size:12px;font-weight:900}
-.choice-price{font:800 15px "Baloo 2";color:#e66da9}
-.add-cart-btn{border:0;background:var(--pink);color:white;border-radius:12px;padding:6px 10px;font-size:11px;font-weight:900;cursor:pointer;margin-top:5px;box-shadow:0 2px 0 #d65e9c;transition:.1s}
-.add-cart-btn:hover{transform:scale(1.03)}
-
-.checkout{display:flex;align-items:center;justify-content:space-between;gap:14px;border-top:2px dashed var(--line);margin-top:18px;padding-top:16px}
-.total-label{font-size:11px;color:var(--muted);font-weight:900}
-.total{font:800 26px "Baloo 2"}
-.primary{border:0;border-radius:18px;background:var(--pink);color:white;padding:13px 22px;font-weight:1000;box-shadow:0 5px 0 #d65e9c;cursor:pointer;transition:.15s}
-.primary:hover{transform:translateY(-2px)}
-.primary:disabled{opacity:.45;cursor:not-allowed;transform:none}
-
-.cart-list{background:#fff8fa;border:2px dashed var(--pink2);border-radius:18px;padding:12px;margin-bottom:15px}
-.cart-item{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:800;padding:6px 0;border-bottom:1px solid #f7e8f0}
-.cart-item:last-child{border-bottom:0}
-.remove-item{border:0;background:#ffdede;color:#802020;border-radius:50%;width:22px;height:22px;font-size:11px;cursor:pointer;font-weight:900}
-
-.testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.review{border:2px solid white;border-radius:20px;padding:15px;box-shadow:0 4px 0 #eee6ef;background:#fff3f8}
-.review:nth-child(3n+2){background:#f0f8ff}
-.review:nth-child(3n){background:#fffbe2}
-.stars{color:#f2a6c8;letter-spacing:2px}
-.review p{font-size:13px;line-height:1.6;font-weight:700;margin:7px 0}
-.reviewer{font-size:11px;font-weight:1000;color:#8d7c91}
-footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weight:800}
-
-.modal{position:fixed;inset:0;background:#3d314b88;display:none;align-items:center;justify-content:center;padding:16px;z-index:10}
-.modal.show{display:flex}
-.modal-box{width:min(500px,100%);max-height:90vh;overflow:auto;background:white;border:4px solid white;border-radius:25px;padding:21px;box-shadow:0 20px 60px #30243b44}
-.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.close{border:0;background:#f8edf4;border-radius:50%;width:34px;height:34px;font-size:18px;cursor:pointer}
-.field{display:grid;gap:5px;margin:11px 0}
-.field label{font-size:12px;font-weight:900}
-.field input,.field textarea,.field select{width:100%;border:2px solid var(--line);border-radius:13px;padding:11px;outline:none;background:#fffdfd}
-.field textarea{min-height:75px;resize:vertical}
-.admin-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.secondary{border:2px solid var(--line);background:#fff;border-radius:13px;padding:10px 13px;font-weight:900;cursor:pointer;color:var(--ink)}
-.danger{border:0;background:#ffb4b4;color:#7a1d1d;border-radius:13px;padding:10px 13px;font-weight:900;cursor:pointer}
-.status{font-size:12px;color:var(--muted);font-weight:800;min-height:18px;margin:8px 0}
-.search-box{width:100%;border:2px solid var(--line);border-radius:15px;padding:13px 15px;margin:0 0 14px;background:#fffdfd;color:var(--ink);outline:none}
-@media(max-width:650px){.testimonials{grid-template-columns:1fr}.section{padding:15px}.checkout{align-items:stretch;flex-direction:column}.primary{width:100%}.small-note{display:none}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>alvena's store ♡</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  </style>
 </head>
-<body>
+<body class="bg-[#f5f3ef] text-gray-700 min-h-screen pb-12">
 
-<audio id="bgMusic" loop preload="auto">
-  <source id="musicSource" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
-</audio>
+  <div class="max-w-3xl mx-auto px-4 pt-6 space-y-6">
 
-<main class="wrap">
-<header>
-  <div class="brand-box">
-    <div class="brand" id="siteBrand">vena's <span>♡</span> store</div>
-    <div class="handle-header" id="headerHandleText">@venastore</div>
-  </div>
-  <nav class="nav">
-    <button class="pill" id="musicBtn">🎵 Musik: PLAY</button>
-    <a class="pill" href="#order">Order ✿</a>
-    <button class="pill" id="adminOpen">Admin ♡</button>
-  </nav>
-</header>
-
-<section class="hero">
-  <!-- Banner Toko -->
-  <img id="heroBanner" class="hero-banner" alt="Banner Vena Store">
-
-  <div class="sticker" id="heroSticker">✿ little digital treats ✿</div>
-  
-  <div class="profile-card">
-    <div class="profile-head">
-      <div class="profile-avatar">V</div>
-      <div class="profile-info">
-        <div class="profile-title" id="cardStoreTitle">Vena Store ✦ v.ᵉ</div>
-        <div class="profile-badge-row">
-          <span class="profile-handle" id="cardHandleText">@venastore</span>
-          <span class="status-badge"><span class="status-dot"></span> Store is open 🌸</span>
-        </div>
-      </div>
-    </div>
-    
-    <div class="profile-stats">
-      <div class="stat-box">
-        <div class="stat-num" id="statGoodies">58</div>
-        <div class="stat-lbl">Goodies</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num" id="statFolls">3.2k</div>
-        <div class="stat-lbl">Happy folls</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num" id="statFolks">4.1k</div>
-        <div class="stat-lbl">Happy folks</div>
-      </div>
-    </div>
-
-    <div class="profile-actions">
-      <a class="profile-btn" id="xSocialLink" href="https://x.com/" target="_blank">Social links ↗</a>
-      <a class="profile-btn" id="telegramLink" href="https://t.me/" target="_blank">Testimonials ↗</a>
-    </div>
-  </div>
-
-  <p id="mainHeroDesc">Haii, welcome to my little store! Pilih paket favoritmu, lalu order langsung lewat WhatsApp yaa ♡</p>
-  <div class="decor-row" id="mainDecor">♡ ✧ 🍓 ✧ ♡</div>
-</section>
-
-<section class="section" id="order">
-  <div class="section-title"><h2 id="pkgTitle">♡ Choose your package</h2><span class="small-note" id="pkgNote">pilih paket kamu!</span></div>
-  <input class="search-box" id="productSearch" type="search" placeholder="Cari aplikasi atau paket... ♡" aria-label="Cari aplikasi atau paket">
-  
-  <div id="productsContainer"></div>
-
-  <div class="checkout" style="flex-direction: column; align-items: stretch;">
-    <div style="font-weight:900; font-size:14px; margin-bottom:5px;">🛒 KERANJANG BELANJA kamu (<span id="cartCount">0</span> item)</div>
-    
-    <div class="cart-list" id="cartItemsList">
-      <div style="text-align:center; font-size:12px; color:var(--muted);">Keranjang masih kosong, klik "+ Keranjang" pada paket di atas ♡</div>
-    </div>
-
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-      <div>
-        <div class="total-label">TOTAL ORDER ♡</div>
-        <div class="total" id="total">Rp0</div>
-      </div>
-      <button class="primary" id="orderBtn" disabled>ORDER VIA WHATSAPP ↗</button>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="testimonials-section">
-  <div class="section-title"><h2 id="reviewTitle">♡ Sweet testimonials</h2><span class="small-note" id="reviewNote">love from customers!</span></div>
-  <div class="testimonials" id="testimonials"></div>
-</section>
-
-<footer>
-  <div id="footerText">made with love by vena ♡ thank you for visiting!</div>
-</footer>
-</main>
-
-<!-- Modal Admin Mode -->
-<div class="modal" id="adminModal">
- <div class="modal-box">
-  <div class="modal-head"><h2 id="modalTitle">Admin Mode ♡</h2><button class="close" id="closeModal">×</button></div>
-  
-  <div id="manageArea">
-   <h2>Pengaturan Musik Latar ♡</h2>
-   <div class="field">
-      <label>Pilih Musik Lucu</label>
-      <select id="musicSelect">
-        <option value="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3">Cute & Funny Cat</option>
-        <option value="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73213.mp3">Playful Whistle</option>
-        <option value="https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f7e531.mp3">Cute Ukulele</option>
-      </select>
-   </div>
-   <div class="admin-actions">
-     <button class="primary" id="saveMusic">Simpan Pilihan Musik</button>
-   </div>
-   <div class="status" id="musicStatus"></div>
-
-   <hr style="border:0;border-top:2px dashed var(--line);margin:18px 0">
-   <h2>Kelola Kartu Bio / Profil & Telegram ♡</h2>
-   <div class="field"><label>Nama Judul Kartu</label><input id="txtCardTitle" placeholder="Vena Store ✦ v.ᵉ"></div>
-   <div class="field"><label>Username X (@handle)</label><input id="txtCardHandle" placeholder="@venastore"></div>
-   <div class="field"><label>Link URL X (Twitter)</label><input id="txtCardUrl" placeholder="https://x.com/venastore"></div>
-   <div class="field"><label>Link URL Telegram Testimoni</label><input id="txtTelegramUrl" placeholder="https://t.me/channeltestimoni"></div>
-   <div class="admin-actions"><button class="primary" id="saveCardData">Simpan Profil & Telegram</button></div>
-   <div class="status" id="cardStatus"></div>
-
-   <hr style="border:0;border-top:2px dashed var(--line);margin:18px 0">
-   <h2>Kelola Stok / Paket Aplikasi ♡</h2>
-   <div class="field">
-     <label>Pilih / Tambah Kategori Aplikasi</label>
-     <select id="appCategorySelect">
-       <option value="new">+ Buat Kategori Aplikasi Baru</option>
-     </select>
-   </div>
-   
-   <div id="newAppFields" style="display:none; background:#fef6fa; padding:10px; border-radius:12px; margin-bottom:10px;">
-     <div class="field"><label>Nama Aplikasi Baru</label><input id="newAppName" placeholder="Netflix"></div>
-     <div class="field"><label>Upload Foto Logo (Opsional)</label><input id="newAppLogoFile" type="file" accept="image/*"></div>
-     <div class="field"><label>Atau Huruf Logo</label><input id="newAppLogoText" maxlength="2" placeholder="N"></div>
-     <div class="field"><label>Keterangan Aplikasi</label><input id="newAppDesc" placeholder="streaming package"></div>
-   </div>
-
-   <div class="field"><label>Nama Paket</label><input id="packageNameInput" placeholder="1U · 3 hari"></div>
-   <div class="field"><label>Harga Paket (Angka saja)</label><input id="packagePriceInput" type="number" placeholder="12000"></div>
-   
-   <div class="admin-actions">
-     <button class="primary" id="addPackageBtn">Tambah / Simpan Paket</button>
-     <button class="danger" id="deleteAppBtn" style="display:none">Hapus Kategori Ini</button>
-   </div>
-   <div class="status" id="productStatus"></div>
-
-   <hr style="border:0;border-top:2px dashed var(--line);margin:18px 0">
-   <h2>Pengaturan Banner ♡</h2>
-   <div class="field"><label>Foto Banner (Galeri)</label><input id="bannerImageFile" type="file" accept="image/*"></div>
-   <div class="admin-actions">
-     <button class="primary" id="saveBanner">Simpan Banner</button>
-     <button class="secondary" id="removeBanner">Hapus Banner</button>
-   </div>
-   <div class="status" id="bannerStatus"></div>
-   
-   <hr style="border:0;border-top:2px dashed var(--line);margin:18px 0">
-   <h2>Edit Semua Tulisan Website ♡</h2>
-   <div class="field"><label>Nama toko di header</label><input id="txtBrand"></div>
-   <div class="field"><label>Label kecil di hero</label><input id="txtSticker"></div>
-   <div class="field"><label>Teks sambutan</label><textarea id="txtHeroDesc"></textarea></div>
-   <div class="field"><label>Hiasan hero</label><input id="txtDecor"></div>
-   <div class="field"><label>Judul bagian paket</label><input id="txtPackageTitle"></div>
-   <div class="field"><label>Petunjuk pilih paket</label><input id="txtPackageNote"></div>
-   <div class="field"><label>Teks footer</label><input id="txtFooter"></div>
-   <div class="admin-actions">
-     <button class="primary" id="saveSiteTexts">Simpan Semua Tulisan</button>
-     <button class="secondary" id="resetSiteTexts">Reset ke Default</button>
-   </div>
-   <div class="status" id="textsStatus"></div>
-
-   <hr style="border:0;border-top:2px dashed var(--line);margin:18px 0">
-   <h2>Tambah Testimoni Baru ♡</h2>
-   <div class="field"><label>Nama Customer</label><input id="reviewName" placeholder="Happy Buyer ♡"></div>
-   <div class="field"><label>Testimoni</label><textarea id="reviewText" placeholder="Ulasan..."></textarea></div>
-   <div class="field"><label>Rating (1–5)</label><input id="reviewRating" type="number" min="1" max="5" value="5"></div>
-   <div class="admin-actions"><button class="primary" id="saveReview">Tambah Testimoni</button></div>
-   <div class="status" id="reviewStatus"></div>
-  </div>
- </div>
-</div>
-
-<script>
-const WHATSAPP_NUMBER = "6289692908700";
-const formatRp = n => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(n);
-
-const modal = document.getElementById("adminModal");
-const adminOpenBtn = document.getElementById("adminOpen");
-const closeModalBtn = document.getElementById("closeModal");
-const orderBtn = document.getElementById("orderBtn");
-const totalText = document.getElementById("total");
-const searchInput = document.getElementById("productSearch");
-const musicBtn = document.getElementById("musicBtn");
-const bgMusic = document.getElementById("bgMusic");
-
-let isPlaying = false;
-let cart = [];
-
-const STORE_KEYS = { 
-  texts: "venaSiteTexts", 
-  reviews: "venaReviews", 
-  banner: "venaBannerUrl", 
-  music: "venaMusicUrl",
-  products: "venaProductsData",
-  card: "venaCardData"
-};
-
-const readStore = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key)) ?? fallback } catch { return fallback } };
-const writeStore = (key, value) => localStorage.setItem(key, JSON.stringify(value));
-
-const defaultTexts = {
-  brand: "vena's lucky store", 
-  sticker: "✿ little digital treats ✿", 
-  heroDesc: "Haii, welcome to my little store! Pilih paket favoritmu, lalu order langsung lewat WhatsApp yaa ♡",
-  decor: "♡ ✧ 🍓 ✧ ♡", 
-  packageTitle: "♡ Choose your package", 
-  packageNote: "pilih paket kamu!",
-  footer: "made with love by vena ♡ thank you for visiting!"
-};
-
-const defaultCardData = {
-  title: "Vena Store ✦ v.ᵉ",
-  handle: "@venastore",
-  url: "https://x.com/",
-  telegramUrl: "https://t.me/"
-};
-
-const defaultReviews = [
-  { name: "happy customer ♡", text: "Admin ramah banget, prosesnya cepet dan gampang. Thank youu!", rating: 5 },
-  { name: "lovely buyer ♡", text: "Paketnya sesuai, harganya oke. Bakal order lagi!", rating: 5 },
-  { name: "sweet buyer ♡", text: "Fast response dan dibantu sampai selesai. Recommended!", rating: 5 }
-];
-
-const defaultProducts = [
-  {
-    id: "netflix",
-    name: "Netflix",
-    logoType: "text",
-    logoVal: "N",
-    desc: "streaming package · ready to order",
-    items: [
-      { name: "Netflix 1U — 3 hari", price: 12000 },
-      { name: "Netflix 1U — 7 hari", price: 18000 },
-      { name: "Netflix 1U — 14 hari", price: 30000 },
-      { name: "Netflix 1U — 1 bulan", price: 45000 },
-      { name: "Netflix 2U — 1 bulan", price: 33000 },
-      { name: "Netflix 2U — 7 hari", price: 15000 },
-      { name: "Netflix semi privat", price: 55000 }
-    ]
-  }
-];
-
-function loadMusic() {
-  const savedMusic = localStorage.getItem(STORE_KEYS.music);
-  bgMusic.src = savedMusic || "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3";
-}
-
-function applyTexts() {
-  const t = { ...defaultTexts, ...readStore(STORE_KEYS.texts, {}) };
-  document.getElementById("siteBrand").innerHTML = t.brand + " <span>♡</span>";
-  document.getElementById("heroSticker").textContent = t.sticker;
-  document.getElementById("mainHeroDesc").textContent = t.heroDesc;
-  document.getElementById("mainDecor").textContent = t.decor;
-  document.getElementById("pkgTitle").textContent = t.packageTitle;
-  document.getElementById("pkgNote").textContent = t.packageNote;
-  document.getElementById("footerText").textContent = t.footer;
-  
-  const card = { ...defaultCardData, ...readStore(STORE_KEYS.card, {}) };
-  document.getElementById("cardStoreTitle").textContent = card.title;
-  document.getElementById("cardHandleText").textContent = card.handle;
-  document.getElementById("headerHandleText").textContent = card.handle;
-  document.getElementById("xSocialLink").href = card.url;
-  document.getElementById("telegramLink").href = card.telegramUrl || "https://t.me/";
-}
-
-function loadTextsToForm() {
-  const t = { ...defaultTexts, ...readStore(STORE_KEYS.texts, {}) };
-  document.getElementById("txtBrand").value = t.brand;
-  document.getElementById("txtSticker").value = t.sticker;
-  document.getElementById("txtHeroDesc").value = t.heroDesc;
-  document.getElementById("txtDecor").value = t.decor;
-  document.getElementById("txtPackageTitle").value = t.packageTitle;
-  document.getElementById("txtPackageNote").value = t.packageNote;
-  document.getElementById("txtFooter").value = t.footer;
-
-  const card = { ...defaultCardData, ...readStore(STORE_KEYS.card, {}) };
-  document.getElementById("txtCardTitle").value = card.title;
-  document.getElementById("txtCardHandle").value = card.handle;
-  document.getElementById("txtCardUrl").value = card.url;
-  document.getElementById("txtTelegramUrl").value = card.telegramUrl || "";
-}
-
-function applyBanner() {
-  const url = localStorage.getItem(STORE_KEYS.banner);
-  const img = document.getElementById("heroBanner");
-  if (url) {
-    img.src = url;
-    img.style.display = "block";
-  } else {
-    // Default placeholder banner cantik kalau belum upload
-    img.src = "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=800&auto=format&fit=crop&q=60";
-    img.style.display = "block";
-  }
-}
-
-function renderProducts() {
-  const products = readStore(STORE_KEYS.products, defaultProducts);
-  const container = document.getElementById("productsContainer");
-  
-  container.innerHTML = products.map(app => {
-    let logoHTML = app.logoType === 'img' ? `<img src="${app.logoVal}" alt="${app.name}">` : (app.logoVal || app.name.charAt(0).toUpperCase());
-    return `
-      <div class="package">
-        <div class="app-head">
-          <div class="app-logo">${logoHTML}</div>
-          <div>
-            <div class="app-title">${app.name}</div>
-            <div class="app-desc">${app.desc}</div>
+    <!-- NETFLIX SECTION -->
+    <div class="bg-white/50 rounded-3xl p-5 border border-pink-100/60 shadow-sm">
+      
+      <!-- Netflix Category Header -->
+      <div class="flex items-center gap-3 mb-4">
+        
+        <!-- LOGO UTAMA (Bisa diklik untuk pilih gambar dari Galeri) -->
+        <div class="relative w-11 h-11 rounded-2xl overflow-hidden shadow-sm flex-shrink-0 bg-pink-500 cursor-pointer group" onclick="document.getElementById('mainLogoInput').click()">
+          <img id="mainLogoImg" src="https://assets.nflxext.com/us/ffe/siteui/common/icons/nficon2016.ico" alt="Logo" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white text-[10px] font-bold">
+            Ubah
           </div>
         </div>
-        <div class="choices">
-          ${app.items.map(item => `
-            <div class="choice-card">
-              <div>
-                <div class="choice-name">${item.name}</div>
-                <div class="choice-price">${formatRp(item.price)}</div>
-              </div>
-              <button class="add-cart-btn" onclick="addToCart('${app.name} — ${item.name}', ${item.price})">+ Keranjang</button>
-            </div>
-          `).join('')}
+        <!-- Input file tersembunyi untuk Galeri -->
+        <input type="file" id="mainLogoInput" accept="image/*" class="hidden" onchange="previewImage(this, 'mainLogoImg')">
+
+        <div>
+          <h4 class="font-bold text-sm text-gray-800">Netflix</h4>
+          <p class="text-[11px] text-gray-400">streaming package • ready to order</p>
         </div>
       </div>
-    `;
-  }).join('');
 
-  updateAdminCategorySelect(products);
-}
+      <!-- Cards Grid -->
+      <div class="flex gap-3 overflow-x-auto pb-2 scrollbar-none">
 
-function addToCart(name, price) {
-  cart.push({ name, price });
-  renderCart();
-}
+        <!-- CARD 1 -->
+        <div class="bg-[#fce7f3]/60 hover:bg-[#fce7f3] transition p-3.5 rounded-2xl border border-pink-100 min-w-[150px] flex-shrink-0 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-1.5 mb-1">
+              <!-- LOGO CARD 1 (Klik untuk ganti dari Galeri) -->
+              <div class="w-4 h-4 rounded overflow-hidden cursor-pointer flex-shrink-0" onclick="document.getElementById('cardInput1').click()">
+                <img id="cardImg1" src="https://assets.nflxext.com/us/ffe/siteui/common/icons/nficon2016.ico" class="w-full h-full object-cover">
+              </div>
+              <input type="file" id="cardInput1" accept="image/*" class="hidden" onchange="previewImage(this, 'cardImg1')">
 
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  renderCart();
-}
+              <span class="font-bold text-xs text-gray-800">Netflix 1U — 3 hari</span>
+            </div>
+            <div class="text-xs font-semibold text-pink-600 mt-1">Rp 12.000</div>
+          </div>
+          <button class="mt-3 bg-[#e91e63] hover:bg-[#d81b60] text-white text-[11px] font-medium py-1.5 px-3 rounded-xl transition w-full shadow-sm">
+            + Keranjang
+          </button>
+        </div>
 
-function renderCart() {
-  const cartContainer = document.getElementById("cartItemsList");
-  const cartCount = document.getElementById("cartCount");
-  cartCount.textContent = cart.length;
+        <!-- CARD 2 -->
+        <div class="bg-[#fce7f3]/60 hover:bg-[#fce7f3] transition p-3.5 rounded-2xl border border-pink-100 min-w-[150px] flex-shrink-0 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-1.5 mb-1">
+              <!-- LOGO CARD 2 -->
+              <div class="w-4 h-4 rounded overflow-hidden cursor-pointer flex-shrink-0" onclick="document.getElementById('cardInput2').click()">
+                <img id="cardImg2" src="https://assets.nflxext.com/us/ffe/siteui/common/icons/nficon2016.ico" class="w-full h-full object-cover">
+              </div>
+              <input type="file" id="cardInput2" accept="image/*" class="hidden" onchange="previewImage(this, 'cardImg2')">
 
-  if (cart.length === 0) {
-    cartContainer.innerHTML = `<div style="text-align:center; font-size:12px; color:var(--muted);">Keranjang masih kosong, klik "+ Keranjang" pada paket di atas ♡</div>`;
-    totalText.textContent = "Rp0";
-    orderBtn.disabled = true;
-    return;
-  }
+              <span class="font-bold text-xs text-gray-800">Netflix 1U — 7 hari</span>
+            </div>
+            <div class="text-xs font-semibold text-pink-600 mt-1">Rp 18.000</div>
+          </div>
+          <button class="mt-3 bg-[#e91e63] hover:bg-[#d81b60] text-white text-[11px] font-medium py-1.5 px-3 rounded-xl transition w-full shadow-sm">
+            + Keranjang
+          </button>
+        </div>
 
-  let total = 0;
-  cartContainer.innerHTML = cart.map((item, index) => {
-    total += item.price;
-    return `
-      <div class="cart-item">
-        <span>🌸 ${item.name} (${formatRp(item.price)})</span>
-        <button class="remove-item" onclick="removeFromCart(${index})">✕</button>
       </div>
-    `;
-  }).join('');
+    </div>
 
-  totalText.textContent = formatRp(total);
-  orderBtn.disabled = false;
-}
+  </div>
 
-function updateAdminCategorySelect(products) {
-  const select = document.getElementById("appCategorySelect");
-  select.innerHTML = '<option value="new">+ Buat Kategori Aplikasi Baru</option>' + 
-    products.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
-  
-  document.getElementById("newAppFields").style.display = "block";
-  document.getElementById("deleteAppBtn").style.display = "none";
-}
-
-function renderTestimonials() {
-  const reviews = readStore(STORE_KEYS.reviews, defaultReviews);
-  const container = document.getElementById("testimonials");
-  container.innerHTML = reviews.map(r => `
-    <article class="review">
-      <div class="stars">${"★".repeat(r.rating || 5)}</div>
-      <p>"${r.text}"</p>
-      <div class="reviewer">— ${r.name}</div>
-    </article>
-  `).join('');
-}
-
-applyTexts();
-applyBanner();
-renderProducts();
-renderTestimonials();
-loadMusic();
-
-musicBtn.addEventListener("click", () => {
-  if (isPlaying) {
-    bgMusic.pause();
-    musicBtn.textContent = "🎵 Musik: PLAY";
-  } else {
-    bgMusic.play().then(() => {
-      musicBtn.textContent = "🎵 Musik: PAUSE";
-    }).catch(e => console.log(e));
-  }
-  isPlaying = !isPlaying;
-});
-
-adminOpenBtn.addEventListener("click", () => {
-  loadTextsToForm();
-  modal.classList.add("show");
-});
-closeModalBtn.addEventListener("click", () => modal.classList.remove("show"));
-modal.addEventListener("click", (e) => { if (e.target === modal) modal.classList.remove("show"); });
-
-document.getElementById("appCategorySelect").addEventListener("change", (e) => {
-  const val = e.target.value;
-  const newFields = document.getElementById("newAppFields");
-  const delBtn = document.getElementById("deleteAppBtn");
-  if (val === "new") {
-    newFields.style.display = "block";
-    delBtn.style.display = "none";
-  } else {
-    newFields.style.display = "none";
-    delBtn.style.display = "inline-block";
-  }
-});
-
-document.getElementById("addPackageBtn").addEventListener("click", () => {
-  const categoryId = document.getElementById("appCategorySelect").value;
-  const pkgName = document.getElementById("packageNameInput").value.trim();
-  const pkgPrice = parseInt(document.getElementById("packagePriceInput").value, 10);
-  const status = document.getElementById("productStatus");
-
-  let products = readStore(STORE_KEYS.products, defaultProducts);
-
-  if (categoryId === "new") {
-    const appName = document.getElementById("newAppName").value.trim();
-    const appDesc = document.getElementById("newAppDesc").value.trim() || "streaming package · ready";
-    const fileInput = document.getElementById("newAppLogoFile");
-    const logoText = document.getElementById("newAppLogoText").value.trim() || appName.charAt(0).toUpperCase();
-    
-    if (!appName) {
-      status.textContent = "Nama aplikasi baru wajib diisi!";
-      return;
-    }
-
-    const newAppId = appName.toLowerCase().replace(/\s+/g, '-');
-
-    if (fileInput.files && fileInput.files[0]) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        products.push({
-          id: newAppId,
-          name: appName,
-          logoType: "img",
-          logoVal: e.target.result,
-          desc: appDesc,
-          items: pkgName && !isNaN(pkgPrice) ? [{ name: pkgName, price: pkgPrice }] : []
-        });
-        writeStore(STORE_KEYS.products, products);
-        renderProducts();
-        successReset(status);
-      };
-      reader.readAsDataURL(fileInput.files[0]);
-    } else {
-      products.push({
-        id: newAppId,
-        name: appName,
-        logoType: "text",
-        logoVal: logoText,
-        desc: appDesc,
-        items: pkgName && !isNaN(pkgPrice) ? [{ name: pkgName, price: pkgPrice }] : []
-      });
-      writeStore(STORE_KEYS.products, products);
-      renderProducts();
-      successReset(status);
-    }
-  } else {
-    const app = products.find(p => p.id === categoryId);
-    if (app && pkgName && !isNaN(pkgPrice)) {
-      const existingItem = app.items.find(i => i.name.toLowerCase() === pkgName.toLowerCase());
-      if (existingItem) {
-        existingItem.price = pkgPrice;
-      } else {
-        app.items.push({ name: pkgName, price: pkgPrice });
+  <!-- Script JavaScript untuk Membaca File dari Galeri -->
+  <script>
+    function previewImage(input, targetImgId) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById(targetImgId).src = e.target.result;
+        }
+        reader.readAsDataURL(input.files[0]);
       }
-      writeStore(STORE_KEYS.products, products);
-      renderProducts();
-      successReset(status);
-    } else {
-      status.textContent = "Isi nama paket dan harga dengan benar!";
     }
-  }
-});
-
-function successReset(status) {
-  document.getElementById("packageNameInput").value = "";
-  document.getElementById("packagePriceInput").value = "";
-  document.getElementById("newAppName").value = "";
-  document.getElementById("newAppLogoFile").value = "";
-  document.getElementById("newAppLogoText").value = "";
-  status.textContent = "Berhasil menambah/update stok paket! ✨";
-  setTimeout(() => status.textContent = "", 3000);
-}
-
-document.getElementById("deleteAppBtn").addEventListener("click", () => {
-  const categoryId = document.getElementById("appCategorySelect").value;
-  let products = readStore(STORE_KEYS.products, defaultProducts);
-  products = products.filter(p => p.id !== categoryId);
-  writeStore(STORE_KEYS.products, products);
-  renderProducts();
-  document.getElementById("productStatus").textContent = "Kategori aplikasi dihapus! ✨";
-  setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
-});
-
-orderBtn.addEventListener("click", () => {
-  if (cart.length === 0) return;
-  
-  let total = 0;
-  let itemList = cart.map((item, idx) => {
-    total += item.price;
-    return `${idx + 1}. *${item.name}* (${formatRp(item.price)})`;
-  }).join("\n");
-
-  const message = `Halo Vena, aku mau order paket berikut:\n\n${itemList}\n\n*Total Harga: ${formatRp(total)}*`;
-  const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-  window.open(waUrl, "_blank");
-});
-
-searchInput.addEventListener("input", (e) => {
-  const query = e.target.value.toLowerCase();
-  document.querySelectorAll(".package").forEach(pkg => {
-    const match = pkg.textContent.toLowerCase().includes(query);
-    pkg.style.display = match ? "block" : "none";
-  });
-});
-
-document.getElementById("saveMusic").addEventListener("click", () => {
-  const musicUrl = document.getElementById("musicSelect").value;
-  localStorage.setItem(STORE_KEYS.music, musicUrl);
-  bgMusic.src = musicUrl;
-  if(isPlaying) bgMusic.play();
-  const status = document.getElementById("musicStatus");
-  status.textContent = "Lagu berhasil diganti! 🎵";
-  setTimeout(() => status.textContent = "", 3000);
-});
-
-document.getElementById("saveCardData").addEventListener("click", () => {
-  const cardData = {
-    title: document.getElementById("txtCardTitle").value.trim(),
-    handle: document.getElementById("txtCardHandle").value.trim(),
-    url: document.getElementById("txtCardUrl").value.trim(),
-    telegramUrl: document.getElementById("txtTelegramUrl").value.trim()
-  };
-  writeStore(STORE_KEYS.card, cardData);
-  applyTexts();
-  const status = document.getElementById("cardStatus");
-  status.textContent = "Profil & Telegram berhasil disimpan! ✨";
-  setTimeout(() => status.textContent = "", 3000);
-});
-
-document.getElementById("saveBanner").addEventListener("click", () => {
-  const fileInput = document.getElementById("bannerImageFile");
-  const status = document.getElementById("bannerStatus");
-  
-  if (fileInput.files && fileInput.files[0]) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      localStorage.setItem(STORE_KEYS.banner, e.target.result);
-      applyBanner();
-      status.textContent = "Berhasil menyimpan banner baru! ✨";
-      setTimeout(() => status.textContent = "", 3000);
-    };
-    reader.readAsDataURL(fileInput.files[0]);
-  } else {
-    status.textContent = "Pilih foto dari galeri terlebih dahulu!";
-  }
-});
-
-document.getElementById("removeBanner").addEventListener("click", () => {
-  localStorage.removeItem(STORE_KEYS.banner);
-  applyBanner();
-  document.getElementById("bannerStatus").textContent = "Banner dihapus! ✨";
-  setTimeout(() => document.getElementById("bannerStatus").textContent = "", 3000);
-});
-
-document.getElementById("saveSiteTexts").addEventListener("click", () => {
-  const newTexts = {
-    brand: document.getElementById("txtBrand").value,
-    sticker: document.getElementById("txtSticker").value,
-    heroDesc: document.getElementById("txtHeroDesc").value,
-    decor: document.getElementById("txtDecor").value,
-    packageTitle: document.getElementById("txtPackageTitle").value,
-    packageNote: document.getElementById("txtPackageNote").value,
-    footer: document.getElementById("txtFooter").value
-  };
-  writeStore(STORE_KEYS.texts, newTexts);
-  applyTexts();
-  const status = document.getElementById("textsStatus");
-  status.textContent = "Semua tulisan berhasil diperbarui! ✨";
-  setTimeout(() => status.textContent = "", 3000);
-});
-
-document.getElementById("resetSiteTexts").addEventListener("click", () => {
-  localStorage.removeItem(STORE_KEYS.texts);
-  applyTexts();
-  loadTextsToForm();
-  const status = document.getElementById("textsStatus");
-  status.textContent = "Tulisan dikembalikan ke default! ✨";
-  setTimeout(() => status.textContent = "", 3000);
-});
-
-document.getElementById("saveReview").addEventListener("click", () => {
-  const name = document.getElementById("reviewName").value.trim();
-  const text = document.getElementById("reviewText").value.trim();
-  const rating = parseInt(document.getElementById("reviewRating").value, 10) || 5;
-  const status = document.getElementById("reviewStatus");
-
-  if (!name || !text) {
-    status.textContent = "Isi nama dan testimoni dulu yaa!";
-    return;
-  }
-
-  const currentReviews = readStore(STORE_KEYS.reviews, defaultReviews);
-  currentReviews.unshift({ name, text, rating });
-  writeStore(STORE_KEYS.reviews, currentReviews);
-  
-  renderTestimonials();
-  document.getElementById("reviewName").value = "";
-  document.getElementById("reviewText").value = "";
-  status.textContent = "Testimoni berhasil ditambahkan! ✨";
-  setTimeout(() => status.textContent = "", 3000);
-});
-</script>
+  </script>
 </body>
 </html>
