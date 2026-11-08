@@ -99,7 +99,7 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
 <main class="wrap">
 <header>
   <div class="brand" id="siteBrand">vena's <span>♡</span> lucky store</div>
-  <nav class="nav"><a class="pill" href="#order" style="text-decoration:none">Order ✿</a><button class="pill" id="adminOpen">Admin ♡</button></nav>
+  <nav class="nav"><a class="pill" href="#order" style="text-decoration:none">Order ✿</a><button type="button" class="pill" id="adminOpen">Admin ♡</button></nav>
 </header>
 
 <section class="hero">
@@ -126,7 +126,7 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
     </div>
   </div>
   <div id="extraProducts"></div>
-  <div class="checkout"><div><div class="total-label">TOTAL ORDER ♡</div><div class="total" id="total">Rp0</div></div><button class="primary" id="orderBtn" disabled>ORDER NOW ↗</button></div>
+  <div class="checkout"><div><div class="total-label">TOTAL ORDER ♡</div><div class="total" id="total">Rp0</div></div><button type="button" class="primary" id="orderBtn" disabled>ORDER NOW ↗</button></div>
 </section>
 
 <section class="section">
@@ -148,7 +148,7 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
    <p class="small-note">Login menggunakan akun admin Supabase kamu.</p>
    <div class="field"><label>Email admin</label><input id="adminEmail" type="email" placeholder="email admin"></div>
    <div class="field"><label>Password</label><input id="adminPassword" type="password" placeholder="password"></div>
-   <button class="primary" id="loginBtn" style="width:100%">LOGIN ♡</button>
+   <button type="button" class="primary" id="loginBtn" style="width:100%">LOGIN ♡</button>
    <div class="status" id="loginStatus"></div>
   </div>
   <div id="manageArea" style="display:none">
@@ -206,6 +206,16 @@ const SUPABASE_ANON_KEY = "sb_publishable_uJQEW1rLbitiI6sLnY4wOA_3zBUTvdA";
 const WHATSAPP_NUMBER = "6289692908700";
 
 const $ = id => document.getElementById(id);
+/* Penyimpanan aman: data browser yang rusak/tidak tersedia tidak boleh mematikan seluruh tombol. */
+const safeStore = {
+  getItem(key){ try { return window.localStorage.getItem(key); } catch(e) { return null; } },
+  setItem(key,value){ try { window.localStorage.setItem(key,value); } catch(e) { console.warn("Penyimpanan browser tidak tersedia:",e); } },
+  removeItem(key){ try { window.localStorage.removeItem(key); } catch(e) { console.warn("Penyimpanan browser tidak tersedia:",e); } }
+};
+function readJSON(key,fallback){
+  try { const value=safeStore.getItem(key); return value===null ? fallback : JSON.parse(value); }
+  catch(e){ console.warn("Data lokal rusak, memakai data awal:",key,e); return fallback; }
+}
 const formatRp = n => new Intl.NumberFormat("id-ID", {style:"currency",currency:"IDR",maximumFractionDigits:0}).format(Number(n)||0);
 const modal = $("adminModal");
 const radios = document.querySelectorAll('input[name="package"]');
@@ -215,7 +225,7 @@ const productSearch = $("productSearch");
 let db = null;
 let currentUser = null;
 let products = [];
-let reviews = JSON.parse(localStorage.getItem("venaReviews") || "null") || null;
+let reviews = readJSON("venaReviews", null);
 
 function setStatus(id, message, error=false) {
   const el=$(id); if(!el) return;
@@ -250,25 +260,8 @@ productSearch.addEventListener("input",()=>{
 });
 orderBtn.addEventListener("click",()=>{
   const selected=document.querySelector('input[name="package"]:checked');
-  if(!selected){alert("Pilih paket dulu ya ♡");return;}
+  if(!selected){alert("Pilih salah satu paket dulu ya ♡");return;}
   const number=WHATSAPP_NUMBER.replace(/\D/g,"");
   if(!number || number.length<10){alert("Nomor WhatsApp toko belum diatur dengan benar.");return;}
   const message=["Hai Vena! ♡","","Aku mau order:","• Paket: "+selected.value,"• Harga: "+formatRp(selected.dataset.price),"","Boleh dibantu proses pesanannya yaa. Terima kasih!"].join("\n");
-  const url="https://wa.me/"+number+"?text="+encodeURIComponent(message);
-  window.open(url,"_blank","noopener");
-});
-
-/* Modal admin */
-$("adminOpen").addEventListener("click",()=>{
-  modal.classList.add("show");
-  if(currentUser) showAdmin();
-});
-$("closeModal").addEventListener("click",()=>modal.classList.remove("show"));
-modal.addEventListener("click",e=>{if(e.target===modal) modal.classList.remove("show");});
-document.addEventListener("keydown",e=>{if(e.key==="Escape") modal.classList.remove("show");});
-
-function showAdmin(){
-  $("loginArea").style.display=currentUser?"none":"block";
-  $("manageArea").style.display=currentUser?"block":"none";
-  $("modalTitle").textContent=currentUser?"Admin dashboard ♡":"Admin login ♡";
-  if(curre
+  const url
