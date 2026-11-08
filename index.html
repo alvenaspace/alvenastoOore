@@ -118,7 +118,7 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
 <body>
 
 <audio id="bgMusic" loop preload="auto">
-  <source id="musicSource" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+  <source id="musicSource" src="https://commondatastorage.googleapis.com/codesign-bucket-01/cute-uplifting.mp3" type="audio/mpeg">
 </audio>
 
 <main class="wrap">
@@ -219,10 +219,9 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
    <div class="field">
       <label>Pilih Musik / Lagu TikTok</label>
       <select id="musicSelect">
-        <option value="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3">Cute & Funny Cat (Default)</option>
-        <option value="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73213.mp3">Playful Whistle</option>
-        <option value="https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f7e531.mp3">Cute Ukulele</option>
-        <option value="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3">TikTok Remix Vibes (Rama Kaki Patah Style)</option>
+        <option value="https://commondatastorage.googleapis.com/codesign-bucket-01/cute-uplifting.mp3">Cute & Playful (Default)</option>
+        <option value="https://commondatastorage.googleapis.com/codesign-bucket-01/happy-ukulele.mp3">Happy Ukulele Vibes</option>
+        <option value="https://commondatastorage.googleapis.com/codesign-bucket-01/lofi-study.mp3">TikTok Remix / Chill Lofi Style</option>
       </select>
    </div>
    <div class="admin-actions">
@@ -330,7 +329,8 @@ const STORE_KEYS = {
   avatar: "venaAvatarUrl"
 };
 
-const DEFAULT_BANNER = "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=800&auto=format&fit=crop&q=60";
+// Gambar default berupa banner pastel gradient SVG agar selalu tampil di semua HP/browser
+const DEFAULT_BANNER = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='300' viewBox='0 0 800 300'><defs><linearGradient id='grad' x1='0%य' y1='0%' x2='100%य' y2='100%'><stop offset='0%य' stop-color='%23ff9a9e'/><stop offset='50%य' stop-color='%23fad0c4'/><stop offset='100%य' stop-color='%23ffd1ff'/></linearGradient></defs><rect width='100%य' height='100%य' fill='url(%23grad)'/><text x='50%य' y='50%य' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='24' fill='%23ffffff'>Vena's Lucky Store ♡</text></svg>".replace(/%य/g, '%');
 
 const readStore = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key)) ?? fallback } catch { return fallback } };
 const writeStore = (key, value) => localStorage.setItem(key, JSON.stringify(value));
@@ -391,7 +391,14 @@ musicBtn.addEventListener("click", () => {
     bgMusic.play().then(() => {
       isPlaying = true;
       musicBtn.textContent = "🎵 Musik: PAUSE";
-    }).catch(() => {});
+    }).catch(() => {
+      // Tombol ditekan tapi diblokir browser, dipaksa load ulang sumber agar siap
+      bgMusic.load();
+      bgMusic.play().then(() => {
+        isPlaying = true;
+        musicBtn.textContent = "🎵 Musik: PAUSE";
+      }).catch(() => {});
+    });
   } else {
     bgMusic.pause();
     isPlaying = false;
