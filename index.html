@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#e8f58a">
+<title>Vena's Lucky Store ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+ --lime:#e8f58a;--lime2:#cfe86d;--pink:#f27fba;--pink2:#ffd1e7;
+ --blue:#9bd5fa;--yellow:#fff19b;--purple:#d8b9e5;--ink:#51465b;
+ --muted:#8e8493;--white:#fff;--line:#f2e8ef;--shadow:0 12px 30px #77627d18;
+}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font-family:Nunito,sans-serif;background-color:#fffefa;
+ background-image:linear-gradient(90deg,#eaf59b55 1px,transparent 1px),linear-gradient(#eaf59b55 1px,transparent 1px);
+ background-size:30px 30px}
+button,input,textarea,select{font:inherit}
+.wrap{width:min(1000px,calc(100% - 28px));margin:auto;padding:18px 0 50px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}
+.brand{font:800 27px "Baloo 2";color:#83b8ee;line-height:1}
+.brand span{color:var(--pink)}
+.nav{display:flex;align-items:center;gap:9px}
+.pill{border:2px solid white;background:#fff;border-radius:30px;padding:8px 14px;font-size:12px;font-weight:900;color:var(--ink);box-shadow:0 3px 0 #e9e3ed;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.hero{position:relative;text-align:center;background:#fff;border:5px solid white;border-radius:34px;padding:28px 18px 25px;box-shadow:var(--shadow);overflow:hidden}
+.hero:before,.hero:after{content:"";position:absolute;width:115px;height:115px;border-radius:50%;opacity:.75;z-index:0}
+.hero:before{background:var(--pink2);left:-42px;top:-48px}
+.hero:after{background:var(--blue);right:-42px;bottom:-50px}
+.hero>*{position:relative;z-index:1}
+.hero-banner{display:none;width:100%;max-height:250px;object-fit:cover;border-radius:22px;margin:14px auto 8px;border:3px solid white;box-shadow:var(--shadow)}
+.hero.has-banner h1{display:none}
+.sticker{display:inline-block;background:var(--yellow);border:3px solid white;border-radius:30px;padding:5px 15px;font:800 13px "Baloo 2";transform:rotate(-2deg);box-shadow:0 4px 0 #e8e1c0}
+h1{font:800 clamp(38px,8vw,66px)/.95 "Baloo 2";margin:18px 0 8px;color:var(--blue);text-shadow:3px 4px 0 #edf4ff}
+h1 span{color:var(--pink)}
+.hero p{margin:0 auto;max-width:520px;color:var(--muted);font-size:14px;font-weight:700;line-height:1.7}
+.decor-row{font-size:22px;letter-spacing:9px;margin-top:13px}
+.section{margin-top:25px;background:#fff;border:3px solid white;border-radius:27px;padding:20px;box-shadow:var(--shadow)}
+.section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+h2{font:800 22px "Baloo 2";margin:0}
+.small-note{font-size:11px;color:var(--muted);font-weight:800}
+.package{border:2px solid var(--line);border-radius:22px;padding:16px;background:#fffdfd}
+.app-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.app-logo{width:48px;height:48px;border-radius:17px;background:var(--pink);color:#fff;display:grid;place-items:center;font:800 26px "Baloo 2";box-shadow:0 4px 0 #e9b4d0}
+.app-title{font:800 19px "Baloo 2"}
+.app-desc{font-size:11px;color:var(--muted);font-weight:800}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.choice{cursor:pointer;position:relative}
+.choice input{position:absolute;opacity:0}
+.choice-card{min-height:68px;padding:10px;border-radius:17px;border:2px solid #f0e7ee;display:flex;flex-direction:column;justify-content:center;gap:3px;transition:.15s}
+.choice:nth-child(4n+1) .choice-card{background:#fff0f7}
+.choice:nth-child(4n+2) .choice-card{background:#f1f9ff}
+.choice:nth-child(4n+3) .choice-card{background:#fffbe1}
+.choice:nth-child(4n) .choice-card{background:#f8effb}
+.choice input:checked+.choice-card{border-color:var(--pink);box-shadow:0 0 0 3px #ffe1ef;transform:scale(1.02)}
+.choice-name{font-size:12px;font-weight:900}
+.choice-price{font:800 16px "Baloo 2";color:#e66da9}
+.checkout{display:flex;align-items:center;justify-content:space-between;gap:14px;border-top:2px dashed var(--line);margin-top:18px;padding-top:16px}
+.total-label{font-size:11px;color:var(--muted);font-weight:900}
+.total{font:800 26px "Baloo 2"}
+.primary{border:0;border-radius:18px;background:var(--pink);color:white;padding:13px 22px;font-weight:100
