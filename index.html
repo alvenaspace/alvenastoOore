@@ -352,26 +352,38 @@ body, button, input, textarea, select {
 }
 @media(max-width:390px){.side-cute{opacity:.48;width:65px}.profile-card{max-width:calc(100% - 52px)!important}.side-cute .cute-main{font-size:34px}}
 
+/* FIX SCROLL ADMIN: scroll dilakukan oleh overlay, bukan kotak modal yang terpotong */
+#adminModal{
+  display:none;
+  position:fixed;
+  inset:0;
+  overflow-x:hidden;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-y:contain;
+  touch-action:pan-y;
+  align-items:flex-start;
+  justify-content:center;
+  padding:8px 5px 24px;
+}
+#adminModal.show{display:flex;}
+#adminModal .modal-box{
+  flex:0 0 auto;
+  width:min(1120px,100%);
+  max-height:none;
+  height:auto;
+  min-height:0;
+  overflow:visible;
+  margin:0 auto;
+}
+#adminModal .modal-head{position:sticky;top:0;z-index:20;}
+#adminModal #manageArea{min-height:0;overflow:visible;}
+@media(max-width:700px){
+  #adminModal{padding:5px 5px 24px;}
+  #adminModal .modal-box{max-height:none;overflow:visible;border-radius:19px;}
+  #adminModal .modal-head{position:sticky;top:0;}
+}
 </style>
-
-<style>
-.flash-groups{display:grid;gap:8px;max-height:430px;overflow:auto;padding:2px 3px 4px}
-.flash-product-group{border:1px solid #f0cadd;border-radius:13px;background:#fff;overflow:hidden}
-.flash-product-group>summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:11px 12px;cursor:pointer;font-weight:800;color:var(--ink)}
-.flash-product-group>summary::-webkit-details-marker{display:none}
-.flash-product-group>summary:after{content:'＋';color:#d64c91;font-weight:900}
-.flash-product-group[open]>summary:after{content:'−'}
-.flash-product-group>summary small{margin-left:auto;color:#b05b89;font-size:11px;font-weight:700;white-space:nowrap}
-.flash-variant-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;padding:0 8px 9px}
-.flash-variant-row{min-width:0;display:grid;grid-template-columns:minmax(0,1fr);gap:6px;padding:8px;border:1px solid #f4dce8;border-radius:10px;background:#fffafd}
-.flash-variant-label{display:flex;align-items:flex-start;gap:6px;margin:0;font-size:12px;line-height:1.25;min-width:0}
-.flash-variant-label input{width:auto;flex:0 0 auto;margin:1px 0 0}
-.flash-variant-label span{min-width:0;overflow-wrap:anywhere}
-.flash-variant-label small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
-.flash-variant-row .flash-item-price{width:100%;min-width:0;padding:7px 8px;border:1px solid #e8bfd1;border-radius:8px;font-size:12px}
-@media(max-width:520px){.flash-variant-list{grid-template-columns:1fr}.flash-groups{max-height:360px}}
-</style>
-
 </head>
 <body>
 
@@ -538,7 +550,7 @@ body, button, input, textarea, select {
    <section style="background:#fff3f9;border:2px solid #f7c9df;border-radius:18px;padding:14px;margin:12px 0 18px">
     <h2 style="margin:0 0 8px">⚡ Atur Flash Sale ♡</h2>
     <div class="field"><label><input type="checkbox" id="flashEnabled" style="width:auto;margin-right:7px">Aktifkan Flash Sale</label></div>
-    <div class="field"><label>Atur harga promo tiap varian</label><input id="flashSaleSearch" type="search" placeholder="Cari produk, contoh: Netflix..." style="margin-bottom:9px"><div id="flashSaleItemsEditor" class="flash-groups"></div><small style="color:var(--muted)">Ketuk nama produk untuk melihat variannya. Centang paket yang ikut promo, lalu isi harga promo masing-masing ♡</small></div>
+    <div class="field"><label>Atur harga promo tiap varian</label><div id="flashSaleItemsEditor" style="display:grid;gap:9px"></div><small style="color:var(--muted)">Centang hanya paket yang ikut Flash Sale, lalu isi harga promo masing-masing. Harga setiap paket bebas berbeda ♡</small></div>
     <div class="field"><label>Berakhir pada (tanggal & jam)</label><input id="flashEndAt" type="datetime-local"></div>
     <div class="field"><label>Teks promo</label><input id="flashMessageInput" maxlength="100" placeholder="Promo spesial! Jangan sampai ketinggalan ♡"></div>
     <div class="admin-actions"><button class="primary" id="saveFlashSale" type="button">Simpan Flash Sale ♡</button><button class="secondary" id="stopFlashSale" type="button">Matikan Flash Sale</button></div>
@@ -862,41 +874,29 @@ function renderFlashSale(){
   };
   tick();flashTimerInterval=setInterval(tick,1000);
 }
-function renderFlashSaleItemsEditor(filterText=''){
+function renderFlashSaleItemsEditor(){
   const wrap=document.getElementById('flashSaleItemsEditor');
   if(!wrap) return;
   const products=readStore(STORE_KEYS.products,defaultProducts);
   const saved=Array.isArray(flashSaleData?.saleItems)?flashSaleData.saleItems:[];
-  const q=String(filterText||'').trim().toLowerCase();
   wrap.innerHTML='';
-  let shown=0;
-  products.forEach(app=>{
-    const items=(app.items||[]).map((item,itemIndex)=>({item,itemIndex})).filter(x=>!q||`${app.name} ${x.item.name}`.toLowerCase().includes(q));
-    if(!items.length) return;
-    shown+=items.length;
-    const group=document.createElement('details');
-    group.className='flash-product-group';
-    group.open=!!q;
-    const summary=document.createElement('summary');
-    const selectedCount=items.filter(({itemIndex})=>saved.some(x=>x.appId===app.id&&Number(x.itemIndex)===Number(itemIndex))||(flashSaleData?.appId===app.id&&Number(flashSaleData?.itemIndex)===Number(itemIndex))).length;
-    summary.innerHTML=`<span>${escapeHtml(app.name)}</span><small>${selectedCount}/${items.length} promo</small>`;
-    const list=document.createElement('div');list.className='flash-variant-list';
-    items.forEach(({item,itemIndex})=>{
-      const old=saved.find(x=>x.appId===app.id&&Number(x.itemIndex)===Number(itemIndex));
-      const legacy=flashSaleData?.appId===app.id&&Number(flashSaleData?.itemIndex)===Number(itemIndex)?Number(flashSaleData.salePrice):'';
-      const row=document.createElement('div');row.className='flash-variant-row';
-      const label=document.createElement('label');label.className='flash-variant-label';
-      const check=document.createElement('input');check.type='checkbox';check.className='flash-item-check';check.checked=!!old||!!legacy;check.dataset.appId=app.id;check.dataset.itemIndex=itemIndex;
-      const name=document.createElement('span');name.innerHTML=`<b>${escapeHtml(item.name)}</b><small>Normal ${formatRp(item.price)}</small>`;
-      label.append(check,name);
-      const input=document.createElement('input');input.type='number';input.min='1';input.inputMode='numeric';input.placeholder='Harga promo';input.className='flash-item-price';input.value=old?.salePrice??legacy??'';input.dataset.appId=app.id;input.dataset.itemIndex=itemIndex;
-      row.append(label,input);list.append(row);
-    });
-    group.append(summary,list);wrap.append(group);
-  });
-  if(!shown) wrap.textContent='Produk tidak ditemukan ♡';
+  products.forEach(app=>(app.items||[]).forEach((item,itemIndex)=>{
+    const old=saved.find(x=>x.appId===app.id&&Number(x.itemIndex)===Number(itemIndex));
+    const legacy=flashSaleData?.appId===app.id&&Number(flashSaleData?.itemIndex)===Number(itemIndex)?Number(flashSaleData.salePrice):'';
+    const checked=!!old || !!legacy;
+    const price=old?.salePrice ?? legacy;
+    const row=document.createElement('div');
+    row.style.cssText='display:grid;grid-template-columns:minmax(0,1fr) minmax(105px,130px);gap:8px;align-items:center;padding:10px;border:1px solid #f2c9dc;border-radius:12px;background:#fff';
+    const label=document.createElement('label');
+    label.style.cssText='display:flex;gap:7px;align-items:flex-start;font-size:13px;line-height:1.35;margin:0';
+    const check=document.createElement('input');check.type='checkbox';check.className='flash-item-check';check.style.cssText='width:auto;margin:2px 0 0';check.checked=checked;check.dataset.appId=app.id;check.dataset.itemIndex=itemIndex;
+    const name=document.createElement('span');name.textContent=`${app.name} — ${item.name}\nNormal: ${formatRp(item.price)}`;name.style.whiteSpace='pre-line';
+    label.append(check,name);
+    const input=document.createElement('input');input.type='number';input.min='1';input.placeholder='Harga promo';input.className='flash-item-price';input.value=price||'';input.style.cssText='width:100%;min-width:0;padding:9px;border:1px solid #e8bfd1;border-radius:9px';input.dataset.appId=app.id;input.dataset.itemIndex=itemIndex;
+    row.append(label,input);wrap.append(row);
+  }));
+  if(!wrap.children.length) wrap.textContent='Belum ada varian produk.';
 }
-document.getElementById('flashSaleSearch')?.addEventListener('input',e=>renderFlashSaleItemsEditor(e.target.value));
 function fillFlashAdminFields(){
   renderFlashSaleItemsEditor();
   const d=flashSaleData||{};
