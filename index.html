@@ -1,400 +1,932 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vena's Lucky Store</title>
-  <style>
-    :root {
-      --bg-color: #fdfbf7;
-      --card-bg: #ffffff;
-      --pink-soft: #ffeef2;
-      --pink-accent: #ff4d8d;
-      --text-dark: #4a3e4e;
-      --text-muted: #8c7b92;
-      --border-color: #f3e6ee;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vena's Lucky Store 🤍</title>
+    <!-- Google Fonts: Quicksand & Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-grid: #fffdf9;
+            --line-grid: #f3efe6;
+            --primary-pink: #ffb6c1;
+            --dark-pink: #ff8da1;
+            --text-main: #4a4543;
+            --accent-blue: #a2d2ff;
+            --accent-yellow: #ffeb99;
+            --accent-purple: #e2d9f3;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Quicksand', 'Poppins', sans-serif;
+        }
 
-    body {
-      background-color: var(--bg-color);
-      background-image: 
-        linear-gradient(#f0e6df 1px, transparent 1px),
-        linear-gradient(90deg, #f0e6df 1px, transparent 1px);
-      background-size: 20px 20px;
-      color: var(--text-dark);
-      display: flex;
-      justify-content: center;
-      padding: 20px 10px;
-    }
+        body {
+            background-color: var(--bg-grid);
+            background-image: 
+                linear-gradient(to right, var(--line-grid) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--line-grid) 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: var(--text-main);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
 
-    .container {
-      width: 100%;
-      max-width: 480px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
+        .container {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
 
-    /* HEADER */
-    .header-card {
-      background: var(--card-bg);
-      border-radius: 24px;
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-    }
+        /* Top Header */
+        .top-header {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1.5px solid #faedf0;
+        }
 
-    .brand-title {
-      color: #79b7e7;
-      font-size: 20px;
-      font-weight: bold;
-      line-height: 1.2;
-    }
+        .store-brand h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #79addc;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
 
-    .header-buttons {
-      display: flex;
-      gap: 8px;
-    }
+        .store-brand p {
+            font-size: 12px;
+            color: #888;
+            margin-top: 2px;
+        }
 
-    .btn-circle {
-      background: var(--pink-soft);
-      border: none;
-      border-radius: 50px;
-      padding: 8px 14px;
-      font-size: 11px;
-      font-weight: bold;
-      color: var(--text-dark);
-      cursor: pointer;
-      text-align: center;
-    }
+        .header-actions {
+            display: flex;
+            gap: 8px;
+        }
 
-    /* BANNER / PROFILE */
-    .profile-card {
-      background: var(--card-bg);
-      border-radius: 30px;
-      padding: 25px 20px;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-    }
+        .btn-pill-action {
+            background: #fff0f3;
+            border: 1px solid #ffd1dc;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #d87093;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
 
-    .badge-treats {
-      background: #fff4b8;
-      color: #6b5800;
-      display: inline-block;
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
+        .btn-pill-action:hover {
+            background: #ffd1dc;
+            transform: translateY(-1px);
+        }
 
-    .inner-banner {
-      background: var(--pink-soft);
-      border-radius: 24px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
+        /* Profile Banner Card */
+        .profile-card {
+            background: white;
+            border-radius: 30px;
+            padding: 25px 20px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.04);
+            position: relative;
+            border: 1.5px solid #faedf0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
 
-    .store-profile {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 15px;
-    }
+        .floating-badge {
+            background: #fff3cd;
+            color: #856404;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            border: 1.5px solid #ffeeba;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
 
-    .avatar {
-      width: 50px;
-      height: 50px;
-      background: #ff7bb0;
-      color: white;
-      font-weight: bold;
-      font-size: 24px;
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        .inner-pink-box {
+            background: #fff0f3;
+            width: 100%;
+            border-radius: 24px;
+            padding: 20px 15px;
+            border: 1.5px solid #ffd1dc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
 
-    .store-info h3 {
-      font-size: 18px;
-      text-align: left;
-    }
+        .avatar-container {
+            width: 75px;
+            height: 75px;
+            background: var(--primary-pink);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(255, 182, 193, 0.4);
+            overflow: hidden;
+            border: 2px solid white;
+        }
 
-    .status-tag {
-      background: #d4f8e8;
-      color: #0b8a51;
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 10px;
-      font-weight: bold;
-    }
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-    .stats-grid {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
+        .profile-title h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
 
-    .stat-box {
-      flex: 1;
-      background: white;
-      padding: 10px;
-      border-radius: 16px;
-    }
+        .profile-title p {
+            font-size: 12px;
+            color: #777;
+            margin-top: 3px;
+        }
 
-    .stat-box .num {
-      font-weight: bold;
-      font-size: 16px;
-    }
+        .status-pill {
+            background: #d4edda;
+            color: #155724;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 5px;
+        }
 
-    .stat-box .label {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
+        .stats-row {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
 
-    .action-links {
-      display: flex;
-      gap: 10px;
-    }
+        .stat-box {
+            flex: 1;
+            background: white;
+            padding: 10px;
+            border-radius: 15px;
+            border: 1px solid #faedf0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
 
-    .btn-link {
-      flex: 1;
-      background: white;
-      border: 1px solid var(--border-color);
-      padding: 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: bold;
-      color: var(--text-dark);
-      cursor: pointer;
-    }
+        .stat-box .number {
+            font-size: 14px;
+            font-weight: 700;
+            color: #444;
+        }
 
-    .welcome-text {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 15px;
-      line-height: 1.4;
-    }
+        .stat-box .label {
+            font-size: 11px;
+            color: #888;
+            margin-top: 2px;
+        }
 
-    .decor-icons {
-      font-size: 18px;
-    }
+        .action-row {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
 
-    /* PACKAGE SECTION */
-    .package-section {
-      background: var(--card-bg);
-      border-radius: 30px;
-      padding: 25px 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-    }
+        .btn-action-link {
+            flex: 1;
+            background: white;
+            border: 1px solid #ffd1dc;
+            padding: 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #d87093;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
 
-    .section-title {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
+        .btn-action-link:hover {
+            background: #fff0f3;
+        }
 
-    .search-box {
-      width: 100%;
-      padding: 14px 20px;
-      border-radius: 25px;
-      border: 1px solid #e2d8e0;
-      outline: none;
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
+        .greeting-text {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+            margin-top: 15px;
+            padding: 0 10px;
+        }
 
-    /* PRODUCT LIST GRID */
-    .product-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+        .cute-icons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-size: 14px;
+            margin-top: 12px;
+            color: #d87093;
+        }
 
-    .product-card {
-      background: var(--pink-soft);
-      border-radius: 18px;
-      padding: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+        /* Package Section */
+        .section-box {
+            background: white;
+            border-radius: 30px;
+            padding: 22px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.04);
+            border: 1.5px solid #faedf0;
+        }
 
-    .product-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #444;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
 
-    .product-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      color: white;
-    }
+        .search-box {
+            width: 100%;
+            padding: 12px 18px;
+            border-radius: 20px;
+            border: 1.5px solid #eee;
+            background: #fafafa;
+            font-size: 13px;
+            outline: none;
+            transition: 0.2s;
+            margin-bottom: 15px;
+        }
 
-    .icon-netflix { background: #e50914; }
-    .icon-spotify { background: #1ed760; }
-    .icon-youtube { background: #ff0000; }
-    .icon-canva   { background: #00c4cc; }
+        .search-box:focus {
+            border-color: var(--primary-pink);
+            background: white;
+        }
 
-    .product-details h4 {
-      font-size: 14px;
-      color: var(--text-dark);
-    }
+        /* App Card */
+        .app-card {
+            background: #fffdfd;
+            border: 1.5px solid #faedf0;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.02);
+        }
 
-    .product-details p {
-      font-size: 12px;
-      font-weight: bold;
-      color: var(--pink-accent);
-    }
+        .app-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
 
-    .btn-buy {
-      background: var(--pink-accent);
-      color: white;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 15px;
-      font-size: 12px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-  </style>
+        .app-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: var(--primary-pink);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .app-info h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #444;
+        }
+
+        .app-info p {
+            font-size: 11px;
+            color: #888;
+        }
+
+        /* Package Options Pill */
+        .package-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .package-pill {
+            background: white;
+            border: 1.5px solid #eee;
+            padding: 8px 14px;
+            border-radius: 15px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .package-pill:hover {
+            border-color: var(--primary-pink);
+            background: #fff8f9;
+        }
+
+        .package-pill.selected {
+            background: #fff0f3;
+            border-color: var(--dark-pink);
+            box-shadow: 0 2px 8px rgba(255,141,161,0.2);
+        }
+
+        .package-pill .p-name {
+            font-weight: 600;
+            color: #444;
+        }
+
+        .package-pill .p-price {
+            font-weight: 700;
+            color: #d87093;
+        }
+
+        .package-pill .p-stock {
+            font-size: 10px;
+            color: #888;
+        }
+
+        /* Checkout Bar */
+        .checkout-box {
+            background: white;
+            border-radius: 25px;
+            padding: 15px 20px;
+            border: 1.5px solid #faedf0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            bottom: 15px;
+            z-index: 99;
+        }
+
+        .total-info .label {
+            font-size: 11px;
+            color: #888;
+        }
+
+        .total-info .amount {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .btn-order-now {
+            background: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255,182,193,0.4);
+            transition: 0.2s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-order-now:hover {
+            background: var(--dark-pink);
+        }
+
+        /* Testimonials */
+        .testi-slider {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .testi-card {
+            min-width: 240px;
+            background: #fffbfb;
+            border: 1px solid #faedf0;
+            border-radius: 18px;
+            padding: 15px;
+            flex: 1;
+        }
+
+        .testi-stars {
+            color: #ffc107;
+            font-size: 11px;
+            margin-bottom: 6px;
+        }
+
+        .testi-card p {
+            font-size: 12px;
+            color: #555;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .testi-card .user {
+            font-size: 10px;
+            color: #888;
+            font-weight: 600;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 11px;
+            color: #999;
+            margin-top: 10px;
+        }
+
+        /* Modal Admin */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 25px;
+            padding: 20px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .modal-header h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #444;
+        }
+
+        .close-btn {
+            background: #eee;
+            border: none;
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #666;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+            font-size: 12px;
+            outline: none;
+        }
+
+        .btn-save {
+            background: #79addc;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 12px;
+            width: 100%;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="container">
-    
-    <!-- HEADER -->
-    <div class="header-card">
-      <div class="brand-title">
-        vena's<br>lucky store ♡
-        <div style="font-size: 11px; color: #aaa; font-weight: normal;">@venastore</div>
-      </div>
-      <div class="header-buttons">
-        <button class="btn-circle">♬ Musik:<br>PLAY</button>
-        <button class="btn-circle">Order<br>✿</button>
-        <button class="btn-circle">Admin<br>♡</button>
-      </div>
+    <div class="container">
+        <!-- Top Header -->
+        <div class="top-header">
+            <div class="store-brand">
+                <h1 id="headerTitle">vena's lucky store 🤍</h1>
+                <p id="headerSub">@venastore</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn-pill-action" onclick="toggleMusic()" id="musicBtn"><i class="fa-solid fa-music"></i> Musik: PLAY</button>
+                <button class="btn-pill-action" onclick="openAdminModal()"><i class="fa-solid fa-gear"></i> Admin</button>
+            </div>
+        </div>
+
+        <!-- Profile Card Banner -->
+        <div class="profile-card">
+            <div class="floating-badge">✿ little digital treats ✿</div>
+            
+            <div class="inner-pink-box">
+                <div class="avatar-container" id="avatarBox">V</div>
+                
+                <div class="profile-title">
+                    <h2 id="storeName">Vena Store ✦ v.e</h2>
+                    <p id="storeHandle">@venastore</p>
+                    <div class="status-pill"><span style="width:7px; height:7px; background:#28a745; border-radius:50%; display:inline-block;"></span> Store is open 🌸</div>
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <div class="number">58</div>
+                        <div class="label">Goodies</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="number">3.2k</div>
+                        <div class="label">Happy follos</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="number">4.1k</div>
+                        <div class="label">Happy folks</div>
+                    </div>
+                </div>
+
+                <div class="action-row">
+                    <a href="#" class="btn-action-link" onclick="alert('Membuka Social Links...')">Social links ↗</a>
+                    <a href="#" class="btn-action-link" onclick="alert('Membuka Testimonials...')">Testimonials ↗</a>
+                </div>
+            </div>
+
+            <div class="greeting-text">
+                Haii, welcome to my little store! Pilih paket favoritmu, lalu order langsung lewat WhatsApp ya 🤍
+            </div>
+
+            <div class="cute-icons">
+                <span>♡</span> <span>✧</span> <span style="font-size:16px;">🍓</span> <span>✧</span> <span>♡</span>
+            </div>
+        </div>
+
+        <!-- Choose Your Package Section -->
+        <div class="section-box">
+            <div class="section-title">
+                <span>🤍 Choose your package</span>
+                <span style="font-size: 11px; color: #aaa; font-weight: normal;">pilih satu paket yaa!</span>
+            </div>
+
+            <input type="text" class="search-box" placeholder="Cari aplikasi atau paket... ♡" id="searchBox" oninput="filterPackages()">
+
+            <div id="packageListContainer">
+                <!-- Dinamis dari JavaScript -->
+            </div>
+        </div>
+
+        <!-- Sweet Testimonials -->
+        <div class="section-box">
+            <div class="section-title">
+                <span>🤍 Sweet testimonials</span>
+                <span style="font-size: 11px; color: #aaa; font-weight: normal;">love from customers!</span>
+            </div>
+
+            <div class="testi-slider">
+                <div class="testi-card">
+                    <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"Admin ramah banget, prosesnya cepet dan gampang. Thank youu!"</p>
+                    <div class="user">— happy customer 🤍</div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"Paketnya sesuai, harganya oke. Bakal order lagi!"</p>
+                    <div class="user">— lovely buyer 🤍</div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"Fast response dan dibantu sampai selesai. Recommended!"</p>
+                    <div class="user">— sweet buyer 🤍</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            made with love by vena 🤍 thank you for visiting!
+        </div>
     </div>
 
-    <!-- PROFILE / BANNER -->
-    <div class="profile-card">
-      <div class="badge-treats">✿ little digital treats ✿</div>
-      
-      <div class="inner-banner">
-        <div class="store-profile">
-          <div class="avatar">V</div>
-          <div class="store-info">
-            <h3>Vena Store ✦ v.e</h3>
-            <span style="font-size: 11px; color: var(--text-muted);">@venastore</span>
-            <span class="status-tag">● Store is open 🌸</span>
-          </div>
+    <!-- Sticky Checkout Bar -->
+    <div class="checkout-box">
+        <div class="total-info">
+            <div class="label">TOTAL ORDER 🤍</div>
+            <div class="amount" id="totalPriceDisplay">Rp0</div>
         </div>
-
-        <div class="stats-grid">
-          <div class="stat-box">
-            <div class="num">58</div>
-            <div class="label">Goodies</div>
-          </div>
-          <div class="stat-box">
-            <div class="num">3.2k</div>
-            <div class="label">Happy follies</div>
-          </div>
-          <div class="stat-box">
-            <div class="num">4.1k</div>
-            <div class="label">Happy folks</div>
-          </div>
-        </div>
-
-        <div class="action-links">
-          <button class="btn-link">Social links ↗</button>
-          <button class="btn-link">Testimonials ↗</button>
-        </div>
-      </div>
-
-      <p class="welcome-text">
-        Haii, welcome to my little store! Pilih paket favoritmu, lalu order langsung lewat WhatsApp yaa ♡
-      </p>
-
-      <div class="decor-icons">♡ ✧ 🍓 ✧ ♡</div>
+        <a href="#" class="btn-order-now" id="orderButton" onclick="sendOrderWhatsApp()">
+            ORDER NOW <i class="fa-solid fa-arrow-right"></i>
+        </a>
     </div>
 
-    <!-- CHOOSE PACKAGE SECTION -->
-    <div class="package-section">
-      <h3 class="section-title">♡ Choose your package</h3>
-      <input type="text" class="search-box" placeholder="Cari aplikasi atau paket... ♡" />
-
-      <!-- LIST PRODUCT LENGKAP -->
-      <div class="product-grid">
-        
-        <!-- Netflix -->
-        <div class="product-card">
-          <div class="product-info">
-            <div class="product-icon icon-netflix">N</div>
-            <div class="product-details">
-              <h4>Netflix 1U - 1 Bulan</h4>
-              <p>Rp 35.000</p>
+    <!-- Admin Modal -->
+    <div class="modal" id="adminModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Admin Dashboard ⚙️</h3>
+                <button class="close-btn" onclick="closeAdminModal()">×</button>
             </div>
-          </div>
-          <button class="btn-buy">+ Keranjang</button>
-        </div>
-
-        <!-- Spotify -->
-        <div class="product-card">
-          <div class="product-info">
-            <div class="product-icon icon-spotify">S</div>
-            <div class="product-details">
-              <h4>Spotify Premium - 1 Bulan</h4>
-              <p>Rp 15.000</p>
+            
+            <div class="form-group">
+                <label>Ganti Logo Store (Upload Gambar / Foto)</label>
+                <input type="file" class="form-control" id="logoUpload" accept="image/*" onchange="changeLogo(event)">
             </div>
-          </div>
-          <button class="btn-buy">+ Keranjang</button>
-        </div>
 
-        <!-- YouTube -->
-        <div class="product-card">
-          <div class="product-info">
-            <div class="product-icon icon-youtube">Y</div>
-            <div class="product-details">
-              <h4>YouTube Premium - 1 Bulan</h4>
-              <p>Rp 10.000</p>
+            <div class="form-group">
+                <label>Atau Masukkan Link URL Gambar Logo</label>
+                <input type="text" class="form-control" id="logoUrlInput" placeholder="https://... (kosongkan jika upload file)">
+                <button class="btn-save" style="background:#e2d9f3; color:#555; margin-top:5px;" onclick="saveLogoUrl()">Terapkan URL Logo</button>
             </div>
-          </div>
-          <button class="btn-buy">+ Keranjang</button>
-        </div>
 
-        <!-- Canva -->
-        <div class="product-card">
-          <div class="product-info">
-            <div class="product-icon icon-canva">C</div>
-            <div class="product-details">
-              <h4>Canva Pro - 1 Bulan</h4>
-              <p>Rp 12.000</p>
+            <hr style="border:0; border-top:1px solid #eee; margin: 15px 0;">
+
+            <div class="form-group">
+                <label>Kelola & Edit Stok Paket</label>
+                <div id="adminStockList" style="max-height: 200px; overflow-y: auto; border: 1px solid #eee; padding: 8px; border-radius: 10px;">
+                    <!-- List editor stok -->
+                </div>
             </div>
-          </div>
-          <button class="btn-buy">+ Keranjang</button>
-        </div>
 
-      </div>
+            <button class="btn-save" onclick="closeAdminModal()">Simpan & Tutup</button>
+        </div>
     </div>
 
-  </div>
+    <!-- Audio Synthesizer untuk Musik Cute & Dangdut -->
+    <script>
+        // Data Produk & Stok Awal
+        let storeData = [
+            {
+                app: "Netflix",
+                code: "N",
+                desc: "streaming package • ready to order",
+                packages: [
+                    { name: "1U • 3 hari", price: 12000, stock: 15 },
+                    { name: "1U • 7 hari", price: 18000, stock: 8 },
+                    { name: "1U • 14 hari", price: 30000, stock: 5 },
+                    { name: "1U • 1 bulan", price: 45000, stock: 10 },
+                    { name: "2U • 1 bulan", price: 33000, stock: 6 },
+                    { name: "2U • 7 hari", price: 15000, stock: 12 },
+                    { name: "Semi privat", price: 55000, stock: 3 }
+                ]
+            },
+            {
+                app: "Spotify Premium",
+                code: "S",
+                desc: "individual & family plan",
+                packages: [
+                    { name: "Individual 1 Bulan", price: 16000, stock: 20 },
+                    { name: "Individual 2 Bulan", price: 30000, stock: 12 },
+                    { name: "Family Plan 1 Bulan", price: 22000, stock: 7 }
+                ]
+            },
+            {
+                app: "YouTube Premium",
+                code: "Y",
+                desc: "ad-free streaming & music",
+                packages: [
+                    { name: "Individual 1 Bulan", price: 15000, stock: 25 },
+                    { name: "Family Leader 1 Bln", price: 25000, stock: 10 }
+                ]
+            }
+        ];
 
+        let selectedPackage = null;
+        let audioCtx = null;
+        let isPlaying = false;
+        let musicInterval = null;
+        let currentTrack = 0; // 0 = Cute Chiptune, 1 = Dangdut Koplo Beat
+
+        function renderPackages(filter = "") {
+            const container = document.getElementById("packageListContainer");
+            container.innerHTML = "";
+
+            storeData.forEach((item, appIdx) => {
+                if(filter && !item.app.toLowerCase().includes(filter.toLowerCase())) return;
+
+                let pillHTML = "";
+                item.packages.forEach((pkg, pkgIdx) => {
+                    let isSel = (selectedPackage && selectedPackage.appIdx === appIdx && selectedPackage.pkgIdx === pkgIdx) ? "selected" : "";
+                    pillHTML += `
+                        <div class="package-pill ${isSel}" onclick="selectPkg(${appIdx}, ${pkgIdx})">
+                            <span class="p-name">${pkg.name}</span>
+                            <span class="p-price">Rp${pkg.price.toLocaleString('id-ID')}</span>
+                            <span class="p-stock">Stok: ${pkg.stock}</span>
+                        </div>
+                    `;
+                });
+
+                let cardHTML = `
+                    <div class="app-card">
+                        <div class="app-header">
+                            <div class="app-logo">${item.code}</div>
+                            <div class="app-info">
+                                <h3>${item.app}</h3>
+                                <p>${item.desc}</p>
+                            </div>
+                        </div>
+                        <div class="package-grid">
+                            ${pillHTML}
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHTML;
+            });
+        }
+
+        function selectPkg(appIdx, pkgIdx) {
+            selectedPackage = { appIdx, pkgIdx };
+            let pkg = storeData[appIdx].packages[pkgIdx];
+            document.getElementById("totalPriceDisplay").innerText = "Rp" + pkg.price.toLocaleString('id-ID');
+            renderPackages(document.getElementById("searchBox").value);
+        }
+
+        function filterPackages() {
+            let val = document.getElementById("searchBox").value;
+            renderPackages(val);
+        }
+
+        function sendOrderWhatsApp() {
+            if(!selectedPackage) {
+                alert("Silakan pilih salah satu paket terlebih dahulu ya! ♡");
+                return;
+            }
+            let app = storeData[selectedPackage.appIdx];
+            let pkg = app.packages[selectedPackage.pkgIdx];
+            let msg = `Halo Vena Store, saya mau order paket:\n✨ Aplikasi: ${app.app}\n📦 Paket: ${pkg.name}\n💰 Harga: Rp${pkg.price.toLocaleString('id-ID')}\nMohon diproses yaa terima kasih! ♡`;
+            let url = `https://wa.me/628123456789?text=${encodeURIComponent(msg)}`;
+            window.open(url, '_blank');
+        }
+
+        // Admin Modal Functions
+        function openAdminModal() {
+            let pin = prompt("Masukkan PIN Admin (coba: 1234):");
+            if(pin === "1234") {
+                document.getElementById("adminModal").style.display = "flex";
+                renderAdminStock();
+            } else if(pin !== null) {
+                alert("PIN Salah!");
+            }
+        }
+
+        function closeAdminModal() {
+            document.getElementById("adminModal").style.display = "none";
+            renderPackages();
+        }
+
+        function renderAdminStock() {
+            let container = document.getElementById("adminStockList");
+            container.innerHTML = "";
+            storeData.forEach((item, appIdx) => {
+                item.packages.forEach((pkg, pkgIdx) => {
+                    container.innerHTML += `
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:12px; background:#fdfdfd; padding:5px; border-radius:6px; border:1px solid #eee;">
+                            <span><b>${item.app}</b> - ${pkg.name}</span>
+                            <div style="display:flex; gap:5px; align-items:center;">
+                                <input type="number" value="${pkg.stock}" style="width:50px; padding:3px; text-align:center;" onchange="updateStock(${appIdx}, ${pkgIdx}, this.value)">
+                                <button onclick="deletePkg(${appIdx}, ${pkgIdx})" style="background:#ff8da1; color:white; border:none; padding:3px 6px; border-radius:4px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        </div>
+                    `;
+                });
+            });
+        }
+
+        function updateStock(appIdx, pkgIdx, val) {
+            storeData[appIdx].packages[pkgIdx].stock = parseInt(val) || 0;
+        }
+
+        function deletePkg(appIdx, pkgIdx) {
+            storeData[appIdx].packages.splice(pkgIdx, 1);
+            renderAdminStock();
+        }
+
+        function changeLogo(event) {
+            let file = event.target.files[0];
+            if(file) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById("avatarBox").innerHTML = `<img src="${e.target.result}">`;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveLogoUrl() {
+            let url = document.getElementById("logoUrlInput").value;
+            if(url) {
+                document.getElementById("avatarBox").innerHTML = `<img src="${url}">`;
+                alert("Logo berhasil diganti!");
+            }
+        }
+
+        // Musik Player Synthesizer (Cute Chiptune & Dangdut Koplo)
+        function toggleMusic() {
+            if(!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if(isPlaying) {
+                clearInterval(musicInterval);
+                isPlaying = false;
+                document.getElementById("musicBtn").innerHTML = '<i class="fa-solid fa-music"></i> Musik: PLAY';
+            } else {
+                isPlaying = true;
+                document.getElementById("musicBtn").innerHTML = '<i class="fa-solid fa-compact-disc fa-spin"></i> Musik: ON';
+                playDynamicMusic();
+            }
+        }
+
+        function playNote(freq, duration, type='sine') {
+            if(!audioCtx || !isPlaying) return;
+            try {
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e) {}
+        }
+
+        function playDynamicMusic() {
+            let step = 0;
+            // Melodi cute chiptune & ketukan ritmis dangdut
+            const cuteMelody = [523, 659, 784, 880, 784, 659, 523, 440, 523, 659, 784, 1046, 880, 784];
+            const dangdutBeat = [220, 110, 330, 110, 440, 110, 220, 330];
+
+            musicInterval = setInterval(() => {
+                if(!isPlaying) return;
+                if(step % 14 === 0 && step > 0) {
+                    currentTrack = currentTrack === 0 ? 1 : 0; // Ganti genre otomatis setiap putaran
+                }
+
+                if(currentTrack === 0) {
+                    // Cute Chiptune style
+                    let note = cuteMelody[step % cuteMelody.length];
+                    playNote(note, 0.25, 'square');
+                } else {
+                    // Dangdut Koplo Beat style (Kendang digital simulated)
+                    let note = dangdutBeat[step % dangdutBeat.length];
+                    playNote(note, 0.15, 'triangle');
+                }
+                step++;
+            }, 300);
+        }
+
+        // Render awal saat halaman dimuat
+        renderPackages();
+    </script>
 </body>
 </html>
