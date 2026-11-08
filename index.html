@@ -226,7 +226,7 @@ orderBtn.addEventListener("click",()=>{
  const selected=document.querySelector('input[name="package"]:checked'); if(!selected)return;
  if(WHATSAPP_NUMBER.includes("x")){alert("Isi WHATSAPP_NUMBER di bagian script dengan nomor WhatsApp kamu dulu ya.");return;}
  const message=["Hai Vena! ♡","","Aku mau order:","• Paket: "+selected.value,"• Harga: "+formatRp(Number(selected.dataset.price)),"","Boleh dibantu proses pesanannya yaa. Terima kasih!"].join("\n");
- window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message),"_blank");
+ window.location.href="https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message);
 });
 
 // Supabase-powered admin authentication and testimonial management.
@@ -241,4 +241,4 @@ if(!window.__venaBannerLoadBound){window.__venaBannerLoadBound=true;window.addEv
 $("adminOpen").onclick=()=>{modal.classList.add("show");};
 $("closeModal").onclick=()=>modal.classList.remove("show");
 modal.addEventListener("click",e=>{if(e.target===modal)modal.classList.remove("show");});
-if(configReady() && window.supabase){db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY
+if(configReady() && window.supabase){db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY)
