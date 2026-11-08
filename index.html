@@ -153,16 +153,30 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
  <div class="modal-box">
   <div class="modal-head"><h2 id="modalTitle">Admin login ♡</h2><button class="close" id="closeModal">×</button></div>
   <div id="loginArea">
+   <p class="small-note" style="margin-bottom:10px">Login menggunakan akun admin Supabase kamu.</p>
    <div class="field"><label>Email admin</label><input id="adminEmail" type="email" placeholder="email admin"></div>
    <div class="field"><label>Password</label><input id="adminPassword" type="password" placeholder="password"></div>
    <button class="primary" id="loginBtn" style="width:100%">LOGIN ♡</button>
    <div class="status" id="loginStatus"></div>
   </div>
+  <div id="manageArea" style="display:none">
+   <p class="small-note">Berhasil masuk sebagai admin! ♡</p>
+   <div class="admin-actions" style="margin-top:14px"><button class="secondary" id="logoutBtn">Logout</button></div>
+  </div>
  </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+const SUPABASE_URL = "https://rgktegkxtrtxrzmogbhg.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_uJQEW1rLbitiI6sLnY4wOA_3zBUTvdA";
 const WHATSAPP_NUMBER = "6289692908700";
+
+let db = null;
+if (window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY) {
+  db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+}
+
 const formatRp = n => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(n);
 
 const modal = document.getElementById("adminModal");
@@ -172,6 +186,15 @@ const orderBtn = document.getElementById("orderBtn");
 const totalText = document.getElementById("total");
 const radios = document.querySelectorAll('input[name="package"]');
 const searchInput = document.getElementById("productSearch");
+
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+const adminEmailInput = document.getElementById("adminEmail");
+const adminPasswordInput = document.getElementById("adminPassword");
+const loginStatus = document.getElementById("loginStatus");
+const loginArea = document.getElementById("loginArea");
+const manageArea = document.getElementById("manageArea");
+const modalTitle = document.getElementById("modalTitle");
 
 let selectedPackage = "";
 let selectedPrice = 0;
@@ -207,6 +230,43 @@ searchInput.addEventListener("input", (e) => {
     const text = choice.textContent.toLowerCase();
     choice.style.display = text.includes(query) ? "block" : "none";
   });
+});
+
+// Logika Login Admin Supabase
+loginBtn.addEventListener("click", async () => {
+  if (!db) {
+    loginStatus.textContent = "Koneksi Supabase belum siap!";
+    return;
+  }
+  const email = adminEmailInput.value.trim();
+  const password = adminPasswordInput.value;
+  if (!email || !password) {
+    loginStatus.textContent = "Isi email dan password dulu yaa!";
+    return;
+  }
+  
+  loginStatus.textContent = "Sedang masuk...";
+  try {
+    const { data, error } = await db.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+    
+    loginStatus.textContent = "Berhasil login! ♡";
+    loginArea.style.display = "none";
+    manageArea.style.display = "block";
+    modalTitle.textContent = "Admin Panel ♡";
+  } catch (err) {
+    loginStatus.textContent = "Gagal login: " + err.message;
+  }
+});
+
+// Logika Logout Admin
+logoutBtn?.addEventListener("click", async () => {
+  if (db) await db.auth.signOut();
+  loginArea.style.display = "block";
+  manageArea.style.display = "none";
+  modalTitle.textContent = "Admin login ♡";
+  loginStatus.textContent = "";
+  adminPasswordInput.value = "";
 });
 </script>
 </body>
