@@ -330,6 +330,8 @@ const STORE_KEYS = {
   avatar: "venaAvatarUrl"
 };
 
+const DEFAULT_BANNER = "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=800&auto=format&fit=crop&q=60";
+
 const readStore = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key)) ?? fallback } catch { return fallback } };
 const writeStore = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 
@@ -389,9 +391,7 @@ musicBtn.addEventListener("click", () => {
     bgMusic.play().then(() => {
       isPlaying = true;
       musicBtn.textContent = "🎵 Musik: PAUSE";
-    }).catch(() => {
-      alert("Ketuk sekali lagi atau izinkan audio diputar yaa ♡");
-    });
+    }).catch(() => {});
   } else {
     bgMusic.pause();
     isPlaying = false;
@@ -416,14 +416,10 @@ function renderSite() {
   document.getElementById("xSocialLink").href = cardData.url;
   document.getElementById("telegramLink").href = cardData.telegramUrl;
 
-  const banner = localStorage.getItem(STORE_KEYS.banner);
+  const banner = localStorage.getItem(STORE_KEYS.banner) || DEFAULT_BANNER;
   const bannerEl = document.getElementById("heroBanner");
-  if(banner) {
-    bannerEl.src = banner;
-    bannerEl.style.display = "block";
-  } else {
-    bannerEl.style.display = "none";
-  }
+  bannerEl.src = banner;
+  bannerEl.style.display = "block";
 
   const avatar = localStorage.getItem(STORE_KEYS.avatar);
   const avatarBox = document.getElementById("profileAvatarBox");
@@ -845,7 +841,7 @@ document.getElementById("saveBanner").addEventListener("click", async () => {
 document.getElementById("removeBanner").addEventListener("click", () => {
   localStorage.removeItem(STORE_KEYS.banner);
   renderSite();
-  document.getElementById("bannerStatus").textContent = "Banner dihapus! ♡";
+  document.getElementById("bannerStatus").textContent = "Banner dikembalikan ke default! ♡";
   setTimeout(() => document.getElementById("bannerStatus").textContent = "", 3000);
 });
 
