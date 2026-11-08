@@ -66,7 +66,7 @@ h2{font:800 22px "Baloo 2";margin:0}
 .package{border:2px solid var(--line);border-radius:22px;padding:16px;background:#fffdfd;margin-bottom:16px}
 .app-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .app-info-left{display:flex;align-items:center;gap:12px}
-.app-logo{width:48px;height:48px;border-radius:17px;background:var(--pink);color:#fff;display:grid;place-items:center;font:800 22px "Baloo 2";box-shadow:0 4px 0 #e9b4d0;overflow:hidden}
+.app-logo{width:48px;height:48px;border-radius:17px;background:var(--pink);color:#fff;display:grid;place-items:center;font:800 22px "Baloo 2";box-shadow:0 4px 0 #e9b4d0;overflow:hidden;flex:0 0 48px}.app-logo img{width:100%;height:100%;object-fit:cover}
 .app-title{font:800 19px "Baloo 2"}
 .app-desc{font-size:11px;color:var(--muted);font-weight:800}
 .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
@@ -113,6 +113,7 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
 .danger{border:0;background:#ffb4b4;color:#7a1d1d;border-radius:13px;padding:10px 13px;font-weight:900;cursor:pointer}
 .status{font-size:12px;color:var(--muted);font-weight:800;min-height:18px;margin:8px 0}
 .search-box{width:100%;border:2px solid var(--line);border-radius:15px;padding:13px 15px;margin:0 0 14px;background:#fffdfd;color:var(--ink);outline:none}
+.crop-preview{width:100%;max-height:190px;object-fit:contain;background:#fff8fb;border:2px dashed var(--pink2);border-radius:14px;margin-top:8px}.crop-controls{display:grid;grid-template-columns:1fr 1fr;gap:8px}.crop-controls label{font-size:11px;font-weight:800}.music-panel{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}.music-panel select{border:2px solid #f0d8e6;border-radius:14px;padding:7px;background:#fff8fb;color:var(--ink);font-weight:800}
 @media(max-width:650px){.testimonials{grid-template-columns:1fr}.section{padding:15px}.checkout{align-items:stretch;flex-direction:column}.primary{width:100%}.small-note{display:none}}
 </style>
 </head>
@@ -122,6 +123,7 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
 <audio id="bgMusic" loop preload="auto">
   <source id="musicSource" src="https://actions.google.com/sounds/v1/cartoon/xylophone_music.ogg" type="audio/ogg">
 </audio>
+<audio id="djMusicAudio" loop preload="none"></audio>
 
 <main class="wrap">
 <header>
@@ -130,7 +132,7 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
     <div class="handle-header" id="headerHandleText">@venastore</div>
   </div>
   <nav class="nav">
-    <button class="pill" id="musicBtn">🎵 Musik: PLAY</button>
+    <select class="pill" id="musicModeSelect" aria-label="Pilih musik"><option value="cute">🎀 Cute</option><option value="dj">🔥 DJ TikTok</option></select><button class="pill" id="musicBtn">🎵 Musik: PLAY</button>
     <a class="pill" href="#order">Order ✿</a>
     <button class="pill" id="adminOpen">Admin ♡</button>
   </nav>
@@ -216,6 +218,20 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
   <div id="footerText">made with love by vena ♡ thank you for visiting!</div>
 </footer>
 </main>
+<div class="modal" id="cropModal" style="z-index:30">
+ <div class="modal-box">
+  <div class="modal-head"><h2>Atur Crop Foto ♡</h2><button class="close" id="cropClose">×</button></div>
+  <img id="cropImage" class="crop-preview" alt="Preview crop">
+  <div class="crop-controls">
+   <label>Zoom <input id="cropZoom" type="range" min="1" max="3" step="0.05" value="1"></label>
+   <label>Geser kiri/kanan <input id="cropX" type="range" min="0" max="100" value="50"></label>
+   <label>Geser atas/bawah <input id="cropY" type="range" min="0" max="100" value="50"></label>
+  </div>
+  <div class="admin-actions"><button class="primary" id="cropApply">Pakai Crop Ini ♡</button><button class="secondary" id="cropCancel">Batal</button></div>
+  <div class="status">Geser posisi dan zoom sampai pas, lalu tekan Pakai Crop Ini.</div>
+ </div>
+</div>
+
 
 <!-- Modal Login Admin Khusus Email (Dengan Menu Reset Password) -->
 <div class="modal" id="loginModal">
@@ -264,6 +280,9 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
      <button class="secondary" id="removeBanner">Hapus Banner Foto</button>
    </div>
    <div class="status" id="bannerStatus"></div>
+   <div class="field"><label>Musik DJ TikTok pilihanmu (upload audio sendiri)</label><input id="djMusicFile" type="file" accept="audio/*"><small style="color:var(--muted)">Pilih file audio DJ Josjis atau Rama Kaki Patah yang kamu punya izin untuk pakai.</small></div>
+   <div class="admin-actions"><button class="secondary" id="saveDjMusic">Simpan Musik DJ ♡</button><button class="secondary" id="removeDjMusic">Hapus Musik DJ</button></div>
+   <div class="status" id="musicStatus"></div>
 
    <hr style="border:0;border-top:2px dashed var(--line);margin:18px 0">
    <h2>Edit Nama, Harga & Aplikasi / Stok ♡</h2>
@@ -278,6 +297,8 @@ footer{text-align:center;font-size:11px;color:#9a8ca0;margin-top:22px;font-weigh
      <div class="field"><label>Nama Aplikasi</label><input id="editAppName" placeholder="Netflix / Iqiyi"></div>
      <div class="field"><label>Keterangan Aplikasi</label><input id="editAppDesc" placeholder="streaming package · ready to order"></div>
      <div class="field"><label>Huruf Logo Aplikasi (Jika Tanpa Foto)</label><input id="editAppLogoText" maxlength="2" placeholder="N / I"></div>
+     <div class="field"><label>Upload / Ganti Logo Aplikasi dari Galeri</label><input id="appLogoFile" type="file" accept="image/*"><small style="color:var(--muted)">Logo akan tampil di sebelah nama aplikasi pada pricelist.</small></div>
+     <div id="appLogoPreviewWrap" style="display:none"><img id="appLogoPreview" class="crop-preview" alt="Preview logo aplikasi"></div>
      <div class="admin-actions">
        <button class="primary" id="saveNewCategoryBtn">✨ Buat Kategori Baru</button>
        <button class="secondary" id="saveCategoryEdit">Simpan Perubahan App</button>
@@ -375,8 +396,14 @@ async function loadRemoteSiteMedia() {
     const { data, error } = await sb.from(SETTINGS_TABLE).select("texts").eq("id", 1).maybeSingle();
     if (error) throw error;
     remoteSiteTexts = data?.texts || {};
+    if (remoteSiteTexts.app_logos && typeof remoteSiteTexts.app_logos === "object") {
+      const savedProducts = readStore(STORE_KEYS.products, defaultProducts);
+      savedProducts.forEach(app => { if (remoteSiteTexts.app_logos[app.id]) app.logoUrl = remoteSiteTexts.app_logos[app.id]; });
+      writeStore(STORE_KEYS.products, savedProducts);
+    }
     if (remoteSiteTexts.banner_url) writeStore(STORE_KEYS.banner, remoteSiteTexts.banner_url);
     if (remoteSiteTexts.avatar_url) writeStore(STORE_KEYS.avatar, remoteSiteTexts.avatar_url);
+    if (remoteSiteTexts.dj_music_url) { djAudioUrl = remoteSiteTexts.dj_music_url; }
     renderSite();
   } catch (error) {
     console.warn("Media Supabase belum dapat dimuat:", error.message);
@@ -552,7 +579,7 @@ function renderProducts(filter = "") {
     pkgDiv.innerHTML = `
       <div class="app-head">
         <div class="app-info-left">
-          <div class="app-logo">${app.logoVal || app.name.charAt(0).toUpperCase()}</div>
+          <div class="app-logo">${app.logoUrl ? `<img src="${app.logoUrl}" alt="Logo ${app.name}">` : (app.logoVal || app.name.charAt(0).toUpperCase())}</div>
           <div>
             <div class="app-title">${app.name}</div>
             <div class="app-desc">${app.desc || ""}</div>
@@ -743,6 +770,18 @@ const deleteAppBtn = document.getElementById("deleteAppBtn");
 const editAppName = document.getElementById("editAppName");
 const editAppDesc = document.getElementById("editAppDesc");
 const editAppLogoText = document.getElementById("editAppLogoText");
+const appLogoFile = document.getElementById("appLogoFile");
+const appLogoPreview = document.getElementById("appLogoPreview");
+const appLogoPreviewWrap = document.getElementById("appLogoPreviewWrap");
+let pendingAppLogoUrl = null;
+
+appLogoFile.addEventListener("change", () => {
+  const file = appLogoFile.files && appLogoFile.files[0];
+  if (!file) { appLogoPreviewWrap.style.display = "none"; return; }
+  if (!file.type.startsWith("image/")) { alert("Pilih file gambar ya ♡"); appLogoFile.value = ""; return; }
+  appLogoPreview.src = URL.createObjectURL(file);
+  appLogoPreviewWrap.style.display = "block";
+});
 
 appCategorySelect.addEventListener("change", handleCategorySelectChange);
 
@@ -761,6 +800,8 @@ function handleCategorySelectChange() {
       editAppName.value = app.name;
       editAppDesc.value = app.desc || "";
       editAppLogoText.value = app.logoVal || "";
+      appLogoFile.value = ""; pendingAppLogoUrl = app.logoUrl || null;
+      if (app.logoUrl) { appLogoPreview.src = app.logoUrl; appLogoPreviewWrap.style.display = "block"; } else { appLogoPreviewWrap.style.display = "none"; }
     }
     deleteAppBtn.style.display = "inline-block";
   }
@@ -780,14 +821,14 @@ document.getElementById("saveCardData").addEventListener("click", async () => {
     let patch = { card: cardData };
     if (avatarFile.files && avatarFile.files[0]) {
       status.textContent = "Mengunggah logo profil ke Supabase...";
-      const avatarUrl = await uploadSiteImage(avatarFile.files[0], "avatar");
+      const avatarUrl = await uploadSiteImage(croppedFiles.avatar || avatarFile.files[0], "avatar");
       patch.avatar_url = avatarUrl;
     }
     await saveRemoteSiteText(patch);
     writeStore(STORE_KEYS.card, cardData);
     if (patch.avatar_url) writeStore(STORE_KEYS.avatar, patch.avatar_url);
     renderSite();
-    avatarFile.value = "";
+    avatarFile.value = ""; delete croppedFiles.avatar;
     status.textContent = "Profil dan logo avatar berhasil disimpan ke Supabase! ♡";
   } catch (error) {
     status.textContent = `Gagal menyimpan profil/logo: ${error.message}`;
@@ -813,15 +854,45 @@ document.getElementById("saveBanner").addEventListener("click", async () => {
   try {
     if (!bannerFile.files || !bannerFile.files[0]) throw new Error("Pilih file gambar banner dari galeri terlebih dahulu!");
     status.textContent = "Mengunggah banner ke Supabase...";
-    const bannerUrl = await uploadSiteImage(bannerFile.files[0], "banner");
+    const bannerUrl = await uploadSiteImage(croppedFiles.banner || bannerFile.files[0], "banner");
     await saveRemoteSiteText({ banner_url: bannerUrl });
     writeStore(STORE_KEYS.banner, bannerUrl);
     renderSite();
-    bannerFile.value = "";
+    bannerFile.value = ""; delete croppedFiles.banner;
     status.textContent = "Banner berhasil disimpan ke Supabase! ♡";
   } catch (error) {
     status.textContent = `Gagal menyimpan banner: ${error.message}`;
   }
+});
+
+// Upload musik DJ milik pengguna ke Supabase Storage.
+document.getElementById("saveDjMusic").addEventListener("click", async () => {
+  const status = document.getElementById("musicStatus");
+  const file = document.getElementById("djMusicFile").files?.[0];
+  try {
+    if (!file) throw new Error("Pilih file audio DJ dari galeri terlebih dahulu.");
+    if (!file.type.startsWith("audio/")) throw new Error("File harus berupa audio.");
+    status.textContent = "Mengunggah musik DJ...";
+    const ext = (file.name.split(".").pop() || "mp3").toLowerCase().replace(/[^a-z0-9]/g, "") || "mp3";
+    const path = `site/dj-track-${Date.now()}.${ext}`;
+    const { error } = await sb.storage.from(STORAGE_BUCKET).upload(path, file, { upsert: true, contentType: file.type, cacheControl: "3600" });
+    if (error) throw error;
+    const { data } = sb.storage.from(STORAGE_BUCKET).getPublicUrl(path);
+    await saveRemoteSiteText({ dj_music_url: data.publicUrl });
+    djAudioUrl = data.publicUrl;
+    activeMusicMode = "dj";
+    document.getElementById("djMusicFile").value = "";
+    status.textContent = "Musik DJ berhasil disimpan! Pilih mode DJ lalu tekan Musik ♡";
+  } catch (e) { status.textContent = `Gagal menyimpan musik: ${e.message}`; }
+});
+document.getElementById("removeDjMusic").addEventListener("click", async () => {
+  const status = document.getElementById("musicStatus");
+  try {
+    await saveRemoteSiteText({ dj_music_url: null });
+    djAudioUrl = null; activeMusicMode = "cute";
+    stopAllMusic(); isPlaying = false; musicBtn.textContent = "🎵 Musik: PLAY";
+    status.textContent = "Musik DJ dihapus. Musik cute tetap tersedia ♡";
+  } catch (e) { status.textContent = `Gagal menghapus musik: ${e.message}`; }
 });
 
 document.getElementById("removeBanner").addEventListener("click", async () => {
@@ -870,7 +941,7 @@ document.getElementById("saveNewCategoryBtn").addEventListener("click", () => {
 });
 
 // Simpan Perubahan Kategori
-document.getElementById("saveCategoryEdit").addEventListener("click", () => {
+document.getElementById("saveCategoryEdit").addEventListener("click", async () => {
   let products = readStore(STORE_KEYS.products, defaultProducts);
   const catVal = appCategorySelect.value;
   if(catVal === "new") {
@@ -884,10 +955,23 @@ document.getElementById("saveCategoryEdit").addEventListener("click", () => {
     if(editAppLogoText.value.trim()) {
       app.logoVal = editAppLogoText.value.trim();
     }
+    try {
+      if (appLogoFile.files && appLogoFile.files[0]) {
+        document.getElementById("productStatus").textContent = "Mengunggah logo aplikasi ke Supabase...";
+        app.logoUrl = await uploadSiteImage(croppedFiles.appLogo || appLogoFile.files[0], `app-${app.id}`);
+      }
+    } catch (uploadError) {
+      document.getElementById("productStatus").textContent = `Gagal upload logo aplikasi: ${uploadError.message}`;
+      return;
+    }
     writeStore(STORE_KEYS.products, products);
+    if (app.logoUrl) {
+      const appLogos = { ...(remoteSiteTexts.app_logos || {}), [app.id]: app.logoUrl };
+      await saveRemoteSiteText({ app_logos: appLogos });
+    }
     renderProducts();
     updateCategorySelect();
-    document.getElementById("productStatus").textContent = "Perubahan aplikasi berhasil disimpan! ♡";
+    document.getElementById("productStatus").textContent = "Perubahan aplikasi dan logo berhasil disimpan! ♡";
     setTimeout(() => document.getElementById("productStatus").textContent = "", 3000);
   }
 });
@@ -990,6 +1074,70 @@ function toBase64(file) {
     reader.onerror = error => reject(error);
   });
 }
+
+
+// Crop editor untuk banner, avatar, dan logo aplikasi.
+const cropModal = document.getElementById("cropModal");
+const cropImage = document.getElementById("cropImage");
+const cropZoom = document.getElementById("cropZoom");
+const cropX = document.getElementById("cropX");
+const cropY = document.getElementById("cropY");
+let cropTarget = null;
+let cropSourceFile = null;
+let cropAspect = 1;
+const croppedFiles = {};
+function openCropper(file, target, aspect) {
+  if (!file || !file.type.startsWith("image/")) return;
+  cropTarget = target; cropSourceFile = file; cropAspect = aspect;
+  cropImage.src = URL.createObjectURL(file);
+  cropZoom.value = 1; cropX.value = 50; cropY.value = 50;
+  cropImage.style.aspectRatio = String(aspect);
+  cropImage.style.objectFit = "cover";
+  cropModal.classList.add("show");
+}
+function closeCropper() {
+  cropModal.classList.remove("show");
+  if (cropImage.src.startsWith("blob:")) URL.revokeObjectURL(cropImage.src);
+}
+["cropZoom","cropX","cropY"].forEach(id => document.getElementById(id).addEventListener("input", () => {
+  cropImage.style.objectPosition = `${cropX.value}% ${cropY.value}%`;
+  cropImage.style.transform = `scale(${cropZoom.value})`;
+}));
+document.getElementById("cropClose").addEventListener("click", closeCropper);
+document.getElementById("cropCancel").addEventListener("click", closeCropper);
+document.getElementById("cropApply").addEventListener("click", async () => {
+  if (!cropSourceFile || !cropTarget) return;
+  const img = new Image();
+  img.onload = () => {
+    const zoom = Number(cropZoom.value);
+    const targetAspect = cropAspect;
+    let sw = img.naturalWidth, sh = img.naturalHeight;
+    if (sw / sh > targetAspect) sw = sh * targetAspect;
+    else sh = sw / targetAspect;
+    sw /= zoom; sh /= zoom;
+    const maxX = img.naturalWidth - sw, maxY = img.naturalHeight - sh;
+    const sx = maxX * (Number(cropX.value) / 100);
+    const sy = maxY * (Number(cropY.value) / 100);
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(sw); canvas.height = Math.round(sh);
+    canvas.getContext("2d").drawImage(img, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob(blob => {
+      if (!blob) { alert("Crop gagal, coba pilih foto lain ya ♡"); return; }
+      const baseName = cropSourceFile.name.replace(/\.[^.]+$/, "");
+      croppedFiles[cropTarget] = new File([blob], `${baseName}-crop.jpg`, { type: "image/jpeg" });
+      closeCropper();
+      const statusId = cropTarget === "banner" ? "bannerStatus" : cropTarget === "avatar" ? "cardStatus" : "productStatus";
+      document.getElementById(statusId).textContent = "Crop foto siap digunakan ♡";
+    }, "image/jpeg", 0.92);
+  };
+  img.src = URL.createObjectURL(cropSourceFile);
+});
+document.getElementById("bannerImageFile").addEventListener("change", e => openCropper(e.target.files[0], "banner", 2.35));
+document.getElementById("cardAvatarFile").addEventListener("change", e => openCropper(e.target.files[0], "avatar", 1));
+document.getElementById("appLogoFile").addEventListener("change", e => {
+  const f = e.target.files[0];
+  if (f) { appLogoPreview.src = URL.createObjectURL(f); appLogoPreviewWrap.style.display = "block"; openCropper(f, "appLogo", 1); }
+});
 
 // Initial Load
 renderSite();
